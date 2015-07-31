@@ -1,0 +1,43 @@
+<table>
+    {% if answer %}
+        <tr>
+            <td>Администратор</td>
+            <td>{{ feedback.adminname }}</td>
+        </tr>
+
+        <tr>
+            <td>Ответ</td>
+            <td>{{ feedback.admin_message }}</td>
+        </tr>
+
+        <tr>
+            <td>Дата ответа</td>
+            <td>{{ feedback.answer_date | date:'SHORT_DATE_FORMAT' }}</td>
+        </tr>
+    {% endif %}
+
+    <tr>
+        <td>Имя пользователя</td>
+        <td>{{ feedback.username }}</td>
+    </tr>
+
+    <tr>
+        <td>Электронная почта</td>
+        <td>{{ feedback.email }}</td>
+    </tr>
+
+    <tr>
+        <td>Номер телефона</td>
+        <td>{{ feedback.phone }}</td>
+    </tr>
+
+    <tr>
+        <td>Текст сообщения</td>
+        <td>{{ feedback.message }}</td>
+    </tr>
+
+    <tr>
+        <td>Дата обращения</td>
+        <td>{{ feedback.created | date:'SHORT_DATE_FORMAT' }}</td>
+    </tr>
+</table>

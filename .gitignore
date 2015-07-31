@@ -1,0 +1,5 @@
+.idea
+*.pyc
+*.orig
+media
+static/vendor
