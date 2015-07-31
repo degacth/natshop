@@ -21,7 +21,7 @@ EMAIL_HOST_PASSWORD = "eeK4Aish5Qua"
 EMAIL_USE_SSL = True
 
 ALLOWED_HOSTS = [
-    'intercater.coffeemade.ru',
+    '*',
 ]
 
 DEBUG = True

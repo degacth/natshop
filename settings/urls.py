@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 admin.site.site_header = "NatShop"
 
 urlpatterns = [
+    url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^adm/', include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^api/', include('feedback.urls')),

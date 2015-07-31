@@ -1,0 +1,40 @@
+{% extends 'catalog-base.html' %}
+
+{% block content-bar %}
+    <div class="product-full">
+        <div class="uk-grid">
+            <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-1 uk-width-large-1-2 uk-margin-bottom">
+                <div class="product-image">
+                    <img src="http://lorempixel.com/400/500/fashion/" alt=""/>
+                </div>
+            </div>
+            <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-1 uk-width-large-1-2 uk-margin-bottom">
+                <div class="description uk-margin-bottom">
+                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum obcaecati porro quae. Alias
+                        blanditiis delectus deleniti deserunt dolorem, ducimus earum eligendi excepturi explicabo itaque
+                        maiores nulla possimus quaerat reiciendis unde.
+                    </div>
+                    <div>Ab accusamus ad aliquid assumenda delectus dolores iusto labore laudantium, maiores minima
+                        molestiae necessitatibus numquam obcaecati optio suscipit tenetur totam veniam! Alias, excepturi id
+                        maxime minima modi nulla quisquam ratione?
+                    </div>
+                </div>
+
+                <div class="order-info">
+                    <ul class="uk-grid uk-grid-width-medium-1-2">
+                        <li class="price uk-margin-bottom">
+                            1 900.00 <i class="uk-icon-rub"></i>
+                            <div class="old-price">2 200.00 <i class="uk-icon-rub"></i></div>
+                        </li>
+                        <li>
+                            <button class="site-button uk-width-1-1">
+                                <span>В корзину</span>
+                                <i class="uk-icon-cart-plus"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

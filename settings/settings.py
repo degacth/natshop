@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'src'))
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,8 +84,8 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'Europe/Moscow'
-USE_I18N = False
-USE_L10N = True
+USE_I18N = True
+USE_L10N = False
 USE_TZ = True
 LOCALE_PATHS = (
     BASE_DIR + '/locale',)

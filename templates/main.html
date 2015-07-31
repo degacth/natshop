@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+
+{% block top-content %}
+    <section class="main-slider">
+        <div class="uk-container uk-container-center">
+            <div class="uk-slidenav-position" data-uk-slider>
+                <div class="uk-slider-container">
+                    <ul class="uk-slider uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4">
+                        {% for i in prod_slides %}
+                            <li>
+                                <div class="item">
+                                    <a href="/stock">
+                                        <img src="http://lorempixel.com/320/480/sports/{{ i }}" alt=""/>
+
+                                        <div class="label uk-vertical-align">
+                                            <span class="uk-vertical-align-middle">Супер акция #{{ i }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous"
+                   data-uk-slider-item="previous"></a>
+                <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next" data-uk-slider-item="next"></a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content-base %}
+    <div class="stock-filter uk-margin-bottom">
+        <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
+            {% for i in filters %}
+                <li class="{% if not i %}active{% endif %}">
+                    <i class="uk-icon-button uk-icon-check"></i>
+                    Самые продаваемые
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% include 'includes/product_list.html' with products=prod_list grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" %}
+
+    <section class="useful-info">
+        <div class="big-title">
+            Полезная информация
+        </div>
+
+        <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
+            {% for i in useful_info %}
+                <li>
+                    <div class="info-item">
+                        <article class="uk-grid useful-content">
+                            <div class="uk-width-1-3">
+                                <a href=""><img src="http://lorempixel.com/120/120/sports/{{ i }}" alt=""/></a>
+                            </div>
+
+                            <div class="uk-width-2-3">
+                                <a class="title">Lorem ipsum dolor sit amet</a>
+
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem fugit ipsum
+                                    magnam obcaecati optio perferendis perspiciatis quam quisquam sunt totam.
+                                    Consectetur corporis deserunt fugit id ipsum itaque necessitatibus odio
+                                    reprehenderit?
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'vendor/uikit/js/components/slider.min.js' %}"></script>
+{% endblock %}

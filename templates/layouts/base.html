@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+{% load staticfiles %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>NatShop</title>
+    <link rel="stylesheet" href="{% static 'vendor/uikit/css/uikit.almost-flat.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendor/uikit/css/components/slider.almost-flat.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'vendor/uikit/css/components/slidenav.almost-flat.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+</head>
+<body>
+<nav class="topest-menu">
+    <div class="uk-container uk-container-center">
+        <ul class="uk-list uk-float-left">
+            <li><a href="/hello"><i class="uk-icon-home"></i> Главная</a></li>
+            <li><a href="/hello"><i class="uk-icon-shopping-cart"></i> Корзина</a></li>
+            <li><a href="/hello"><i class="uk-icon-adjust"></i> Заказ</a></li>
+        </ul>
+
+        <ul class="uk-list uk-float-right right-menu">
+            <li><a href="/hello"><i class="uk-icon-user"></i> регистрация</a></li>
+            <li><a href="/hello"><i class="uk-icon-sign-in"></i> вход</a></li>
+        </ul>
+    </div>
+</nav>
+
+<header class="site-header">
+    <div class="uk-container uk-container-center">
+        <span class="site-logo uk-float-left">
+            {% include 'includes/logo.html' %}
+        </span>
+
+        <div class="float-right">
+            <ul class="contact-info">
+                <li class="contact-block">
+                    <span class="uk-icon-phone label uk-hidden-small"></span>
+
+                    <ul class="uk-list uk-display-inline-block contact-data">
+                        <li>+7 911 921 83 88</li>
+                        <li>+7 911 834 83 71</li>
+                    </ul>
+                </li>
+                <li class="contact-block">
+                    <span class="uk-icon-envelope label uk-hidden-small"></span>
+
+                    <ul class="uk-list uk-display-inline-block contact-data">
+                        <li>degacth@yandex.ru</li>
+                        <li>hello@world.ru</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<nav class="catalog-menu" id="fixed-menu">
+    <div class="uk-container uk-container-center">
+        <ul class="uk-list uk-display-inline-block uk-float-left">
+            <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/catalog">В наличии</a></li>
+            <li class="active"><a href="/catalog">Скидки</a></li>
+            <li><a href="/catalog">Акции</a></li>
+        </ul>
+
+        <form class="uk-form uk-float-right">
+            <div class="uk-form-icon">
+                <i class="uk-icon-search"></i>
+                <input type="search" placeholder="Поиск...">
+            </div>
+        </form>
+
+        <div class="uk-float-right">
+            <div class="cart-info">
+                <i class="uk-icon-shopping-cart"></i>
+                товаров: <span class="goods-count">3</span> шт. 2 540.00 <i class="uk-icon-rub"></i>
+            </div>
+        </div>
+    </div>
+</nav>
+
+{% block top-content %}{% endblock %}
+
+<div class="uk-container uk-container-center">
+    {% block content-base %}{% endblock %}
+</div>
+
+<footer class="site-footer">
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid sub-info">
+            <div class="uk-width-medium-1-3 uk-width-1-1">
+                <div class="site-logo">
+                    {% include 'includes/logo.html' %}
+                </div>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis distinctio, dolore, dolorem
+                    doloribus fugit id modi nesciunt non</p>
+
+                <ul>
+                    <li>+7 921 927 43 33</li>
+                    <li>+7 921 927 43 33</li>
+                </ul>
+
+                <ul>
+                    <li>degacth@yandex.ru</li>
+                    <li>degacth@yandex.ru</li>
+                </ul>
+
+                <i class="uk-icon-button uk-icon-vk"></i>
+                <i class="uk-icon-button uk-icon-facebook"></i>
+                <i class="uk-icon-button uk-icon-github"></i>
+            </div>
+
+            <div class="uk-width-medium-2-3 uk-width-1-1">
+                <div class="big-title">Последние просмотренные товары</div>
+
+                <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
+                    {% for i in last_goods %}
+                        <li>
+                            <div class="item">
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-3">
+                                        <img src="http://lorempixel.com/120/120/fashion/{{ i }}" alt=""/>
+                                    </div>
+                                    <div class="uk-width-2-3 last-prod-item">
+                                        <div class="title">Название продукта</div>
+                                        <div class="price">1 900 <i class="uk-icon-rub"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="sub-footer">
+    <div class="uk-container uk-container-center">
+        Lorem ipsum dolor sit amet, <span class="base-pink">consectetur</span> adipisicing elit. Ab accusantium amet animi, blanditiis dolorem eaque
+    </div>
+</div>
+
+{% block js %}
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/uikit/js/uikit.min.js' %}"></script>
+    <script src="{% static 'js/base.js' %}"></script>
+{% endblock %}
+
+</body>
+</html>

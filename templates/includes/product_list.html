@@ -1,0 +1,26 @@
+<section class="product-list">
+    <ul class="uk-grid products {{ grid }}">
+        {% for i in products %}
+            <li class="uk-margin-bottom">
+                <div class="product">
+                    <div class="info">
+                        <a href="/catalog/products/162"><img src="http://lorempixel.com/320/320/fashion/{{ i }}" alt=""/></a>
+
+                        <span class="title">Отличный товар номер {{ i }}</span>
+                    </div>
+
+                    <div class="order-info">
+                        <div class="price">2 199 <i class="uk-icon-rub"></i></div>
+                        <div class="old-price">3 199 <i class="uk-icon-rub"></i></div>
+
+                        <div class="add-block">
+                            <button class="site-button">
+                                <i class="uk-icon-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
