@@ -7,13 +7,13 @@ import models
 
 @admin.register(models.Section)
 class SectionAdmin(DjangoMpttAdmin):
-    search_fields = common.text_search_fields
+    search_fields = models.Section.text_search_fields
     fieldsets = (
         (None, {
             'fields': ('title', 'name', 'parent', 'action', 'sort', 'status', 'description',),
         }),
 
-        common.seo_fieldset,
+        models.Section.seo_fieldset,
     )
 
     prepopulated_fields = {"name": ("title",)}
@@ -23,13 +23,13 @@ class SectionAdmin(DjangoMpttAdmin):
 
 @admin.register(models.Article)
 class ArticleAdmin(admin.ModelAdmin):
-    search_fields = common.text_search_fields
+    search_fields = models.Article.text_search_fields
     fieldsets = (
         (None, {
             'fields': ('title', 'parent', 'status', 'created', 'short', 'description'),
         }),
 
-        common.seo_fieldset,
+        models.Article.seo_fieldset,
     )
 
     list_filter = ['parent']

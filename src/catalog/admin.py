@@ -7,31 +7,31 @@ from . import models
 
 @admin.register(models.Catalog)
 class CatalogAdmin(DjangoMpttAdmin):
-    search_fields = common.text_search_fields
+    search_fields = models.Catalog.text_search_fields
     fieldsets = (
         (None, {
-            'fields': ('title', 'name', 'parent', 'sort', 'status', 'description',),
+            'fields': models.Catalog.text_entity_fields + ['parent', 'name'],
         }),
 
-        common.seo_fieldset,
+        models.Catalog.seo_fieldset,
     )
 
+    readonly_fields = models.Catalog.text_readonly_fields
     prepopulated_fields = {"name": ("title",)}
     list_filter = ['parent']
-    inlines = [common.AttachmentInline]
 
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    search_fields = common.text_search_fields
+    search_fields = models.Product.text_search_fields
     fieldsets = (
         (None, {
-            'fields': (
-                'title', 'price', 'parent', 'status', 'created', 'short', 'description'),
+            'fields': models.Product.text_entity_fields + ['short', 'price', 'parent', 'category'],
         }),
 
-        common.seo_fieldset,
+        models.Product.seo_fieldset
     )
 
+    readonly_fields = models.Product.text_readonly_fields
     list_filter = ['parent']
     inlines = [common.AttachmentInline]
