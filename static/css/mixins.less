@@ -1,0 +1,15 @@
+@import "dmix";
+@import "params";
+
+.white-letter() {
+  background-color: @color-white;
+  overflow: hidden;
+  border: @base-border;
+  .border-radius(@base-border-radius);
+  .box-shadow(none);
+  .transition();
+
+  &:hover {
+    .box-shadow(@base-shadow);
+  }
+}

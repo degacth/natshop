@@ -1,0 +1,73 @@
+@import "dmix";
+@import "mixins";
+@import "params";
+
+.main-slider {
+  padding: 20px 0;
+  background: url("../images/bg-light.jpg");
+  border-bottom: @base-border;
+
+  .box-shadow(@base-shadow);
+
+  .uk-slider-container {
+    .uk-slider {
+      li {
+        .item {
+          margin: 10px;
+          position: relative;
+
+          .label {
+            position: absolute;
+            z-index: 2;
+            bottom: -10px;
+            left: -5px;
+            background-color: @color-pink-base;
+            text-align: center;
+
+            .square(130px);
+            .border-radius(50%);
+
+            * {
+              color: @color-white;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.stock-filter {
+  text-align: center;
+  padding: 40px 0 30px;
+  border-bottom: @thik-border;
+  font-size: 24px;
+
+  li {
+    cursor: pointer;
+
+    &.active, &.active i {
+      color: @color-pink-base;
+    }
+  }
+}
+
+.useful-info {
+  .info-item {
+    .white-letter();
+
+    padding: 20px 30px;
+    margin: 10px 0;
+
+    .useful-content {
+      font-size: 12px;
+
+      .title {
+        display: block;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+}

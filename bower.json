@@ -1,0 +1,19 @@
+{
+  "name": "natshop",
+  "version": "0.0.0",
+  "authors": [
+    "Alexander <degacth@yandex.ru>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "uikit": "~2.21.0"
+  }
+}
