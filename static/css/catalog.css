@@ -203,3 +203,61 @@
   text-decoration: line-through;
   font-weight: 100;
 }
+.product-image {
+  position: relative;
+}
+.product-image .label {
+  position: absolute;
+  z-index: 2;
+  bottom: -15px;
+  left: -15px;
+  background-color: #f15f60;
+  text-align: center;
+  width: 130px;
+  height: 130px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 23px 58px -24px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 23px 58px -24px rgba(0, 0, 0, 0.75);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  transform: rotate(-10deg);
+  -webkit-transform: rotate(-10deg);
+  -o-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+}
+.product-image .label:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  z-index: 3;
+}
+.product-image .label * {
+  color: #ffffff;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.product-image .label + .label {
+  left: 25px;
+}
+.product-image .label + .label + .label {
+  left: 65px;
+}
+.product-image .label + .label + .label + .label {
+  left: 105px;
+}
+.product-image .label + .label + .label + .label + .label {
+  left: 145px;
+}
+.product-image .label + .label + .label + .label + .label + .label {
+  left: 185px;
+}
+.product-image .label + .label + .label + .label + .label + .label + .label {
+  left: 225px;
+}
