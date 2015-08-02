@@ -28,14 +28,14 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = models.Product.text_search_fields
     fieldsets = (
         (None, {
-            'fields': models.Product.text_entity_fields + ['short', 'price', 'parent', 'category'],
+            'fields': models.Product.text_entity_fields + ['short', 'price', 'new_price', 'parent', 'category', 'in_banner'],
         }),
 
         models.Product.seo_fieldset
     )
 
     readonly_fields = models.Product.text_readonly_fields
-    list_filter = ['parent']
+    list_filter = ['parent', 'category', 'in_banner']
     inlines = [common.AttachmentInline]
 
 

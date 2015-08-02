@@ -1,5 +1,6 @@
 # coding: utf-8
 from django import template
+from django.db.models.fields.files import ImageFieldFile
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.models import ContentType
 from easy_thumbnails.files import get_thumbnailer
@@ -22,6 +23,10 @@ def _getImage(path, size, only_path, attrs):
 def get_aimage(obj, size, **kwargs):
     if isinstance(obj, Attachment):
         path = obj.file
+
+    elif isinstance(obj, ImageFieldFile):
+        path = obj
+
     else:
         images = filter(lambda i: i.status, obj.attachments)
         if len(images):

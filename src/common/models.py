@@ -15,6 +15,18 @@ from ckeditor.fields import RichTextField
 from easy_thumbnails.files import get_thumbnailer
 
 
+def memoize_field(name):
+    def real(f):
+        def wrapper(obj, *args, **kwargs):
+            if not hasattr(obj, name):
+                setattr(obj, name, f(obj, *args, **kwargs))
+            return getattr(obj, name)
+
+        return wrapper
+
+    return real
+
+
 @deconstructible
 class PathAndRename(object):
     def __init__(self, sub_path):
@@ -140,5 +152,9 @@ class LeafEntity(models.Model):
     class Meta:
         abstract = True
 
+    objects = models.Manager()
+    objs = TextEntityManager()
+
+    @memoize_field('_full_path')
     def get_full_path(self):
         return "%s%d" % (self.parent.get_full_path(), self.id)

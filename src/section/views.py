@@ -13,6 +13,7 @@ class Main(generic.TemplateView):
     def get_context_data(self, **kwargs):
         return {
             'seo': views.get_seo(),
+            'banner_products': Product.get_banner()
         }
 
 
