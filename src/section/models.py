@@ -14,7 +14,10 @@ _defaultActions = (
 getActions = lambda: _defaultActions
 
 
-class Section(common.StructuralEntity, common.TextEntity, common.SeoEntity):
+class SectionManager(common.TextEntityManager): pass
+
+
+class Section(common.Tree):
     class Meta:
         verbose_name = _('Section')
         verbose_name_plural = _('Sections')
@@ -25,12 +28,16 @@ class Section(common.StructuralEntity, common.TextEntity, common.SeoEntity):
     )
     in_menu = models.BooleanField(_('in menu'), default=False)
 
+    text_entity_fields = common.TextEntity.text_entity_fields + ['parent', 'name', 'action', 'in_menu']
+
     @classmethod
-    def get_main(self):
-        return Section.objects.filter(in_menu=True)
+    def get_main_menu(cls):
+        return cls.objs.filter(in_menu=True)
 
     def get_articles(self):
         return Article.objects.filter(parent=self, status=True)
+
+    objs = SectionManager()
 
 
 class Article(common.LeafEntity, common.TextEntity, common.SeoEntity):

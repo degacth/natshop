@@ -16,9 +16,10 @@
 <nav class="topest-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-float-left">
-            <li><a href="/hello"><i class="uk-icon-home"></i> Главная</a></li>
-            <li><a href="/hello"><i class="uk-icon-shopping-cart"></i> Корзина</a></li>
-            <li><a href="/hello"><i class="uk-icon-adjust"></i> Заказ</a></li>
+            <li><a href="/"><i class="uk-icon-home"></i> Главная</a></li>
+            {% for menu in top_menu %}
+                <li><a href="{{ menu.get_full_path }}"><i class="uk-icon-{{ menu.name }}"></i> {{ menu.title }}</a></li>
+            {% endfor %}
         </ul>
 
         <ul class="uk-list uk-float-right right-menu">
@@ -40,16 +41,18 @@
                     <span class="uk-icon-phone label uk-hidden-small"></span>
 
                     <ul class="uk-list uk-display-inline-block contact-data">
-                        <li>+7 911 921 83 88</li>
-                        <li>+7 911 834 83 71</li>
+                        {% for phone in config.phones %}
+                            <li>{{ phone }}</li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li class="contact-block">
                     <span class="uk-icon-envelope label uk-hidden-small"></span>
 
                     <ul class="uk-list uk-display-inline-block contact-data">
-                        <li>degacth@yandex.ru</li>
-                        <li>hello@world.ru</li>
+                        {% for email in config.emails %}
+                            <li>{{ email }}</li>
+                        {% endfor %}
                     </ul>
                 </li>
             </ul>
@@ -61,9 +64,9 @@
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-display-inline-block uk-float-left">
             <li><a href="/catalog">Каталог</a></li>
-            <li><a href="/catalog">В наличии</a></li>
-            <li class="active"><a href="/catalog">Скидки</a></li>
-            <li><a href="/catalog">Акции</a></li>
+            {% for cat in category_product %}
+                <li><a href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
+            {% endfor %}
         </ul>
 
         <form class="uk-form uk-float-right">

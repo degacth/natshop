@@ -11,28 +11,24 @@ import common.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
+        ('section', '0001_initial'),
+        ('catalog', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Attachment',
+            name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('file', models.FileField(upload_to=common.models.PathAndRename(b'attachment/files'), verbose_name='\u0444\u0430\u0439\u043b')),
-                ('comment', models.TextField(null=True, verbose_name='\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0439', blank=True)),
-                ('object_id', models.PositiveIntegerField()),
-                ('status', models.BooleanField(default=True, verbose_name='\u0441\u0442\u0430\u0442\u0443\u0441')),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
+                ('section_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='section.Section')),
             ],
             options={
-                'verbose_name': '\u0421\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0439 \u0444\u0430\u0439\u043b',
-                'verbose_name_plural': '\u0421\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0435 \u0444\u0430\u0439\u043b\u044b',
+                'ordering': ['-sort'],
+                'abstract': False,
             },
-            bases=(models.Model, common.models.ThumbnailMixin),
+            bases=('section.section',),
         ),
         migrations.CreateModel(
-            name='Tree',
+            name='Product',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=255, verbose_name='\u0417\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a')),
@@ -44,17 +40,20 @@ class Migration(migrations.Migration):
                 ('seo_title', models.CharField(max_length=255, null=True, verbose_name='SEO \u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a', blank=True)),
                 ('seo_description', models.TextField(null=True, verbose_name='SEO \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435', blank=True)),
                 ('seo_keywords', models.TextField(null=True, verbose_name='SEO \u043a\u043b\u044e\u0447\u0435\u0432\u044b\u0435 \u0441\u043b\u043e\u0432\u0430', blank=True)),
-                ('name', models.SlugField(unique=True, max_length=255, verbose_name='\u0418\u043c\u044f')),
-                ('lft', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('level', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('parent', mptt.fields.TreeForeignKey(related_name='children', verbose_name='\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c', blank=True, to='common.Tree', null=True)),
+                ('price', models.DecimalField(default=0, verbose_name='\u0426\u0435\u043d\u0430', max_digits=11, decimal_places=2)),
+                ('short', ckeditor.fields.RichTextField(verbose_name='\u041a\u043e\u0440\u043e\u0442\u043a\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435')),
+                ('category', models.ManyToManyField(to='catalog.Category', blank=True)),
+                ('parent', mptt.fields.TreeForeignKey(verbose_name='\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c', to='catalog.Catalog')),
             ],
             options={
-                'ordering': ['-sort'],
-                'abstract': False,
+                'verbose_name': '\u0442\u043e\u0432\u0430\u0440',
+                'verbose_name_plural': '\u0442\u043e\u0432\u0430\u0440\u044b',
             },
             bases=(models.Model, common.models.ThumbnailMixin),
+        ),
+        migrations.AddField(
+            model_name='catalog',
+            name='parent',
+            field=mptt.fields.TreeForeignKey(related_name='children', verbose_name='\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c', blank=True, to='catalog.Catalog', null=True),
         ),
     ]

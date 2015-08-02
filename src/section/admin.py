@@ -10,15 +10,15 @@ class SectionAdmin(DjangoMpttAdmin):
     search_fields = models.Section.text_search_fields
     fieldsets = (
         (None, {
-            'fields': ('title', 'name', 'parent', 'action', 'sort', 'status', 'description',),
+            'fields': models.Section.text_entity_fields,
         }),
 
         models.Section.seo_fieldset,
     )
 
+    readonly_fields = models.Section.text_readonly_fields
     prepopulated_fields = {"name": ("title",)}
     list_filter = ['parent']
-    inlines = [common.AttachmentInline]
 
 
 @admin.register(models.Article)

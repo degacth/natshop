@@ -2,6 +2,8 @@ from .settings import *
 
 SECRET_KEY = 'eel25_ixgf56y!_3un0f3ibfylv5-0ons9k*gvr%3p_-(bm!mf'
 
+# mysql -uroot -p12345 -e "QUERY"
+# CREATE DATABASE my_db CHARACTER SET utf8 COLLATE utf8_general_ci
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

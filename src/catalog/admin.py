@@ -2,7 +2,9 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from common import models as common
+from common import utils
 from . import models
+from section.admin import SectionAdmin
 
 
 @admin.register(models.Catalog)
@@ -35,3 +37,15 @@ class ProductAdmin(admin.ModelAdmin):
     readonly_fields = models.Product.text_readonly_fields
     list_filter = ['parent']
     inlines = [common.AttachmentInline]
+
+
+@admin.register(models.Category)
+class CategoryAdmin(SectionAdmin):
+    fieldsets = (
+        (None, {
+            'fields': utils.remove_list([] + models.Category.text_entity_fields,
+                                        ['parent', 'file', 'thumbnail_tag', 'created', 'parent', 'in_menu']),
+        }),
+
+        models.Category.seo_fieldset,
+    )

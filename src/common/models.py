@@ -64,6 +64,11 @@ class AttachmentInline(GenericTabularInline):
     readonly_fields = ('thumbnail_tag',)
 
 
+class TextEntityManager(models.Manager):
+    def get_queryset(self):
+        return super(TextEntityManager, self).get_queryset().filter(status=True).order_by('-sort')
+
+
 class TextEntity(models.Model, ThumbnailMixin):
     class Meta:
         abstract = True
@@ -124,6 +129,11 @@ class StructuralEntity(MPTTModel):
         if len(parents): parents_path += '/'.join(parents) + '/'
 
         return "%s%s/" % (parents_path, self.name)
+
+
+class Tree(StructuralEntity, TextEntity, SeoEntity):
+    objects = models.Manager()
+    objs = TextEntityManager()
 
 
 class LeafEntity(models.Model):
