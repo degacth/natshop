@@ -30,16 +30,16 @@
 {% block content-base %}
     <div class="stock-filter uk-margin-bottom">
         <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
-            {% for i in filters %}
-                <li class="{% if not i %}active{% endif %}">
+            {% for other in other_stock %}
+                <li class="{% if forloop.first %}active{% endif %}">
                     <i class="uk-icon-button uk-icon-check"></i>
-                    Самые продаваемые
+                    {{ other.title }}
                 </li>
             {% endfor %}
         </ul>
     </div>
 
-    {% include 'includes/product_list.html' with products=banner_products grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" %}
+    {% include 'includes/product_list.html' with products=other_products grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" %}
 
     <section class="useful-info">
         <div class="big-title">

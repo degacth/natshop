@@ -5,14 +5,6 @@ from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from common import models as common
 
-_defaultActions = (
-    ('default', _('default'),),
-    ('contacts', _('contacts'),),
-    ('section_article', _('section_article'),),
-)
-
-getActions = lambda: _defaultActions
-
 
 class SectionManager(common.TextEntityManager): pass
 
@@ -22,17 +14,20 @@ class Section(common.Tree):
         verbose_name = _('Section')
         verbose_name_plural = _('Sections')
 
-    action = models.CharField(
-        _('action'), max_length=255, default='Default',
-        choices=getActions()
-    )
-    in_menu = models.BooleanField(_('in menu'), default=False)
+    action = models.CharField(_('action'), max_length=255, default="", blank=True, choices=(
+        ('', _('default'),),
+    ))
+    grouping = models.CharField(_('grouping'), default="", blank=True, max_length=255, choices=(
+        ('', _('default'),),
+        ('main_menu', _('main_menu')),
+        ('main_category', _('main_category')),
+    ))
 
-    text_entity_fields = common.TextEntity.text_entity_fields + ['parent', 'name', 'action', 'in_menu']
+    text_entity_fields = common.TextEntity.text_entity_fields + ['parent', 'name', 'action', 'grouping']
 
     @classmethod
-    def get_main_menu(cls):
-        return cls.objs.filter(in_menu=True)
+    def get_main(cls):
+        return cls.objs.filter(grouping="main_menu")
 
     def get_articles(self):
         return Article.objects.filter(parent=self, status=True)

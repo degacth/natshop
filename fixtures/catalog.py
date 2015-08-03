@@ -26,6 +26,7 @@ for name in ['hits', 'novelty', 'best_price']:
     category = Category.objects.create(**{
         'title': name.capitalize(),
         'name': name,
+        'grouping': 'main_category',
     })
 
 for i in xrange(1, 40): Product.objects.create(**{

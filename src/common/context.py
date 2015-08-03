@@ -12,6 +12,6 @@ def set_base_data(request):
         'host': globals.request.get_host(),
         'settings': settings,
         'config': globals.config,
-        'category_product': Category.objs.all(),
-        'top_menu': Section.get_main_menu(),
+        'category_product': Category.get_main(),
+        'top_menu': Section.get_main(),
     }

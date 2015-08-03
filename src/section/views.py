@@ -4,7 +4,7 @@ from django import shortcuts
 from django import http
 from section import models
 from common import views
-from catalog.models import Product
+from catalog.models import Product, Category
 
 
 class Main(generic.TemplateView):
@@ -13,7 +13,9 @@ class Main(generic.TemplateView):
     def get_context_data(self, **kwargs):
         return {
             'seo': views.get_seo(),
-            'banner_products': Product.get_banner()
+            'banner_products': Product.get_banner(),
+            'other_products': Product.get_other(),
+            'other_stock': Category.get_other(),
         }
 
 

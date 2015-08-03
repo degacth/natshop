@@ -28,7 +28,8 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = models.Product.text_search_fields
     fieldsets = (
         (None, {
-            'fields': models.Product.text_entity_fields + ['short', 'price', 'new_price', 'parent', 'category', 'in_banner'],
+            'fields': models.Product.text_entity_fields + ['short', 'price', 'new_price', 'parent', 'category',
+                                                           'in_banner'],
         }),
 
         models.Product.seo_fieldset
@@ -44,7 +45,7 @@ class CategoryAdmin(SectionAdmin):
     fieldsets = (
         (None, {
             'fields': utils.remove_list([] + models.Category.text_entity_fields,
-                                        ['parent', 'file', 'thumbnail_tag', 'created', 'parent', 'in_menu']),
+                                        ['parent', 'file', 'thumbnail_tag', 'created', 'parent']),
         }),
 
         models.Category.seo_fieldset,

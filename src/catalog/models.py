@@ -27,6 +27,14 @@ class CategoryManager(common.TextEntityManager): pass
 class Category(Section):
     objs = CategoryManager()
 
+    @classmethod
+    def get_main(cls):
+        return cls.objs.filter(grouping="main_category")
+
+    @classmethod
+    def get_other(cls):
+        return cls.objs.filter(grouping="")
+
 
 class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     class Meta:
@@ -53,3 +61,6 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
 
     @classmethod
     def get_banner(cls): return Product.objs.filter(in_banner=True).select_related()
+
+    @classmethod
+    def get_other(cls): return Product.objs.filter(category__in=Category.get_other()).distinct().select_related()

@@ -131,6 +131,7 @@ class StructuralEntity(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children',
                             db_index=True, verbose_name=_('parent'))
 
+    @memoize_field('_full_path')
     def get_full_path(self):
         parents = []
         parents_path = "/"
