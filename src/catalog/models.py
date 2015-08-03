@@ -1,6 +1,8 @@
 # coding: utf-8
 
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from mptt.models import TreeForeignKey
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
@@ -8,17 +10,20 @@ from common import models as common
 from section.models import Section
 
 
-class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity):
+class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity, common.FullPathMixin):
     class Meta:
         verbose_name = _('Catalog')
         verbose_name_plural = _('Catalogs')
 
+    full_path_prefix = "/catalog"
+
     @classmethod
     def get_top_level(cls): return cls.objects.filter(parent=None, status=True).order_by('-sort')
 
-    def get_full_path(self): return "/catalog%s" % common.StructuralEntity.get_full_path(self)
-
     def get_products(self): return Product.objects.filter(parent=self, status=True)
+
+
+receiver(post_save, sender=Catalog)(common.make_full_path_signal)
 
 
 class CategoryManager(common.TextEntityManager): pass
@@ -34,6 +39,9 @@ class Category(Section):
     @classmethod
     def get_other(cls):
         return cls.objs.filter(grouping="")
+
+
+receiver(post_save, sender=Category)(common.make_full_path_signal)
 
 
 class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
@@ -52,15 +60,12 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
 
     def get_old_price(self): return self.new_price and self.price
 
-    @common.memoize_field('_categories_css_class')
-    def get_categories_css_class(self): return reduce(
-        lambda cls, cat: "%s %s" % (cls, cat.name),
-        self.category.all(),
-        ""
-    ).strip()
+    @classmethod
+    def select_prefetch_related(cls, queryset): return queryset.select_related().prefetch_related('category')
 
     @classmethod
-    def get_banner(cls): return Product.objs.filter(in_banner=True).select_related()
+    def get_banner(cls): return cls.select_prefetch_related(cls.objs.filter(in_banner=True))
 
     @classmethod
-    def get_other(cls): return Product.objs.filter(category__in=Category.get_other()).distinct().select_related()
+    def get_other(cls): return cls.select_prefetch_related(
+        cls.objs.filter(category__in=Category.get_other()).distinct())

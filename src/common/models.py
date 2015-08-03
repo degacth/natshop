@@ -4,6 +4,8 @@ import datetime
 from uuid import uuid4
 from django.utils.deconstruct import deconstructible
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
 from mptt.models import MPTTModel, TreeForeignKey
@@ -13,6 +15,27 @@ from django.contrib.contenttypes.admin import GenericTabularInline, GenericStack
 from django.contrib.contenttypes.models import ContentType
 from ckeditor.fields import RichTextField
 from easy_thumbnails.files import get_thumbnailer
+
+
+class FullPathMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    full_path_prefix = ""
+    full_path = models.CharField(_('full_path'), null=True, max_length=255)
+
+    def get_full_path(self):
+        return self.full_path
+
+    def make_full_path(self):
+        return "%s%s" % (self.full_path_prefix, StructuralEntity.get_full_path_super(self))
+
+
+def make_full_path_signal(instance, sender, **kwargs):
+    post_save.disconnect(make_full_path_signal, sender=sender)
+    instance.full_path = instance.make_full_path()
+    instance.save()
+    post_save.connect(make_full_path_signal, sender=sender)
 
 
 def memoize_field(name):
@@ -131,8 +154,7 @@ class StructuralEntity(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children',
                             db_index=True, verbose_name=_('parent'))
 
-    @memoize_field('_full_path')
-    def get_full_path(self):
+    def get_full_path_super(self):
         parents = []
         parents_path = "/"
         if hasattr(self, 'get_ancestors'):
@@ -144,7 +166,7 @@ class StructuralEntity(MPTTModel):
         return "%s%s/" % (parents_path, self.name)
 
 
-class Tree(StructuralEntity, TextEntity, SeoEntity):
+class Tree(StructuralEntity, FullPathMixin, TextEntity, SeoEntity):
     objects = models.Manager()
     objs = TextEntityManager()
 
@@ -156,6 +178,5 @@ class LeafEntity(models.Model):
     objects = models.Manager()
     objs = TextEntityManager()
 
-    @memoize_field('_full_path')
     def get_full_path(self):
         return "%s%d" % (self.parent.get_full_path(), self.id)

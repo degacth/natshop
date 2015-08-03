@@ -1,5 +1,7 @@
 # coding: utf-8
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from mptt.models import TreeForeignKey
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
@@ -33,6 +35,8 @@ class Section(common.Tree):
         return Article.objects.filter(parent=self, status=True)
 
     objs = SectionManager()
+
+receiver(post_save, sender=Section)(common.make_full_path_signal)
 
 
 class Article(common.LeafEntity, common.TextEntity, common.SeoEntity):

@@ -41,7 +41,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Category)
-class CategoryAdmin(SectionAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': utils.remove_list([] + models.Category.text_entity_fields,
