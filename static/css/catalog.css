@@ -66,6 +66,26 @@
   text-transform: uppercase;
   display: block;
   padding: 5px;
+  position: relative;
+}
+.catalog-sidebar-menu .root-item .sub-menu li a i {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.catalog-sidebar-menu .root-item .sub-menu li a:hover {
+  background-color: #fdecec;
+}
+.catalog-sidebar-menu .root-item .sub-menu li a:hover i.uk-icon-chevron-right {
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
 }
 .catalog-sidebar-menu .root-item > a {
   box-sizing: border-box;

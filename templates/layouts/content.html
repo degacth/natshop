@@ -6,7 +6,7 @@
             {% for crumb in seo.breadcrumbs %}
                 <li>
                     {% if not forloop.last %}
-                        <a href="{{ crumb.path }}">{{ crumb.title }}</a> &nbsp;&rarr;&nbsp;
+                        <a href="{{ crumb.path }}">{{ crumb.title }}</a> <i class="uk-icon-chevron-right"></i>
                     {% else %}
                         <span>{{ crumb.title }}</span>
                     {% endif %}

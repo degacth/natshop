@@ -4,7 +4,12 @@
     <ul class="sub-menu">
         {% for cat in catalog.get_subs %}
             <li class="{{ 'active' | active_path_class:cat.get_full_path }}">
-                <a href="{{ cat.get_full_path }}">{{ cat.title }}</a>
+                <a href="{{ cat.get_full_path }}">
+                    {{ cat.title }}
+                    {% if cat.get_subs|length %}
+                        <i class="uk-icon-chevron-{% if cat.is_active_path %}down{% else %}right{% endif %}"></i>
+                    {% endif %}
+                </a>
 
                 {% if cat.is_active_path %}
                     {% include 'includes/catalog_menu.html' with catalog=cat %}

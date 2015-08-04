@@ -71,6 +71,23 @@
           text-transform: uppercase;
           display: block;
           padding: 5px;
+          position: relative;
+
+          i {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+
+            .transition();
+          }
+
+          &:hover {
+            background-color: @color-pink-lightest;
+
+            i.uk-icon-chevron-right {
+              .rotate(90deg);
+            }
+          }
         }
       }
     }
