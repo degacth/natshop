@@ -6,12 +6,13 @@ from section.models import Section
 
 
 def set_base_data(request):
-    if request.path.startswith('/adm/'): return {}
+    if request.path.startswith('/%s' % settings.ADMIN_URL): return {}
 
     return {
-        'host': globals.request.get_host(),
+        'host': settings.SITE_HOST,
         'settings': settings,
         'config': globals.config,
         'category_product': Category.get_main(),
         'top_menu': Section.get_main(),
+        'catalog_section': globals.catalog
     }

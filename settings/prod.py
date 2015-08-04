@@ -22,8 +22,10 @@ EMAIL_HOST_USER = "no-reply@coffeestudio.ru"
 EMAIL_HOST_PASSWORD = "eeK4Aish5Qua"
 EMAIL_USE_SSL = True
 
+SITE_HOST = "localhost"
+
 ALLOWED_HOSTS = [
-    '*',
+    SITE_HOST,
 ]
 
 DEBUG = True

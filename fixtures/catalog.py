@@ -22,11 +22,13 @@ for i in xrange(1, 6):
             'file': fake.get_file(),
         })
 
-for name in ['hits', 'novelty', 'best_price']:
+categories = ['hits', 'novelty', 'best_price']
+cat_len = len(categories) - 1
+for i, name in enumerate(categories):
     category = Category.objects.create(**{
         'title': name.capitalize(),
         'name': name,
-        'grouping': 'main_category',
+        'grouping': 'main_category' if i < cat_len else "",
     })
 
 for i in xrange(1, 40): Product.objects.create(**{

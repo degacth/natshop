@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="ru">
-{% load staticfiles %}
+{% load staticfiles common %}
 
 <head>
     <meta charset="UTF-8">
-    <title>NatShop</title>
+    <meta name="description" content="{{ seo.description }}">
+    <meta name="keywords" content="{{ seo.keywords }}">
+    <title>{{ seo.title }}</title>
+
     <link rel="stylesheet" href="{% static 'vendor/uikit/css/uikit.almost-flat.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'vendor/uikit/css/components/slider.almost-flat.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'vendor/uikit/css/components/slidenav.almost-flat.min.css' %}"/>
@@ -16,7 +19,7 @@
 <nav class="topest-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-float-left">
-            <li><a href="/"><i class="uk-icon-home"></i> Главная</a></li>
+            <li><a href="/" class="{{ 'active' | equals_path_class:'/' }}"><i class="uk-icon-home"></i> Главная</a></li>
             {% for menu in top_menu %}
                 <li><a href="{{ menu.get_full_path }}"><i class="uk-icon-{{ menu.name }}"></i> {{ menu.title }}</a></li>
             {% endfor %}
@@ -63,7 +66,8 @@
 <nav class="catalog-menu" id="fixed-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-display-inline-block uk-float-left">
-            <li><a href="/catalog">Каталог</a></li>
+            <li class="{{ 'active' | active_path_class:catalog_section.get_full_path }}"><a
+                    href="{{ catalog_section.get_full_path }}">{{ catalog_section.title }}</a></li>
             {% for cat in category_product %}
                 <li><a href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
             {% endfor %}
@@ -143,7 +147,8 @@
 </footer>
 <div class="sub-footer">
     <div class="uk-container uk-container-center">
-        Lorem ipsum dolor sit amet, <span class="base-pink">consectetur</span> adipisicing elit. Ab accusantium amet animi, blanditiis dolorem eaque
+        Lorem ipsum dolor sit amet, <span class="base-pink">consectetur</span> adipisicing elit. Ab accusantium amet
+        animi, blanditiis dolorem eaque
     </div>
 </div>
 

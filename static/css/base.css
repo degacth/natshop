@@ -42,7 +42,8 @@ body .topest-menu ul li a {
   background-color: #f15f60;
   font-weight: 600;
 }
-body .topest-menu ul li a:hover {
+body .topest-menu ul li a:hover,
+body .topest-menu ul li a.active {
   background-color: #ed3031;
   color: #ffffff;
 }
@@ -108,11 +109,11 @@ body .catalog-menu {
   position: fixed;
   width: 100%;
   z-index: 10;
-  -webkit-transition: opacity 0.4s ease;
-  -moz-transition: opacity 0.4s ease;
-  -ms-transition: opacity 0.4s ease;
-  -o-transition: opacity 0.4s ease;
-  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4 ease;
+  -moz-transition: opacity 0.4 ease;
+  -ms-transition: opacity 0.4 ease;
+  -o-transition: opacity 0.4 ease;
+  transition: opacity 0.4 ease;
 }
 body .catalog-menu.on-top {
   opacity: 0.7;

@@ -1,0 +1,15 @@
+{% load common %}
+
+{% if catalog.get_subs %}
+    <ul class="sub-menu">
+        {% for cat in catalog.get_subs %}
+            <li class="{{ 'active' | active_path_class:cat.get_full_path }}">
+                <a href="{{ cat.get_full_path }}">{{ cat.title }}</a>
+
+                {% if cat.is_active_path %}
+                    {% include 'includes/catalog_menu.html' with catalog=cat %}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

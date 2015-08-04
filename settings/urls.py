@@ -23,7 +23,7 @@ admin.site.site_header = "NatShop"
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
-    url(r'^adm/', include(admin.site.urls)),
+    url(r'^%s' % settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^api/', include('feedback.urls')),
     url(r'^mailer/', include('mailer.urls')),

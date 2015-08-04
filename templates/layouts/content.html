@@ -1,20 +1,21 @@
 {% extends 'layouts/base.html' %}
 
 {% block content-base %}
-    <ul class="breadcrumbs uk-list uk-float-right">
-        <li>
-            <a href="/">Главная</a> <i class="uk-icon-chevron-right"></i>
-        </li>
+    {% block breadcrumbs %}
+        <ul class="breadcrumbs uk-list uk-float-right">
+            {% for crumb in seo.breadcrumbs %}
+                <li>
+                    {% if not forloop.last %}
+                        <a href="{{ crumb.path }}">{{ crumb.title }}</a> &nbsp;&rarr;&nbsp;
+                    {% else %}
+                        <span>{{ crumb.title }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endblock %}
 
-        <li>
-            <a href="/catalog">Каталог</a> <i class="uk-icon-chevron-right"></i>
-        </li>
-
-        <li>
-            Мужская одежда
-        </li>
-    </ul>
-    <h1>Загаловок сайта</h1>
+    <h1>{{ current.title }}</h1>
 
     {% block content %}{% endblock %}
 {% endblock %}

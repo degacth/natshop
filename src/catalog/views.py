@@ -1,16 +1,19 @@
+# coding: utf-8
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views import generic
 from common import views
 from globals import globals
+from section.models import Section
 from . import models
 
 
-class RootView(generic.View):
-    def get(self, request, **kwargs):
-        path = request.path
-        first_catalog = models.Catalog.get_top_level()[0]
-        return HttpResponseRedirect("%s%s" % (path, first_catalog.name))
+class RootView(generic.TemplateView):
+    template_name = 'catalog.html'
+
+    def get_context_data(self, **kwargs):
+        return get_default_context()
 
 
 class CatalogResolver(views.TreeResolver):
@@ -29,7 +32,9 @@ class Catalog(generic.TemplateView):
     template_name = 'catalog.html'
 
     def get_context_data(self, **kwargs):
+
         catalog = kwargs['catalog']
+        return get_default_context(catalog)
         product_paginator = Paginator(catalog.get_products_descendants(), globals.config['items_per_page'])
         page = kwargs['page']
         try:
@@ -73,3 +78,9 @@ class Product(generic.TemplateView):
         })
 
         return context
+
+def get_default_context(catalog = None):
+    if not catalog: catalog = globals.catalog
+    context = views.get_default_context(catalog)
+    context['catalog_menu'] = models.Catalog.get_top_level()
+    return context

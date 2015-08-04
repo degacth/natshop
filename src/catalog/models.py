@@ -8,6 +8,10 @@ from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from common import models as common
 from section.models import Section
+from globals import globals
+
+
+class CatalogManager(common.TextEntityManager): pass
 
 
 class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity, common.FullPathMixin):
@@ -16,11 +20,18 @@ class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity, comm
         verbose_name_plural = _('Catalogs')
 
     full_path_prefix = "/catalog"
+    objects = models.Manager()
+    objs = CatalogManager()
 
     @classmethod
-    def get_top_level(cls): return cls.objects.filter(parent=None, status=True).order_by('-sort')
+    def get_top_level(cls): return cls.objs.filter(parent=None)
+
+    def is_active_path(self): return globals.request.path.startswith(self.get_full_path())
 
     def get_products(self): return Product.objects.filter(parent=self, status=True)
+
+    @common.memoize_field('_subs')
+    def get_subs(self): return CatalogManager.query_wrapper(self.get_children())
 
 
 receiver(post_save, sender=Catalog)(common.make_full_path_signal)

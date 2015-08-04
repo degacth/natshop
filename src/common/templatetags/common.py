@@ -1,12 +1,14 @@
 # coding: utf-8
 from django import template
 from django.conf import locale
+from globals import globals
 
 register = template.Library()
 
 
-@register.simple_tag
-def is_active_menu(path, name):
-    delim = '/'
-    path = path.strip(delim).split(delim)
-    return 'active' if path[0] == name else ""
+@register.filter
+def active_path_class(cls, path): return cls if globals.request.path.startswith(path) else ""
+
+
+@register.filter
+def equals_path_class(cls, path): return cls if globals.request.path == path else ""

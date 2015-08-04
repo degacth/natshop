@@ -50,3 +50,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
         models.Category.seo_fieldset,
     )
+
+    

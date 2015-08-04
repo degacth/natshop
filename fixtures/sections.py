@@ -19,3 +19,8 @@ for section in menu:
         'name': section[1],
         'grouping': 'main_menu',
     })
+
+Section.objects.create(**{
+    'title': 'Каталог',
+    'name': 'catalog',
+})

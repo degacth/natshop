@@ -32,10 +32,9 @@ class FullPathMixin(models.Model):
 
 
 def make_full_path_signal(instance, sender, **kwargs):
-    post_save.disconnect(make_full_path_signal, sender=sender)
-    instance.full_path = instance.make_full_path()
-    instance.save()
-    post_save.connect(make_full_path_signal, sender=sender)
+    sender.objects.filter(id=instance.id).update(**{
+        'full_path': instance.make_full_path(),
+    })
 
 
 def memoize_field(name):
@@ -101,7 +100,10 @@ class AttachmentInline(GenericTabularInline):
 
 class TextEntityManager(models.Manager):
     def get_queryset(self):
-        return super(TextEntityManager, self).get_queryset().filter(status=True).order_by('-sort')
+        return self.query_wrapper(super(TextEntityManager, self).get_queryset())
+
+    @classmethod
+    def query_wrapper(cls, query): return query.filter(status=True).order_by('-sort')
 
 
 class TextEntity(models.Model, ThumbnailMixin):

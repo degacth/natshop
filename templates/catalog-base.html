@@ -1,21 +1,16 @@
 {% extends 'layouts/two-col-content.html' %}
+{% load common %}
 
 {% block sidebar %}
     <ul class="catalog-sidebar-menu uk-list">
-        <li class="root-item"><a href="/catalog">Категория товара</a></li>
-        <li class="root-item"><a href="/catalog">Категория товара</a></li>
-        <li class="active root-item">
-            <a href="/catalog">Категория товара</a>
+        {% for catalog in catalog_menu %}
+            <li class="root-item {{ 'active' | active_path_class:catalog.get_full_path }}">
+                <a href="{{ catalog.get_full_path }}">{{ catalog.title }}</a>
 
-            <ul class="sub-menu">
-                <li><a href="">Подкатегория</a></li>
-                <li><a href="">Подкатегория</a></li>
-                <li class="active"><a href="">Подкатегория</a></li>
-                <li><a href="">Подкатегория</a></li>
-            </ul>
-        </li>
-        <li class="root-item"><a href="/catalog">Категория товара</a></li>
-        <li class="root-item"><a href="/catalog">Категория товара</a></li>
-        <li class="root-item"><a href="/catalog">Категория товара</a></li>
+                {% if catalog.is_active_path %}
+                    {% include 'includes/catalog_menu.html' with catalog=catalog %}
+                {% endif %}
+            </li>
+        {% endfor %}
     </ul>
 {% endblock %}
