@@ -24,14 +24,30 @@ class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity, comm
     objs = CatalogManager()
 
     @classmethod
-    def get_top_level(cls): return cls.objs.filter(parent=None)
+    def get_top_level(cls):
+        return cls.objs.filter(parent=None)
 
-    def is_active_path(self): return globals.request.path.startswith(self.get_full_path())
+    def is_active_path(self):
+        return globals.request.path.startswith(self.get_full_path())
 
-    def get_products(self): return Product.objects.filter(parent=self, status=True)
+    @common.memoize_field('_products')
+    def get_products(self):
+        return Product.objs.filter(parent=self).select_related('parent').prefetch_related('category')
 
     @common.memoize_field('_subs')
-    def get_subs(self): return CatalogManager.query_wrapper(self.get_children())
+    def get_subs(self):
+        return CatalogManager.query_wrapper(self.get_children())
+
+    def get_catalog_tiles(self):
+        max_len = 4
+        tiles = []
+        subs = CatalogManager.query_wrapper(self.get_children()).order_by('?')[:max_len]
+        if subs: tiles = tiles + list(subs)
+
+        tiles_len = len(tiles)
+        if tiles_len >= max_len: return tiles
+
+        return tiles + list(self.get_products().order_by('?')[:max_len - tiles_len])
 
 
 receiver(post_save, sender=Catalog)(common.make_full_path_signal)

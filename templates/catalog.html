@@ -1,24 +1,29 @@
 {% extends 'catalog-base.html' %}
+{% load common_attachments product %}
 
 {% block content-bar %}
     <div class="catalog-list">
-        {% for sub in catalog_children %}
+        {% for catalog in catalog_list %}
             <div class="catalog">
-                <a class="uk-width-1-2 label uk-float-left" href="/catalog/products">
+                <a class="uk-width-1-2 label uk-float-left" href="{{ catalog.get_full_path }}">
                     <span class="title uk-vertical-align">
-                        <span class="uk-vertical-align-middle text">Наименование раздела</span>
+                        <span class="uk-vertical-align-middle text">{{ catalog.title }}</span>
                     </span>
-                    <img class="uk-width-1-1" src="http://lorempixel.com/480/480/sports/{{ sub }}" alt=""/>
+
+                    {% get_aimage catalog.file '480x480' class="uk-width-1-1" %}
                 </a>
 
                 <div class="uk-width-1-2 uk-float-right">
-                    {% for prod in catalog_children %}
-                        <a class="product uk-width-1-2 uk-float-left">
-                            <span class="title">Супер-пупер раступер товар</span>
-                            <span class="price">
-                                1 900 <i class="uk-icon-rub"></i>
-                            </span>
-                            <img src="http://lorempixel.com/240/240/fashion/{{ prod }}" alt=""/>
+                    {% for sub in catalog.get_catalog_tiles %}
+                        <a href="{{ sub.get_full_path }}" class="product uk-width-1-2 uk-float-left">
+                            <span class="title">{{ sub.title }}</span>
+                            {% if sub.get_price %}
+                                <span class="price">
+                                    {{ sub.get_price | price }}
+                                </span>
+                            {% endif %}
+
+                            {% get_aimage sub.file '240x240' %}
                         </a>
                     {% endfor %}
                 </div>

@@ -13,7 +13,9 @@ class RootView(generic.TemplateView):
     template_name = 'catalog.html'
 
     def get_context_data(self, **kwargs):
-        return get_default_context()
+        context = get_default_context()
+        context['catalog_list'] = context['catalog_menu']
+        return context
 
 
 class CatalogResolver(views.TreeResolver):
@@ -32,9 +34,16 @@ class Catalog(generic.TemplateView):
     template_name = 'catalog.html'
 
     def get_context_data(self, **kwargs):
-
         catalog = kwargs['catalog']
-        return get_default_context(catalog)
+        context = get_default_context(catalog)
+
+        if not len(catalog.get_subs()):
+            self.template_name = "products.html"
+            context['products'] = catalog.get_products()
+            return context
+
+        context['catalog_list'] = catalog.get_subs()
+        return context
         product_paginator = Paginator(catalog.get_products_descendants(), globals.config['items_per_page'])
         page = kwargs['page']
         try:
@@ -79,8 +88,14 @@ class Product(generic.TemplateView):
 
         return context
 
-def get_default_context(catalog = None):
+
+def get_default_context(catalog=None):
+    add_root = None
     if not catalog: catalog = globals.catalog
-    context = views.get_default_context(catalog)
-    context['catalog_menu'] = models.Catalog.get_top_level()
-    return context
+    else: add_root = globals.catalog
+
+    return {
+        'seo': views.get_seo(catalog, add_root),
+        'current': catalog,
+        'catalog_menu': models.Catalog.get_top_level(),
+    }

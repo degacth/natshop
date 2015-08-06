@@ -67,6 +67,9 @@
   display: block;
   padding: 5px;
   position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .catalog-sidebar-menu .root-item .sub-menu li a i {
   position: absolute;

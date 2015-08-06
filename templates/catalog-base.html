@@ -1,8 +1,8 @@
 {% extends 'layouts/two-col-content.html' %}
-{% load common mptt_tags %}
+{% load common %}
 
 {% block sidebar %}
-    <ul class="catalog-sidebar-menu uk-list">
+    <ul class="catalog-sidebar-menu uk-list" id="side-bar-fixed">
         {% for catalog in catalog_menu %}
             <li class="root-item {{ 'active' | active_path_class:catalog.get_full_path }}">
                 <a href="{{ catalog.get_full_path }}">{{ catalog.title }}</a>

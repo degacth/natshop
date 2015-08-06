@@ -44,7 +44,7 @@ class TreeResolver(generic.View):
         return wrapper
 
 
-def get_seo(seoble_obj=None):
+def get_seo(seoble_obj=None, add_root=None):
     config = globals.config
 
     stitle = sdescription = skeywords = False
@@ -59,6 +59,8 @@ def get_seo(seoble_obj=None):
             while parent:
                 queue.append(parent)
                 parent = parent.parent
+
+        if add_root: queue.append(add_root)
 
         for item in queue:
             title.append(item.title)

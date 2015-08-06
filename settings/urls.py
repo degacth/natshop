@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from catalog.models import Catalog
 
 admin.site.site_header = "NatShop"
 
@@ -27,7 +28,7 @@ urlpatterns = [
     url(r'^ckeditor/', include('ckeditor.urls')),
     url(r'^api/', include('feedback.urls')),
     url(r'^mailer/', include('mailer.urls')),
-    url(r'^catalog/', include('catalog.urls')),
+    url(r'^%s/' % Catalog.full_path_prefix.strip('/'), include('catalog.urls')),
 ]
 
 if settings.DEBUG:
