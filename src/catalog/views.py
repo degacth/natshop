@@ -36,16 +36,16 @@ class Catalog(generic.TemplateView):
     def get_context_data(self, **kwargs):
         catalog = kwargs['catalog']
         context = get_default_context(catalog)
-
-        if not len(catalog.get_subs()):
-            self.template_name = "products.html"
-            context['products'] = catalog.get_products()
-            return context
+        if not len(catalog.get_subs()): return self.product_list(context, **kwargs)
 
         context['catalog_list'] = catalog.get_subs()
         return context
-        product_paginator = Paginator(catalog.get_products_descendants(), globals.config['items_per_page'])
+
+    def product_list(self, context, catalog, **kwargs):
+        self.template_name = "products.html"
+        product_paginator = Paginator(catalog.get_products(), 24)
         page = kwargs['page']
+
         try:
             products = product_paginator.page(page)
         except PageNotAnInteger:
@@ -53,9 +53,7 @@ class Catalog(generic.TemplateView):
         except EmptyPage:
             products = product_paginator.page(product_paginator.num_pages)
 
-        context = views.get_default_context(catalog)
         context['products'] = products
-        context['catalog_descendants'] = catalog.get_descendants()
         return context
 
 
@@ -64,6 +62,7 @@ class Product(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         product = models.Product.objects.get(pk=kwargs['obj_id'])
+        return get_default_context(product)
 
         last_products_id = kwargs['session'].get('last_products', [])
         kwargs['session']['last_products'] = []
@@ -91,8 +90,10 @@ class Product(generic.TemplateView):
 
 def get_default_context(catalog=None):
     add_root = None
-    if not catalog: catalog = globals.catalog
-    else: add_root = globals.catalog
+    if not catalog:
+        catalog = globals.catalog
+    else:
+        add_root = globals.catalog
 
     return {
         'seo': views.get_seo(catalog, add_root),

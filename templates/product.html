@@ -1,30 +1,28 @@
 {% extends 'catalog-base.html' %}
+{% load common_attachments product staticfiles %}
 
 {% block content-bar %}
     <div class="product-full">
         <div class="uk-grid">
             <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-1 uk-width-large-1-2 uk-margin-bottom">
                 <div class="product-image">
-                    <img src="http://lorempixel.com/400/500/fashion/" alt=""/>
+                    <a href="{{ current.file.url }}" data-uk-lightbox title="{{ current.title }}">{% get_aimage current.file '400x0' %}</a>
                 </div>
             </div>
             <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-1 uk-width-large-1-2 uk-margin-bottom">
                 <div class="description uk-margin-bottom">
-                    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum obcaecati porro quae. Alias
-                        blanditiis delectus deleniti deserunt dolorem, ducimus earum eligendi excepturi explicabo itaque
-                        maiores nulla possimus quaerat reiciendis unde.
-                    </div>
-                    <div>Ab accusamus ad aliquid assumenda delectus dolores iusto labore laudantium, maiores minima
-                        molestiae necessitatibus numquam obcaecati optio suscipit tenetur totam veniam! Alias, excepturi id
-                        maxime minima modi nulla quisquam ratione?
-                    </div>
+                    {{ current.description | safe }}
                 </div>
 
                 <div class="order-info">
                     <ul class="uk-grid uk-grid-width-medium-1-2">
                         <li class="price uk-margin-bottom">
-                            1 900.00 <i class="uk-icon-rub"></i>
-                            <div class="old-price">2 200.00 <i class="uk-icon-rub"></i></div>
+                            {{ current.get_price | price }}
+                            {% if current.get_old_price %}
+                                <div class="old-price">
+                                    {{ current.get_old_price | price }}
+                                </div>
+                            {% endif %}
                         </li>
                         <li>
                             <button class="site-button uk-width-1-1">
@@ -38,3 +36,9 @@
         </div>
     </div>
 {% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'vendor/uikit/js/components/lightbox.min.js' %}"></script>
+{% endblock %}
+

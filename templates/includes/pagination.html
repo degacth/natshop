@@ -1,0 +1,46 @@
+<div class="uk-clearfix uk-margin-bottom">
+    <span class="pagination-count">
+        <span class="all-count">Всего товаров: </span>
+        <span class="all-count-num">{{ pagination.paginator.count }}</span>
+    </span>
+
+    {% if pagination.has_other_pages %}
+        <span class="pagination uk-float-right">
+        <span class="prev">
+            {% if pagination.has_previous %}
+                <a href="?page={{ pagination.previous_page_number }}">
+                    <i class="uk-icon-chevron-left"></i>
+                </a>
+            {% else %}
+                <span>
+                    <i class="uk-icon-chevron-left"></i>
+                </span>
+            {% endif %}
+        </span>
+
+        <span class="pages">
+            <span class="str">Стр.</span>
+            {% for p in pagination.paginator.page_range %}
+                {% if p == pagination.number %}
+                    <span class="active">{{ p }}</span>
+                {% else %}
+                    <a href="?page={{ p }}">{{ p }}</a>
+                {% endif %}
+            {% endfor %}
+            <span class="all"> из {{ pagination.paginator.num_pages }}</span>
+        </span>
+
+        <span class="next">
+            {% if pagination.has_next %}
+                <a href="?page={{ pagination.next_page_number }}">
+                    <i class="uk-icon-chevron-right"></i>
+                </a>
+            {% else %}
+                <span>
+                    <i class="uk-icon-chevron-right"></i>
+                </span>
+            {% endif %}
+        </span>
+    </span>
+    {% endif %}
+</div>

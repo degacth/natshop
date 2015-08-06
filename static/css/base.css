@@ -264,3 +264,37 @@ h1 {
   border-bottom: 6px solid #f15f60;
   padding: 10px 0;
 }
+.pagination-count .all-count-num {
+  margin-top: 4px;
+  background-color: #f15f60;
+  padding: 8px 12px;
+  display: inline-block;
+}
+.pagination-count .all-count-num,
+.pagination-count .all-count-num i {
+  color: #ffffff;
+}
+.pagination a,
+.pagination span {
+  display: inline-block;
+}
+.pagination a {
+  background-color: #f15f60;
+  padding: 8px 12px;
+  display: inline-block;
+}
+.pagination a,
+.pagination a i {
+  color: #ffffff;
+}
+.pagination span.active {
+  padding: 12px;
+}
+.pagination .prev span,
+.pagination .next span {
+  display: none;
+}
+.pagination .all,
+.pagination .str {
+  padding: 12px;
+}

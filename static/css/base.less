@@ -309,3 +309,46 @@ h1 {
   border-bottom: @thik-border ;
   padding: 10px 0;
 }
+
+.page-tile() {
+  background-color: @color-pink-base;
+  padding: 8px 12px;
+  display: inline-block;
+
+  &, i {
+    color: @color-white;
+  }
+}
+
+.pagination-count {
+  .all-count-num {
+    margin-top: 4px;
+    .page-tile();
+  }
+}
+
+.pagination {
+  a, span {
+    display: inline-block;
+  }
+
+  a {
+    .page-tile()
+  }
+
+  span {
+    &.active {
+      padding: 12px;
+    }
+  }
+
+  .prev, .next {
+    span {
+      display: none;
+    }
+  }
+
+  .all, .str {
+    padding: 12px;
+  }
+}
