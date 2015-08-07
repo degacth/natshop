@@ -61,31 +61,16 @@ class Product(generic.TemplateView):
     template_name = 'product.html'
 
     def get_context_data(self, **kwargs):
-        product = models.Product.objects.get(pk=kwargs['obj_id'])
-        return get_default_context(product)
+        id = kwargs['obj_id']
+        product = models.Product.objects.get(pk=id)
 
-        last_products_id = kwargs['session'].get('last_products', [])
-        kwargs['session']['last_products'] = []
-        __last_products = models.Product.get_last_products(last_products_id)
-
-        # rearrange products list
-        prod_len = min(len(last_products_id), len(__last_products))
-        last_products = range(0, prod_len)
-        for prod in __last_products:
-            index = last_products_id.index(prod.id)
-            last_products[index] = prod
         # update last_products
-        if not product.id in last_products_id: last_products_id.insert(0, product.id)
-        kwargs['session']['last_products'] = last_products_id[:4]
-
-        context = views.get_default_context(product)
-        context.update({
-            'product': product,
-            'similar': product.get_similar(),
-            'last_products': last_products,
-        })
-
-        return context
+        session = kwargs['session']
+        last_products_id = session.get('last_products', [])
+        session['last_products'] = []
+        if not id in last_products_id: last_products_id.insert(0, product.id)
+        session['last_products'] = last_products_id[:6]
+        return get_default_context(product)
 
 
 def get_default_context(catalog=None):

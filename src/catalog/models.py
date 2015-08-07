@@ -96,3 +96,6 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     @classmethod
     def get_other(cls): return cls.select_prefetch_related(
         cls.objs.filter(category__in=Category.get_other()).distinct())
+
+    @classmethod
+    def get_last_products(cls, ids): return cls.objs.filter(id__in=ids).select_related('parent')
