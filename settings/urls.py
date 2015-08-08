@@ -26,9 +26,6 @@ urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^%s' % settings.ADMIN_URL, include(admin.site.urls)),
     url(r'^ckeditor/', include('ckeditor.urls')),
-    url(r'^api/', include('feedback.urls')),
-    url(r'^mailer/', include('mailer.urls')),
-    url(r'^%s/' % Catalog.full_path_prefix.strip('/'), include('catalog.urls')),
 ]
 
 if settings.DEBUG:
@@ -37,4 +34,10 @@ if settings.DEBUG:
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += [url(r'^/?', include('section.urls', namespace="section"))]
+
+urlpatterns += [
+    url(r'^mailer/', include('mailer.urls')),
+    url(r'^%s/' % settings.API_URL.strip('/'), include('settings.api')),
+    url(r'^%s/' % Catalog.full_path_prefix.strip('/'), include('catalog.urls')),
+    url(r'^/?', include('section.urls', namespace="section")),
+]

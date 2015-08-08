@@ -4,7 +4,7 @@
     <ul class="uk-grid products {{ grid }}">
         {% for product in products %}
             <li class="uk-margin-bottom">
-                <div class="product">
+                <div class="product" ng-controller="Product" ng-init="id = {{ product.id }}">
                     <div class="info">
                         <a href="{{ product.get_full_path }}">
                             {% product_image product '320x320' %}
@@ -20,7 +20,7 @@
                         {% endif %}
 
                         <div class="add-block">
-                            <button class="site-button">
+                            <button class="site-button" ng-click="add_cart()" ng-disabled="in_cart">
                                 <i class="uk-icon-cart-plus"></i>
                             </button>
                         </div>

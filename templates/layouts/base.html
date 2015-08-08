@@ -80,10 +80,12 @@
             </div>
         </form>
 
-        <div class="uk-float-right">
+        <div class="uk-float-right" ng-controller="Cart">
             <div class="cart-info">
-                <i class="uk-icon-shopping-cart"></i>
-                товаров: <span class="goods-count">3</span> шт. 2 540.00 <i class="uk-icon-rub"></i>
+                <a href="/cart">
+                    <i class="uk-icon-shopping-cart"></i>
+                    товаров: <span class="goods-count" ng-bind="cart.length"></span> шт. <span ng-bind="sum() | number"></span> <i class="uk-icon-rub"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -156,10 +158,11 @@
 {% block js %}
     <script>
         window.ng_config = {
-            api: '/api',
+            api: '{{ settings.API_URL }}',
         }
     </script>
 
+    <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/uikit/js/uikit.min.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
@@ -171,6 +174,7 @@
 
     <script src="{% static 'catalog/js/Catalog/CatalogApp.js' %}"></script>
     <script src="{% static 'catalog/js/Catalog/Services.js' %}"></script>
+    <script src="{% static 'catalog/js/Catalog/Controller.js' %}"></script>
 {% endblock %}
 
 </body>

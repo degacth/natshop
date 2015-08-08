@@ -2,7 +2,7 @@
 {% load common_attachments product staticfiles %}
 
 {% block content-bar %}
-    <div class="product-full">
+    <div class="product-full" ng-controller="Product" ng-init="id = {{ current.id }}">
         <div class="uk-grid">
             <div class="uk-width-1-1 uk-width-small-1-2 uk-width-medium-1-1 uk-width-large-1-2 uk-margin-bottom">
                 <div class="product-image">
@@ -25,7 +25,7 @@
                             {% endif %}
                         </li>
                         <li>
-                            <button class="site-button uk-width-1-1">
+                            <button class="site-button uk-width-1-1" ng-click="add_cart()" ng-disabled="in_cart">
                                 <span>В корзину</span>
                                 <i class="uk-icon-cart-plus"></i>
                             </button>

@@ -6,7 +6,8 @@ from section.models import Section
 
 
 def set_base_data(request):
-    if request.path.startswith('/%s' % settings.ADMIN_URL): return {}
+    path = request.path
+    if path.startswith('/%s' % settings.ADMIN_URL) or path.startswith('/%s/' % settings.API_URL.strip('/')): return {}
 
     return {
         'host': settings.SITE_HOST,

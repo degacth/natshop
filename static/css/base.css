@@ -237,6 +237,9 @@ body .sub-footer {
 .site-button:active {
   background-color: #f58e8f;
 }
+.site-button:disabled {
+  background-color: #cccccc;
+}
 .big-title {
   font-size: 32px;
   border-bottom: 6px solid #f15f60;

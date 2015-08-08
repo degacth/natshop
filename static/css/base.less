@@ -129,7 +129,7 @@ body {
     width: 100%;
     z-index: 10;
 
-    .transition(opacity .4 ease);
+    .transition(opacity 0.4 ease);
 
     &.on-top {
       opacity: 0.7;
@@ -273,6 +273,10 @@ body {
   
   &:active {
     background-color: @color-pink-light;
+  }
+
+  &:disabled {
+    background-color: @color-grey;
   }
 }
 
