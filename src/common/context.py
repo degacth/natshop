@@ -21,6 +21,7 @@ def set_base_data(request):
 
 def get_last_products(session):
     last_products_id = session.get('last_products', [])
+    if not len(last_products_id): return []
     lprods = Product.get_last_products(last_products_id)
 
     # rearrange products list

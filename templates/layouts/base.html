@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
-<body>
+<body ng-app="Site" ng-controller="Base">
 <nav class="topest-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-float-left">
@@ -154,9 +154,23 @@
 </div>
 
 {% block js %}
+    <script>
+        window.ng_config = {
+            api: '/api',
+        }
+    </script>
+
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/uikit/js/uikit.min.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
+
+    <script src="{% static 'vendor/angular/angular.min.js' %}"></script>
+    <script src="{% static 'vendor/angular-resource/angular-resource.min.js' %}"></script>
+    <script src="{% static 'js/app/site/SiteApp.js' %}"></script>
+    <script src="{% static 'js/app/site/Controller.js' %}"></script>
+
+    <script src="{% static 'catalog/js/Catalog/CatalogApp.js' %}"></script>
+    <script src="{% static 'catalog/js/Catalog/Services.js' %}"></script>
 {% endblock %}
 
 </body>
