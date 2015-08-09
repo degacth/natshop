@@ -3,14 +3,17 @@
 import init
 import fake
 from section.models import Section, Article
+from catalog.models import Category
 
-Section.objects.all().delete()
+Section.objects.all().exclude(id__in=Category.objs.all()).delete()
+
 
 # Main menu
 menu = (
-    ('Контакты', 'contacts'),
-    ('Новости', 'news'),
-    ('Как купить', 'howbay'),
+    ('Контакты', 'phone'),
+    ('Новости', 'newspaper-o'),
+    ('Как купить', 'question'),
+    ('Корзина', 'shopping-cart'),
 )
 
 for section in menu:
