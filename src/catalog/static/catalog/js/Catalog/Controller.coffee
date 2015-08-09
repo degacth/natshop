@@ -25,3 +25,12 @@ angular.module 'Catalog'
   angular.extend $scope,
     sum: -> _.reduce (_.map $scope.cart, (c) -> c.price * c.count), (l, n) -> l + n
 
+
+.controller "MainProducts", ($scope) ->
+  angular.extend $scope,
+    category: null
+    is_hidden: (id, categories...) -> ! (@category in categories)
+    is_active: (id) -> 'active' if id is @category
+
+
+print = console.log.bind console

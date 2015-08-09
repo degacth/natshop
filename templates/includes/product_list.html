@@ -3,8 +3,9 @@
 <section class="product-list">
     <ul class="uk-grid products {{ grid }}">
         {% for product in products %}
-            <li class="uk-margin-bottom">
-                <div class="product" ng-controller="Product" ng-init="id = {{ product.id }}">
+            <li class="uk-margin-bottom" ng-controller="Product" ng-init="id = {{ product.id }}"
+                ng-hide="is_hidden({{ product.id }}{{ product.get_category_comma_ids }})">
+                <div class="product">
                     <div class="info">
                         <a href="{{ product.get_full_path }}">
                             {% product_image product '320x320' %}

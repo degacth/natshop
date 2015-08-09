@@ -28,19 +28,21 @@
 {% endblock %}
 
 {% block content-base %}
-    <div class="stock-filter uk-margin-bottom">
-        <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
-            {% for other in other_stock %}
-                <li class="{% if forloop.first %}active{% endif %}">
-                    <i class="uk-icon-button uk-icon-check"></i>
-                    {{ other.title }}
-                </li>
-            {% endfor %}
-        </ul>
+    <div ng-controller="MainProducts">
+        <div class="stock-filter uk-margin-bottom">
+            <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
+                {% for other in other_stock %}
+                    <li {% if forloop.first %}ng-init="category = {{ other.id }}"{% endif %}
+                        ng-click="category = {{ other.id }}" ng-class="is_active({{ other.id }})">
+                        <i class="uk-icon-button uk-icon-check"></i>
+                        {{ other.title }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% include 'includes/product_list.html' with products=other_products grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" %}
     </div>
-
-    {% include 'includes/product_list.html' with products=other_products grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" %}
-
     <section class="useful-info">
         <div class="big-title">
             Полезная информация
