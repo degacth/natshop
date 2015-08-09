@@ -9,5 +9,7 @@ angular.module 'Catalog'
     if -1 < index = @get_index cart_data.id then @cart[index].count = cart_data.count
     else @cart.push cart_data
 
+  remove: (product) -> @cart.splice @cart.indexOf(product), 1
+
   get_index: (id) ->
     @cart.indexOf _.find @cart, (c) -> c.id is id

@@ -6,6 +6,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.views import APIView
 from catalog.models import Product
+from common.templatetags.common_attachments import get_image_path
 
 
 class Cart(APIView):
@@ -18,8 +19,13 @@ class Cart(APIView):
     def post(self, request, product):
         return Response(self._add_cart())
 
-    def delete(self, request):
-        pass
+    def delete(self, request, product):
+        cart = self._get_cart()
+        index = self._get_cart_index(cart, int(product))
+        cart.remove(cart[index])
+
+        self._set_cart(cart)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def _get_cart(self):
         return self.request.session.get('cart', [])
@@ -30,8 +36,11 @@ class Cart(APIView):
     def _add_cart(self):
         data = self.request.data
         cart = self._get_cart()
-        product = Product.objs.get(pk=data['id'])
+        product = Product.objs.select_related().get(pk=data['id'])
         data['price'] = float(product.get_price())
+        data['image'] = get_image_path(product.file, '320x320')
+        data['title'] = product.title
+        data['url'] = product.get_full_path()
 
         try:
             index = self._get_cart_index(cart, data['id'])

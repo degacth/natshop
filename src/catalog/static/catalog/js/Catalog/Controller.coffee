@@ -29,8 +29,35 @@ angular.module 'Catalog'
 .controller "MainProducts", ($scope) ->
   angular.extend $scope,
     category: null
-    is_hidden: (id, categories...) -> ! (@category in categories)
+    is_hidden: (id, categories...) -> !(@category in categories)
     is_active: (id) -> 'active' if id is @category
+
+
+.controller "BasketBase", ($scope, $location, BASKET_URL) ->
+  # root url
+  $location.path BASKET_URL
+  # no root url
+  $scope.$on '$locationChangeStart', (e, nw, old) -> unless nw.split('#')[1] then e.preventDefault()
+
+
+.controller "Basket", ($scope, Carter) ->
+  carter = new Carter($scope.cart)
+
+  angular.extend $scope,
+    add: (product) ->
+      product.count++
+      @save product
+
+    sub: (product) ->
+      return if product.count <= 1
+      product.count--
+      @save product
+
+    save: (product) ->
+      new @cart_model(product)
+      .$save()
+
+    remove: (product) -> product.$delete().then -> carter.remove product
 
 
 print = console.log.bind console

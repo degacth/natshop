@@ -39,6 +39,14 @@ class Default(generic.TemplateView):
         return views.get_default_context(kwargs['section'])
 
 
+class Cart(generic.TemplateView):
+    template_name = 'cart.html'
+
+    def get_context_data(self, **kwargs):
+        return views.get_default_context(kwargs['section'])
+
+
 _namedclass = {
     'default': Default.as_view(),
+    'cart': Cart.as_view(),
 }

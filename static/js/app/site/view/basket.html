@@ -1,0 +1,24 @@
+<ul class="uk-grid uk-grid-width-1-4 basket">
+    <li ng-repeat="product in cart" class="uk-margin-large-bottom basket-product">
+        <div class="basket-image uk-text-center">
+            <a href="{{ product.url }}"><img ng-src="{{ product.image }}" class="uk-display-inline-block"/></a>
+            <button class="uk-icon-plus uk-icon-button add" ng-click="add(product)"></button>
+            <button class="uk-icon-minus uk-icon-button sub" ng-click="sub(product)"></button>
+        </div>
+
+        <div class="basket-info uk-margin-top">
+            <ul class="uk-list uk-list-line uk-form">
+                <li class="title">{{ product.title }}</li>
+                <li>Количество <span class="label">{{ product.count }}</span></li>
+                <li>Цена <span class="label">{{ product.price }}</span></li>
+                <li>Стоимость <span class="label">{{ product.price * product.count }}</span></li>
+                <li>
+                    <textarea class="uk-width-1-1" ng-model="product.comment"
+                              placeholder="Комментарий к товару (например размер)..." ng-blur="save(product)"></textarea>
+                </li>
+            </ul>
+
+            <button class="uk-icon-recycle uk-icon-button remove" ng-click="remove(product)" title="Удалить товар"></button>
+        </div>
+    </li>
+</ul>

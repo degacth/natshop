@@ -13,7 +13,7 @@ menu = (
     ('Контакты', 'phone'),
     ('Новости', 'newspaper-o'),
     ('Как купить', 'question'),
-    ('Корзина', 'shopping-cart'),
+    ('Корзина', 'shopping-cart', 'cart'),
 )
 
 for section in menu:
@@ -21,6 +21,7 @@ for section in menu:
         'title': section[0],
         'name': section[1],
         'grouping': 'main_menu',
+        'action': section[2] if len(section) > 2 else ""
     })
 
 Section.objects.create(**{

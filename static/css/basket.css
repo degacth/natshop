@@ -1,0 +1,64 @@
+.basket .basket-product .basket-image {
+  position: relative;
+  background-color: #ffffff;
+}
+.basket .basket-product .basket-image button {
+  position: absolute;
+  z-index: 2;
+}
+.basket .basket-product .basket-image button.add {
+  top: 10px;
+  left: 10px;
+}
+.basket .basket-product .basket-image button.sub {
+  bottom: 10px;
+  right: 10px;
+}
+.basket .basket-info {
+  background-color: #ffffff;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  overflow: visible;
+  padding: 10px;
+  position: relative;
+}
+.basket .basket-info:hover {
+  -webkit-box-shadow: 0px 23px 58px -24px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 23px 58px -24px rgba(0, 0, 0, 0.75);
+}
+.basket .basket-info .uk-list {
+  margin: 0;
+}
+.basket .basket-info .title {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}
+.basket .basket-info .label {
+  background-color: #f15f60;
+  float: right;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0 5px;
+}
+.basket .basket-info textarea {
+  height: 100px;
+  font-size: 12px;
+}
+.basket .basket-info .remove {
+  position: absolute;
+  z-index: 2;
+  bottom: -15px;
+  right: -15px;
+}

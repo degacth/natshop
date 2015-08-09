@@ -19,6 +19,10 @@
         }
       };
 
+      _Class.prototype.remove = function(product) {
+        return this.cart.splice(this.cart.indexOf(product), 1);
+      };
+
       _Class.prototype.get_index = function(id) {
         return this.cart.indexOf(_.find(this.cart, function(c) {
           return c.id === id;

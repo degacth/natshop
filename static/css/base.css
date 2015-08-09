@@ -196,13 +196,15 @@ body .sub-footer {
   padding: 15px 0;
 }
 .uk-form input,
-.uk-form input[type=search] {
+.uk-form input[type=search],
+.uk-form textarea {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
 .uk-form input:focus,
-.uk-form input[type=search]:focus {
+.uk-form input[type=search]:focus,
+.uk-form textarea:focus {
   background-color: #fdecec;
   border-color: #fdecec;
 }

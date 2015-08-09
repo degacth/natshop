@@ -18,6 +18,8 @@ def _getImage(path, size, only_path, attrs):
     if only_path: return path[0]
     return '<img src="%s" %s />' % path
 
+get_image_path = lambda path, size: _getImage(path, size, True, dict())
+
 
 @register.simple_tag
 def get_aimage(obj, size, **kwargs):

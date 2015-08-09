@@ -49,6 +49,37 @@
         }
       }
     });
+  }).controller("BasketBase", function($scope, $location, BASKET_URL) {
+    $location.path(BASKET_URL);
+    return $scope.$on('$locationChangeStart', function(e, nw, old) {
+      if (!nw.split('#')[1]) {
+        return e.preventDefault();
+      }
+    });
+  }).controller("Basket", function($scope, Carter) {
+    var carter;
+    carter = new Carter($scope.cart);
+    return angular.extend($scope, {
+      add: function(product) {
+        product.count++;
+        return this.save(product);
+      },
+      sub: function(product) {
+        if (product.count <= 1) {
+          return;
+        }
+        product.count--;
+        return this.save(product);
+      },
+      save: function(product) {
+        return new this.cart_model(product).$save();
+      },
+      remove: function(product) {
+        return product.$delete().then(function() {
+          return carter.remove(product);
+        });
+      }
+    });
   });
 
   print = console.log.bind(console);

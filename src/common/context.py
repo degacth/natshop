@@ -1,4 +1,5 @@
 # coding: utf-8
+from toolz.itertoolz import first
 from django.conf import settings
 from globals import globals
 from catalog.models import Category, Product
@@ -9,14 +10,21 @@ def set_base_data(request):
     path = request.path
     if path.startswith('/%s' % settings.ADMIN_URL) or path.startswith('/%s/' % settings.API_URL.strip('/')): return {}
 
+    get_array_item_by_name = lambda name, collection: [item for item in collection if item.name == name]
+    get_first = lambda collection: first(collection) if len(collection) else None
+    get_by_name = lambda name, collection: get_first(get_array_item_by_name(name, collection))
+
+    section_main = Section.get_main()
+
     return {
         'host': settings.SITE_HOST,
         'settings': settings,
         'config': globals.config,
         'category_product': Category.get_main(),
-        'top_menu': Section.get_main(),
+        'top_menu': section_main,
         'catalog_section': globals.catalog,
-        'last_products': get_last_products(request.session)
+        'last_products': get_last_products(request.session),
+        'cart_section': get_by_name('shopping-cart', section_main),
     }
 
 
