@@ -5,6 +5,10 @@
       templateUrl: window.ng_config.static_url + "js/app/site/view/basket.html",
       controller: "Basket"
     });
+  }).filter("my_currency", function($filter) {
+    return function(num) {
+      return ("" + num).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ");
+    };
   });
 
 }).call(this);

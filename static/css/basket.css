@@ -62,3 +62,8 @@
   bottom: -15px;
   right: -15px;
 }
+.basket-table tfoot {
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #ffffff;
+}

@@ -11,5 +11,4 @@ angular.module 'Catalog'
 
   remove: (product) -> @cart.splice @cart.indexOf(product), 1
 
-  get_index: (id) ->
-    @cart.indexOf _.find @cart, (c) -> c.id is id
+  get_index: (id) -> @cart.indexOf _.find @cart, (c) -> c.id is id

@@ -23,7 +23,7 @@ angular.module 'Catalog'
 
 .controller "Cart", ($scope) ->
   angular.extend $scope,
-    sum: -> _.reduce (_.map $scope.cart, (c) -> c.price * c.count), (l, n) -> l + n
+    sum: -> cart_sum $scope.cart
 
 
 .controller "MainProducts", ($scope) ->
@@ -34,7 +34,7 @@ angular.module 'Catalog'
 
 
 .controller "BasketBase", ($scope, $location, BASKET_URL) ->
-  # root url
+# root url
   $location.path BASKET_URL
   # no root url
   $scope.$on '$locationChangeStart', (e, nw, old) -> unless nw.split('#')[1] then e.preventDefault()
@@ -59,5 +59,10 @@ angular.module 'Catalog'
 
     remove: (product) -> product.$delete().then -> carter.remove product
 
+    sum: -> cart_sum $scope.cart
+
+    all_count: -> _.reduce @cart, ((l, n) -> l + n.count), 0
+
 
 print = console.log.bind console
+cart_sum = (cart) -> _.reduce ( _.map cart, (c) -> c.price * c.count ), ( (l, n) -> l + n ), 0

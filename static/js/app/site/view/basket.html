@@ -10,8 +10,8 @@
             <ul class="uk-list uk-list-line uk-form">
                 <li class="title">{{ product.title }}</li>
                 <li>Количество <span class="label">{{ product.count }}</span></li>
-                <li>Цена <span class="label">{{ product.price }}</span></li>
-                <li>Стоимость <span class="label">{{ product.price * product.count }}</span></li>
+                <li>Цена <span class="label">{{ product.price | my_currency }}</span></li>
+                <li>Стоимость <span class="label">{{ product.price * product.count | my_currency }}</span></li>
                 <li>
                     <textarea class="uk-width-1-1" ng-model="product.comment"
                               placeholder="Комментарий к товару (например размер)..." ng-blur="save(product)"></textarea>
@@ -22,3 +22,42 @@
         </div>
     </li>
 </ul>
+
+<h2>Подробная информация о заказе</h2>
+
+<table class="uk-table basket-table">
+    <thead>
+        <tr>
+            <th class="uk-width-1-2">товар</th>
+            <th class="uk-text-center">кол-во</th>
+            <th class="uk-text-right">цена</th>
+            <th class="uk-text-right">стоимость</th>
+        </tr>
+    </thead>
+
+    <tfoot>
+        <tr>
+            <td colspan="3">всего наименований:</td>
+            <td class="uk-text-right">{{ cart.length }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">всего товаров:</td>
+            <td class="uk-text-right">{{ all_count() }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">полная стоимость:</td>
+            <td class="uk-text-right">{{ sum() | my_currency }}</td>
+        </tr>
+    </tfoot>
+
+    <tbody>
+        <tr ng-repeat="product in cart">
+            <td>{{ product.title }}</td>
+            <td class="uk-text-center">{{ product.count }}</td>
+            <td class="uk-text-right">{{ product.price | my_currency }}</td>
+            <td class="uk-text-right">{{ product.price * product.count | my_currency }}</td>
+        </tr>
+    </tbody>
+</table>
