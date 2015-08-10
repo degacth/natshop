@@ -48,9 +48,12 @@
   background-color: #f15f60;
   float: right;
   display: inline-block;
-  color: #ffffff;
   font-weight: bold;
   padding: 0 5px;
+}
+.basket .basket-info .label,
+.basket .basket-info .label * {
+  color: #ffffff;
 }
 .basket .basket-info textarea {
   height: 100px;

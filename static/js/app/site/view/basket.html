@@ -10,15 +10,17 @@
             <ul class="uk-list uk-list-line uk-form">
                 <li class="title">{{ product.title }}</li>
                 <li>Количество <span class="label">{{ product.count }}</span></li>
-                <li>Цена <span class="label">{{ product.price | my_currency }}</span></li>
-                <li>Стоимость <span class="label">{{ product.price * product.count | my_currency }}</span></li>
+                <li>Цена <span class="label" ng-bind-html="product.price | rub"></span></li>
+                <li>Стоимость <span class="label" ng-bind-html="product.price * product.count | rub"></span></li>
                 <li>
                     <textarea class="uk-width-1-1" ng-model="product.comment"
-                              placeholder="Комментарий к товару (например размер)..." ng-blur="save(product)"></textarea>
+                              placeholder="Комментарий к товару (например размер)..."
+                              ng-blur="save(product)"></textarea>
                 </li>
             </ul>
 
-            <button class="uk-icon-recycle uk-icon-button remove" ng-click="remove(product)" title="Удалить товар"></button>
+            <button class="uk-icon-recycle uk-icon-button remove" ng-click="remove(product)"
+                    title="Удалить товар"></button>
         </div>
     </li>
 </ul>
@@ -27,37 +29,37 @@
 
 <table class="uk-table basket-table">
     <thead>
-        <tr>
-            <th class="uk-width-1-2">товар</th>
-            <th class="uk-text-center">кол-во</th>
-            <th class="uk-text-right">цена</th>
-            <th class="uk-text-right">стоимость</th>
-        </tr>
+    <tr>
+        <th class="uk-width-1-2">товар</th>
+        <th class="uk-text-center">кол-во</th>
+        <th class="uk-text-right">цена</th>
+        <th class="uk-text-right">стоимость</th>
+    </tr>
     </thead>
 
     <tfoot>
-        <tr>
-            <td colspan="3">всего наименований:</td>
-            <td class="uk-text-right">{{ cart.length }}</td>
-        </tr>
+    <tr>
+        <td colspan="3">всего наименований:</td>
+        <td class="uk-text-right">{{ cart.length }}</td>
+    </tr>
 
-        <tr>
-            <td colspan="3">всего товаров:</td>
-            <td class="uk-text-right">{{ all_count() }}</td>
-        </tr>
+    <tr>
+        <td colspan="3">всего товаров:</td>
+        <td class="uk-text-right">{{ all_count() }}</td>
+    </tr>
 
-        <tr>
-            <td colspan="3">полная стоимость:</td>
-            <td class="uk-text-right">{{ sum() | my_currency }}</td>
-        </tr>
+    <tr>
+        <td colspan="3">полная стоимость:</td>
+        <td class="uk-text-right" ng-bind-html="sum() | rub"></td>
+    </tr>
     </tfoot>
 
     <tbody>
-        <tr ng-repeat="product in cart">
-            <td>{{ product.title }}</td>
-            <td class="uk-text-center">{{ product.count }}</td>
-            <td class="uk-text-right">{{ product.price | my_currency }}</td>
-            <td class="uk-text-right">{{ product.price * product.count | my_currency }}</td>
-        </tr>
+    <tr ng-repeat="product in cart">
+        <td>{{ product.title }}</td>
+        <td class="uk-text-center">{{ product.count }}</td>
+        <td class="uk-text-right" ng-bind-html="product.price | rub"></td>
+        <td class="uk-text-right" ng-bind-html="product.price * product.count | rub"></td>
+    </tr>
     </tbody>
 </table>

@@ -85,7 +85,7 @@
             <div class="cart-info">
                 <a href="{{ cart_section.get_full_path }}">
                     <i class="uk-icon-shopping-cart"></i>
-                    товаров: <span class="goods-count" ng-bind="cart.length"></span> шт. <span ng-bind="sum() | my_currency"></span> <i class="uk-icon-rub"></i>
+                    товаров: <span class="goods-count" ng-bind="cart.length"></span> шт. <span ng-bind-html="sum() | rub"></span>
                 </a>
             </div>
         </div>
