@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'config',
     'catalog',
     'feedback',
+    'customer',
 )
 
 MIDDLEWARE_CLASSES = (
