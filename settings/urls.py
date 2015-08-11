@@ -37,6 +37,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [
     url(r'^mailer/', include('mailer.urls')),
+    url(r'^customer/', include('customer.urls', namespace="customer")),
     url(r'^%s/' % settings.API_URL.strip('/'), include('settings.api')),
     url(r'^%s/' % Catalog.full_path_prefix.strip('/'), include('catalog.urls')),
     url(r'^/?', include('section.urls', namespace="section")),
