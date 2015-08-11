@@ -27,8 +27,8 @@
         </ul>
 
         <ul class="uk-list uk-float-right right-menu">
-            <li><a href="{% url 'customer:default' %}#/signup"><i class="uk-icon-user"></i> регистрация</a></li>
-            <li><a href="{% url 'customer:default' %}#/signin"><i class="uk-icon-sign-in"></i> вход</a></li>
+            <li><a href="{% url 'customer:default' %}#/signup/"><i class="uk-icon-user"></i> регистрация</a></li>
+            <li><a href="{% url 'customer:default' %}#/signin/"><i class="uk-icon-sign-in"></i> вход</a></li>
         </ul>
     </div>
 </nav>
@@ -175,9 +175,12 @@
     <script src="{% static 'js/app/site/SiteApp.js' %}"></script>
     <script src="{% static 'js/app/site/Controller.js' %}"></script>
 
-    <script src="{% static 'catalog/js/Catalog/CatalogApp.js' %}"></script>
-    <script src="{% static 'catalog/js/Catalog/Services.js' %}"></script>
-    <script src="{% static 'catalog/js/Catalog/Controller.js' %}"></script>
+    <script src="{% static 'catalog/js/CatalogApp.js' %}"></script>
+    <script src="{% static 'catalog/js/Services.js' %}"></script>
+    <script src="{% static 'catalog/js/Controller.js' %}"></script>
+
+    <script src="{% static 'customer/js/CustomerApp.js' %}"></script>
+    <script src="{% static 'customer/js/Controllers.js' %}"></script>
 {% endblock %}
 
 </body>

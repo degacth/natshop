@@ -1,1 +1,1 @@
-angular.module 'Site', ['Catalog']
+angular.module 'Site', ['Catalog', 'Customer']

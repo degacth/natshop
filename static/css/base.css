@@ -198,15 +198,18 @@ body .sub-footer {
 .uk-form input,
 .uk-form input[type=search],
 .uk-form textarea {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
 }
 .uk-form input:focus,
 .uk-form input[type=search]:focus,
 .uk-form textarea:focus {
-  background-color: #fdecec;
-  border-color: #fdecec;
+  background-color: #fdecec !important;
+  border-color: #fdecec !important;
+}
+.ng-submitted .ng-invalid {
+  background-color: #f15f60 !important;
 }
 .site-button {
   background-color: #f15f60;

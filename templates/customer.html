@@ -1,1 +1,11 @@
-{% extends 'layouts/content.html' %}
+{% extends 'layouts/two-col-content.html' %}
+
+{% block sidebar %}
+    <ng-include src="get_sidebar()"></ng-include>
+{% endblock %}
+
+{% block content-bar %}
+    <ng-view></ng-view>
+{% endblock %}
+
+{% block content-attrs %}ng-controller="CustomerBase"{% endblock %}

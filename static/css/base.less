@@ -238,14 +238,19 @@ body {
 
 .uk-form {
   input, input[type=search], textarea {
-    .border-radius(0);
+    .border-radius(0) !important;
 
     &:focus {
-      background-color: @color-pink-lightest;
-      border-color: @color-pink-lightest;
+      background-color: @color-pink-lightest !important;
+      border-color: @color-pink-lightest !important;
     }
   }
+}
 
+.ng-submitted {
+  .ng-invalid {
+    background-color: @color-pink-base !important;
+  }
 }
 
 .site-button {

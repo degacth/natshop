@@ -1,0 +1,36 @@
+<form class="uk-form uk-form-horizontal" novalidate name="signup_form">
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-name">Ваше ФИО</label>
+        <div class="uk-form-controls">
+            <input ng-model="info.name" type="text" class="uk-width-1-1" id="form-name" placeholder="Фамилия Имя Отчество" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-email">E-mail адрес</label>
+        <div class="uk-form-controls">
+            <input ng-model="info.email" type="email" class="uk-width-1-1" id="form-email" placeholder="mymail@mailhost.org" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-password">Пароль</label>
+        <div class="uk-form-controls">
+            <input ng-model="info.password" type="password" class="uk-width-1-1" id="form-password" placeholder="п@р0Ль" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-password-repeat">Повторить пароль</label>
+        <div class="uk-form-controls">
+            <input ng-model="repeat_password" type="password" class="uk-width-1-1" id="form-password-repeat" placeholder="п@р0Ль" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label"></label>
+        <div class="uk-form-controls">
+            <button class="site-button" type="submit">Зарегистрироваться</button>
+        </div>
+    </div>
+</form>
