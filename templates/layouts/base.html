@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" class="uk-height-1-1">
 {% load staticfiles common common_attachments product %}
 
 <head>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/basket.css' %}"/>
 </head>
-<body ng-app="Site" ng-controller="Base">
+<body ng-app="Site" ng-controller="Base" class="uk-height-1-1">
 <nav class="topest-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-float-left">
@@ -149,12 +149,13 @@
             </div>
         </div>
     </div>
-</footer>
-<div class="sub-footer">
-    <div class="uk-container uk-container-center">
-        Сайт не содержит ГМО, консерванов и PHP кода, только <span class="base-pink"><span class="base-pink" title="Django">Python</span> и <span class="base-pink" title="Angular, Underscore">CoffeeScript</span></span>
+
+    <div class="sub-footer">
+        <div class="uk-container uk-container-center">
+            Сайт не содержит ГМО, консерванов и PHP кода, только <span class="base-pink"><span class="base-pink" title="Django">Python</span> и <span class="base-pink" title="Angular, Underscore">CoffeeScript</span></span>
+        </div>
     </div>
-</div>
+</footer>
 
 {% block js %}
     <script>

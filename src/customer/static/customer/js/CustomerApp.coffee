@@ -1,9 +1,18 @@
 angular.module "Customer", ['ngResource', 'ngRoute']
 
-.constant 'SIGNIN_URL', '/signin/'
-.constant 'SIGNUP_URL', '/signup/'
+.constant 'CUSTOMER_ANONYMOUS_URLS', [
+  name: 'signup'
+  url: '/signup/'
+  title: 'Регистрация'
+  template: 'js/app/site/view/signup.html'
+,
+  name: 'signin'
+  url: '/signin/'
+  title: 'Вход'
+  template: 'js/app/site/view/signin.html'
+]
 
-.config ($routeProvider, SIGNIN_URL, SIGNUP_URL) ->
-  $routeProvider
-  .when SIGNUP_URL,
-    templateUrl: "#{window.ng_config.static_url}js/app/site/view/signup.html"
+.config ($routeProvider, CUSTOMER_ANONYMOUS_URLS) ->
+  _.map CUSTOMER_ANONYMOUS_URLS, (url) ->
+    $routeProvider.when url.url,
+      templateUrl: "#{ window.ng_config.static_url }#{ url.template }"

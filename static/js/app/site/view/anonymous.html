@@ -1,4 +1,5 @@
 <ul class="catalog-sidebar-menu uk-list">
-        <li class="root-item" ng-class="is_active_menu('/signup/')"><a href="#/signup/">Регистрация</a></li>
-        <li class="root-item" ng-class="is_active_menu('/signin/')"><a href="#/signin/">Вход</a></li>
+    <li class="root-item" ng-class="is_active_menu(url.url)" ng-repeat="url in anonymous_urls">
+        <a href="#{{ url.url }}" ng-bind="url.title"></a>
+    </li>
 </ul>

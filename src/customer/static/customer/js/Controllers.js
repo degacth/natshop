@@ -2,8 +2,9 @@
 (function() {
   var print;
 
-  angular.module("Customer").controller("CustomerBase", function($scope, $location) {
+  angular.module("Customer").controller("CustomerBase", function($scope, $location, CUSTOMER_ANONYMOUS_URLS) {
     return angular.extend($scope, {
+      anonymous_urls: CUSTOMER_ANONYMOUS_URLS,
       get_sidebar: function() {
         return window.ng_config.static_url + "js/app/site/view/anonymous.html";
       },
