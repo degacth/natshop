@@ -5,6 +5,7 @@ angular.module "Customer", ['ngResource', 'ngRoute']
   url: '/signup/'
   title: 'Регистрация'
   template: 'js/app/site/view/signup.html'
+  controller: "Signup"
 ,
   name: 'signin'
   url: '/signin/'
@@ -16,3 +17,4 @@ angular.module "Customer", ['ngResource', 'ngRoute']
   _.map CUSTOMER_ANONYMOUS_URLS, (url) ->
     $routeProvider.when url.url,
       templateUrl: "#{ window.ng_config.static_url }#{ url.template }"
+      controller: url.controller

@@ -5,7 +5,8 @@
       name: 'signup',
       url: '/signup/',
       title: 'Регистрация',
-      template: 'js/app/site/view/signup.html'
+      template: 'js/app/site/view/signup.html',
+      controller: "Signup"
     }, {
       name: 'signin',
       url: '/signin/',
@@ -15,7 +16,8 @@
   ]).config(function($routeProvider, CUSTOMER_ANONYMOUS_URLS) {
     return _.map(CUSTOMER_ANONYMOUS_URLS, function(url) {
       return $routeProvider.when(url.url, {
-        templateUrl: "" + window.ng_config.static_url + url.template
+        templateUrl: "" + window.ng_config.static_url + url.template,
+        controller: url.controller
       });
     });
   });
