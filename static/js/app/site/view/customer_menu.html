@@ -1,5 +1,5 @@
 <ul class="catalog-sidebar-menu uk-list">
-    <li class="root-item" ng-class="is_active_menu(url.url)" ng-repeat="url in anonymous_urls">
+    <li class="root-item" ng-class="is_active_menu(url.url)" ng-repeat="url in get_urls()">
         <a href="#{{ url.url }}" ng-bind="url.title"></a>
     </li>
 </ul>

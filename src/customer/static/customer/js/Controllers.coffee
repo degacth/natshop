@@ -1,9 +1,9 @@
 angular.module "Customer"
 
-.controller "CustomerBase", ($scope, $location, CUSTOMER_ANONYMOUS_URLS) ->
+.controller "CustomerBase", ($scope, $location, CUSTOMER_ANONYMOUS_URLS, CUSTOMER_URLS) ->
   angular.extend $scope,
-    anonymous_urls: CUSTOMER_ANONYMOUS_URLS
-    get_sidebar: -> "#{window.ng_config.static_url}js/app/site/view/anonymous.html"
+    get_urls: -> if @customer then CUSTOMER_URLS else CUSTOMER_ANONYMOUS_URLS
+    get_sidebar: -> "#{window.ng_config.static_url}js/app/site/view/customer_menu.html"
     is_active_menu: (path) -> 'active' if $location.path() is path
 
 
@@ -20,6 +20,6 @@ angular.module "Customer"
     save: ->
       return unless @check_form()
       customer = new CustomerModel @info
-      do customer.$save
+      customer.$save().then ->
 
 print = console.log.bind console

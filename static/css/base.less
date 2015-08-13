@@ -271,6 +271,7 @@ body {
 
   &:hover {
     background-color: @color-pink-dark;
+    color: @color-white;
   }
 
   &, &:active, &:focus {
@@ -362,4 +363,8 @@ h1 {
   .all, .str {
     padding: 12px;
   }
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
 }

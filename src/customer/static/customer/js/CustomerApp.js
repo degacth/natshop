@@ -13,8 +13,26 @@
       title: 'Вход',
       template: 'js/app/site/view/signin.html'
     }
-  ]).config(function($routeProvider, CUSTOMER_ANONYMOUS_URLS) {
-    return _.map(CUSTOMER_ANONYMOUS_URLS, function(url) {
+  ]).constant('CUSTOMER_URLS', [
+    {
+      name: 'orders',
+      url: '/orders/',
+      title: 'Заказы',
+      template: 'js/app/site/view/orders.html',
+      controller: "Orders"
+    }, {
+      name: 'info',
+      url: '/info/',
+      title: 'Личные данные',
+      template: 'js/app/site/view/customer_info.html'
+    }, {
+      name: 'logout',
+      url: '/logout/',
+      title: 'Выход',
+      template: 'js/app/site/view/logout.html'
+    }
+  ]).config(function($routeProvider, CUSTOMER_ANONYMOUS_URLS, CUSTOMER_URLS) {
+    return _.map([].concat(CUSTOMER_ANONYMOUS_URLS).concat(CUSTOMER_URLS), function(url) {
       return $routeProvider.when(url.url, {
         templateUrl: "" + window.ng_config.static_url + url.template,
         controller: url.controller

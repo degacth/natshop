@@ -26,9 +26,15 @@
             {% endfor %}
         </ul>
 
-        <ul class="uk-list uk-float-right right-menu">
+        <ul class="uk-list uk-float-right right-menu" ng-hide="customer.email" ng-cloak>
             <li><a href="{% url 'customer:default' %}#/signup/"><i class="uk-icon-user"></i> регистрация</a></li>
             <li><a href="{% url 'customer:default' %}#/signin/"><i class="uk-icon-sign-in"></i> вход</a></li>
+        </ul>
+
+        <ul class="uk-list uk-float-right right-menu" ng-show="customer.email" ng-cloak>
+            <li><a href="{% url 'customer:default' %}#/orders/">
+                <i class="uk-icon-user"></i> <span ng-bind="customer.name"></span>
+            </a></li>
         </ul>
     </div>
 </nav>

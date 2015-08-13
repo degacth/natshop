@@ -15,8 +15,26 @@ angular.module "Customer", ['ngResource', 'ngRoute']
   template: 'js/app/site/view/signin.html'
 ]
 
-.config ($routeProvider, CUSTOMER_ANONYMOUS_URLS) ->
-  _.map CUSTOMER_ANONYMOUS_URLS, (url) ->
+.constant 'CUSTOMER_URLS', [
+  name: 'orders'
+  url: '/orders/'
+  title: 'Заказы'
+  template: 'js/app/site/view/orders.html'
+  controller: "Orders"
+,
+  name: 'info'
+  url: '/info/'
+  title: 'Личные данные'
+  template: 'js/app/site/view/customer_info.html'
+,
+  name: 'logout'
+  url: '/logout/'
+  title: 'Выход'
+  template: 'js/app/site/view/logout.html'
+]
+
+.config ($routeProvider, CUSTOMER_ANONYMOUS_URLS, CUSTOMER_URLS) ->
+  _.map [].concat(CUSTOMER_ANONYMOUS_URLS).concat(CUSTOMER_URLS), (url) ->
     $routeProvider.when url.url,
       templateUrl: "#{ window.ng_config.static_url }#{ url.template }"
       controller: url.controller

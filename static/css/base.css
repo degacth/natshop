@@ -233,6 +233,7 @@ body .site-footer .sub-footer {
 }
 .site-button:hover {
   background-color: #ed3031;
+  color: #ffffff;
 }
 .site-button,
 .site-button:active,
@@ -306,4 +307,12 @@ h1 {
 .pagination .all,
 .pagination .str {
   padding: 12px;
+}
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
 }
