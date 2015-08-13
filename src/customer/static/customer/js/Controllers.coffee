@@ -7,14 +7,19 @@ angular.module "Customer"
     is_active_menu: (path) -> 'active' if $location.path() is path
 
 
-.controller "Signup", ($scope) ->
+.controller "Signup", ($scope, CustomerModel) ->
   angular.extend $scope,
     info:
       name: 'Дегтярёв Александр Сергеевич'
       email: 'degacth@yandex.ru'
-      password: 123
-    repeat_password: 123
+      password: '123'
+    repeat_password: '123'
 
-    save: -> print @info
+    check_form: -> @signup_form.$valid and @info.password is @repeat_password
+
+    save: ->
+      return unless @check_form()
+      customer = new CustomerModel @info
+      do customer.$save
 
 print = console.log.bind console

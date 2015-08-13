@@ -14,16 +14,24 @@
         }
       }
     });
-  }).controller("Signup", function($scope) {
+  }).controller("Signup", function($scope, CustomerModel) {
     return angular.extend($scope, {
       info: {
         name: 'Дегтярёв Александр Сергеевич',
         email: 'degacth@yandex.ru',
-        password: 123
+        password: '123'
       },
-      repeat_password: 123,
+      repeat_password: '123',
+      check_form: function() {
+        return this.signup_form.$valid && this.info.password === this.repeat_password;
+      },
       save: function() {
-        return print(this.info);
+        var customer;
+        if (!this.check_form()) {
+          return;
+        }
+        customer = new CustomerModel(this.info);
+        return customer.$save();
       }
     });
   });

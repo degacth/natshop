@@ -46,7 +46,7 @@
         <label class="uk-form-label"></label>
 
         <div class="uk-form-controls">
-            <button class="site-button" ng-disabled="signup_form.$invalid && signup_form.$submitted" type="submit">
+            <button class="site-button" ng-disabled="!check_form() && signup_form.$submitted" type="submit">
                 Зарегистрироваться
             </button>
         </div>

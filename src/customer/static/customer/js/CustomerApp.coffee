@@ -1,5 +1,7 @@
 angular.module "Customer", ['ngResource', 'ngRoute']
 
+.constant 'CUSTOMER_API_URL', "#{window.ng_config.api}/customer"
+
 .constant 'CUSTOMER_ANONYMOUS_URLS', [
   name: 'signup'
   url: '/signup/'
