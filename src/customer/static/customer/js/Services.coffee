@@ -4,3 +4,4 @@ angular.module "Customer"
   $resource "#{CUSTOMER_API_URL}/", {}, {}, stripTrailingSlashes: off
 
 .factory "LoginResource", ($resource, CUSTOMER_API_URL) -> $resource "#{CUSTOMER_API_URL}/login"
+.factory "ForgetResource", ($resource, CUSTOMER_API_URL) -> $resource "#{CUSTOMER_API_URL}/forget"

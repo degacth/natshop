@@ -7,6 +7,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.views import APIView
 from .models import Customer, CustomerSerializer
+from mailer.views import send
 
 
 class CustomerView(APIView):
@@ -85,7 +86,37 @@ class CustomerLogin(APIView):
         return Response()
 
 
+class ForgetView(APIView):
+    def post(self, request):
+        data = request.data
+        email = Customer.objects.normalize_email(data['email'])
+
+        try:
+            customer = Customer.objects.get(email=email)
+            password = Customer.objects.make_random_password()
+            customer.set_password(password)
+
+            try:
+                send(u'Изменение пароля для пользователя %s' % customer.name, u'''
+                    Ваш новый пароль: %s <br />
+                    Используйте этот адрес электронной почты в качестве логина
+                ''' % password, [email])
+
+                customer.save()
+
+            except:
+                return Response({
+                    '_error': 'Не удалось отправить письмо, попробуйте позже, возможно почтовый сервер недоступен'
+                }, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        except Customer.DoesNotExist:
+            pass
+
+        return Response({'_success': 'На указанный адрес выслан новый пароль'})
+
+
 urlpatterns = [
     url(r'^$', CustomerView.as_view()),
     url(r'^login$', CustomerLogin.as_view()),
+    url(r'^forget$', ForgetView.as_view()),
 ]

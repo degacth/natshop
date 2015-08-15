@@ -6,6 +6,8 @@
     });
   }).factory("LoginResource", function($resource, CUSTOMER_API_URL) {
     return $resource(CUSTOMER_API_URL + "/login");
+  }).factory("ForgetResource", function($resource, CUSTOMER_API_URL) {
+    return $resource(CUSTOMER_API_URL + "/forget");
   });
 
 }).call(this);

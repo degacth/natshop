@@ -25,12 +25,21 @@ angular.module "Customer"
     $location.path get_url_by_name(CUSTOMER_ANONYMOUS_URLS, 'signin').url
 
 
-.controller "Signin", ($scope, $location, LoginResource, CUSTOMER_URLS) ->
-  $scope.signin = ->
-    (new LoginResource(@info)).$save().then (data) ->
-      angular.extend $scope.customer, data
-      $location.path get_url_by_name(CUSTOMER_URLS, 'orders').url
+.controller "Signin", ($scope, $location, LoginResource, CUSTOMER_URLS, CUSTOMER_ANONYMOUS_URLS) ->
+  angular.extend $scope,
+    signin: ->
+      (new LoginResource(@info)).$save().then (data) ->
+        angular.extend $scope.customer, data
+        $location.path get_url_by_name(CUSTOMER_URLS, 'orders').url
+
+    get_anonymous_url_by_name: _.partial get_url_by_name, CUSTOMER_ANONYMOUS_URLS
 
 
-get_url_by_name = (collection, name) -> _.find collection, (url) -> url.name is name
+.controller "ForgetPassword", ($scope, ForgetResource) ->
+  $scope.forget_resource = new ForgetResource()
+
+
+get_url_by_name = (collection, name) ->
+  print name
+  _.find collection, (url) -> url.name is name
 print = console.log.bind console

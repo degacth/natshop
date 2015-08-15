@@ -13,6 +13,12 @@
       title: 'Вход',
       template: 'js/app/site/view/signin.html',
       controller: "Signin"
+    }, {
+      name: 'forget',
+      url: '/forget-password/',
+      title: 'Вспомнить пароль',
+      template: 'js/app/site/view/forget-password.html',
+      controller: "ForgetPassword"
     }
   ]).constant('CUSTOMER_URLS', [
     {

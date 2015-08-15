@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head></head>
+<body style="font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif; font-size: 14px; color: #333333;">
+<div class="wrapper" style="width: 800px; margin: 0 auto; border: 1px solid #232d39">
+    <div class="header" style="overflow: hidden; background-color: #232d39;">
+        <a href="http://{{ host }}"><img class="logo" src="http://{{ host }}{% static 'images/logotype.png' %}" alt="" style="padding: 10px 20px" align="left"></a>
+    </div>
+
+    <div class="content" style="margin: 20px">
+
+        <h1 style="margin: 20px 0;">{{ subject }}</h1>
+
+        <div class="message">
+            {{ message | safe }}
+        </div>
+    </div>
+</div>
+</body>
+</html>

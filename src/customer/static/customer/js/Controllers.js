@@ -45,16 +45,22 @@
         return $location.path(get_url_by_name(CUSTOMER_ANONYMOUS_URLS, 'signin').url);
       });
     };
-  }).controller("Signin", function($scope, $location, LoginResource, CUSTOMER_URLS) {
-    return $scope.signin = function() {
-      return (new LoginResource(this.info)).$save().then(function(data) {
-        angular.extend($scope.customer, data);
-        return $location.path(get_url_by_name(CUSTOMER_URLS, 'orders').url);
-      });
-    };
+  }).controller("Signin", function($scope, $location, LoginResource, CUSTOMER_URLS, CUSTOMER_ANONYMOUS_URLS) {
+    return angular.extend($scope, {
+      signin: function() {
+        return (new LoginResource(this.info)).$save().then(function(data) {
+          angular.extend($scope.customer, data);
+          return $location.path(get_url_by_name(CUSTOMER_URLS, 'orders').url);
+        });
+      },
+      get_anonymous_url_by_name: _.partial(get_url_by_name, CUSTOMER_ANONYMOUS_URLS)
+    });
+  }).controller("ForgetPassword", function($scope, ForgetResource) {
+    return $scope.forget_resource = new ForgetResource();
   });
 
   get_url_by_name = function(collection, name) {
+    print(name);
     return _.find(collection, function(url) {
       return url.name === name;
     });
