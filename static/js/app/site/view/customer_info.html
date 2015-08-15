@@ -1,0 +1,40 @@
+<form class="uk-form uk-form-horizontal" novalidate name="customer_info_form" ng-submit="customer_info_form.$valid && customer.$save()">
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-name">Ваше ФИО</label>
+
+        <div class="uk-form-controls">
+            <input ng-model="customer.name" type="text" class="uk-width-1-1" id="form-name"
+                   placeholder="Фамилия Имя Отчество" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-phone">Телефонный номер</label>
+
+        <div class="uk-form-controls">
+            <input ng-model="customer.phone" type="tel" class="uk-width-1-1" id="form-phone"
+                   placeholder="+7 912 345 67 89" required>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label" for="form-email">E-mail адрес</label>
+
+        <div class="uk-form-controls">
+            <input ng-model="customer.email" type="email" class="uk-width-1-1" id="form-email"
+                   placeholder="mymail@mailhost.org" required>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="uk-form-row">
+        <label class="uk-form-label"></label>
+
+        <div class="uk-form-controls">
+            <button class="site-button" type="submit">
+                Сохранить
+            </button>
+        </div>
+    </div>
+</form>

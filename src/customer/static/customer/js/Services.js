@@ -4,6 +4,8 @@
     return $resource(CUSTOMER_API_URL + "/", {}, {}, {
       stripTrailingSlashes: false
     });
+  }).factory("LoginResource", function($resource, CUSTOMER_API_URL) {
+    return $resource(CUSTOMER_API_URL + "/login");
   });
 
 }).call(this);

@@ -8,7 +8,11 @@ from section.models import Section
 
 def set_base_data(request):
     path = request.path
-    if path.startswith('/%s' % settings.ADMIN_URL) or path.startswith('/%s/' % settings.API_URL.strip('/')): return {}
+    excluded = (
+        '/%s' % settings.ADMIN_URL,
+        '/%s/' % settings.API_URL.strip('/'),
+    )
+    if path.startswith(excluded): return {}
 
     get_array_item_by_name = lambda name, collection: [item for item in collection if item.name == name]
     get_first = lambda collection: first(collection) if len(collection) else None

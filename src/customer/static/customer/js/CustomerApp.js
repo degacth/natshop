@@ -11,7 +11,8 @@
       name: 'signin',
       url: '/signin/',
       title: 'Вход',
-      template: 'js/app/site/view/signin.html'
+      template: 'js/app/site/view/signin.html',
+      controller: "Signin"
     }
   ]).constant('CUSTOMER_URLS', [
     {
@@ -29,7 +30,8 @@
       name: 'logout',
       url: '/logout/',
       title: 'Выход',
-      template: 'js/app/site/view/logout.html'
+      template: 'js/app/site/view/logout.html',
+      controller: "Logout"
     }
   ]).config(function($routeProvider, CUSTOMER_ANONYMOUS_URLS, CUSTOMER_URLS) {
     return _.map([].concat(CUSTOMER_ANONYMOUS_URLS).concat(CUSTOMER_URLS), function(url) {

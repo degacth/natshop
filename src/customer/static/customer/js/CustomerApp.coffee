@@ -1,6 +1,6 @@
 angular.module "Customer", ['ngResource', 'ngRoute']
 
-.constant 'CUSTOMER_API_URL', "#{window.ng_config.api}/customer"
+.constant 'CUSTOMER_API_URL', "#{ window.ng_config.api }/customer"
 
 .constant 'CUSTOMER_ANONYMOUS_URLS', [
   name: 'signup'
@@ -13,6 +13,7 @@ angular.module "Customer", ['ngResource', 'ngRoute']
   url: '/signin/'
   title: 'Вход'
   template: 'js/app/site/view/signin.html'
+  controller: "Signin"
 ]
 
 .constant 'CUSTOMER_URLS', [
@@ -31,6 +32,7 @@ angular.module "Customer", ['ngResource', 'ngRoute']
   url: '/logout/'
   title: 'Выход'
   template: 'js/app/site/view/logout.html'
+  controller: "Logout"
 ]
 
 .config ($routeProvider, CUSTOMER_ANONYMOUS_URLS, CUSTOMER_URLS) ->
