@@ -5,6 +5,8 @@ angular.module "Customer"
     get_urls: -> if @customer.email then CUSTOMER_URLS else CUSTOMER_ANONYMOUS_URLS
     get_sidebar: -> "#{window.ng_config.static_url}js/app/site/view/customer_menu.html"
     is_active_menu: (path) -> 'active' if $location.path() is path
+    signup_redirect: get_url_by_name(CUSTOMER_URLS, 'orders').url
+    signin_redirect: get_url_by_name(CUSTOMER_URLS, 'orders').url
 
 
 .controller "Signup", ($scope, $location, CustomerModel, CUSTOMER_URLS) ->
@@ -16,7 +18,7 @@ angular.module "Customer"
       customer = new CustomerModel @info
       customer.$save().then (data) ->
         angular.extend $scope.customer, data
-        $location.path get_url_by_name(CUSTOMER_URLS, 'orders').url
+        if $scope.signup_redirect then $location.path $scope.signup_redirect
 
 
 .controller "Logout", ($scope, $location, LoginResource, CUSTOMER_ANONYMOUS_URLS) ->
@@ -30,7 +32,7 @@ angular.module "Customer"
     signin: ->
       (new LoginResource(@info)).$save().then (data) ->
         angular.extend $scope.customer, data
-        $location.path get_url_by_name(CUSTOMER_URLS, 'orders').url
+        if $scope.signin_redirect then $location.path $scope.signin_redirect
 
     get_anonymous_url_by_name: _.partial get_url_by_name, CUSTOMER_ANONYMOUS_URLS
 
@@ -39,7 +41,5 @@ angular.module "Customer"
   $scope.forget_resource = new ForgetResource()
 
 
-get_url_by_name = (collection, name) ->
-  print name
-  _.find collection, (url) -> url.name is name
+get_url_by_name = (collection, name) -> _.find collection, (url) -> url.name is name
 print = console.log.bind console

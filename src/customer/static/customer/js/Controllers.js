@@ -18,7 +18,9 @@
         if ($location.path() === path) {
           return 'active';
         }
-      }
+      },
+      signup_redirect: get_url_by_name(CUSTOMER_URLS, 'orders').url,
+      signin_redirect: get_url_by_name(CUSTOMER_URLS, 'orders').url
     });
   }).controller("Signup", function($scope, $location, CustomerModel, CUSTOMER_URLS) {
     return angular.extend($scope, {
@@ -34,7 +36,9 @@
         customer = new CustomerModel(this.info);
         return customer.$save().then(function(data) {
           angular.extend($scope.customer, data);
-          return $location.path(get_url_by_name(CUSTOMER_URLS, 'orders').url);
+          if ($scope.signup_redirect) {
+            return $location.path($scope.signup_redirect);
+          }
         });
       }
     });
@@ -50,7 +54,9 @@
       signin: function() {
         return (new LoginResource(this.info)).$save().then(function(data) {
           angular.extend($scope.customer, data);
-          return $location.path(get_url_by_name(CUSTOMER_URLS, 'orders').url);
+          if ($scope.signin_redirect) {
+            return $location.path($scope.signin_redirect);
+          }
         });
       },
       get_anonymous_url_by_name: _.partial(get_url_by_name, CUSTOMER_ANONYMOUS_URLS)
@@ -60,7 +66,6 @@
   });
 
   get_url_by_name = function(collection, name) {
-    print(name);
     return _.find(collection, function(url) {
       return url.name === name;
     });
