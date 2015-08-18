@@ -1,3 +1,4 @@
+# coding: utf-8
 from toolz.itertoolz import first
 from django.conf.urls import include, url
 from rest_framework.response import Response
@@ -5,7 +6,7 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.views import APIView
-from catalog.models import Product
+from catalog.models import Product, Order, OrderItem
 from common.templatetags.common_attachments import get_image_path
 
 
@@ -30,6 +31,9 @@ class Cart(APIView):
     def _get_cart(self):
         return self.request.session.get('cart', [])
 
+    def _clear_cart(self):
+        self.request.session['cart'] = []
+
     def _set_cart(self, cart):
         self.request.session['cart'] = cart
 
@@ -52,7 +56,41 @@ class Cart(APIView):
         return data
 
 
+class OrderView(Cart, APIView):
+    def post(self, request):
+        data = request.data
+        customer = request.customer
+        if not customer: return self._order_error("Отсутствуют данные пользователя")
+
+        cart = self._get_cart()
+        if not len(cart): return self._order_error("Отсутствуют данные выбранных товаров")
+
+        order = Order(comment=data['comment'], customer=customer)
+        order.save()
+
+        map(lambda item: OrderItem.objects.create(**{
+            'title': item['title'],
+            'comment': item.get('comment', ""),
+            'count': item['count'],
+            'price': item['price'],
+            'product_url': item['url'],
+            'order': order,
+        }), cart)
+
+        self._clear_cart()
+
+        return Response({
+            '_success': "Заказ сделан успешно"
+        }, status=status.HTTP_201_CREATED)
+
+    def _order_error(self, error_string, status_data=status.HTTP_400_BAD_REQUEST):
+        return Response({
+            '_error': error_string
+        }, status=status_data)
+
+
 urlpatterns = [
     url(r'^cart/(?P<product>\d+)$', Cart.as_view()),
     url(r'^cart$', Cart.as_view()),
+    url(r'^order$', OrderView.as_view()),
 ]

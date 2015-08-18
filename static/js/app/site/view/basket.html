@@ -1,81 +1,85 @@
-<ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 basket">
-    <li ng-repeat="product in cart" class="uk-margin-large-bottom basket-product">
-        <div class="basket-image uk-text-center">
-            <a href="{{ product.url }}"><img ng-src="{{ product.image }}" class="uk-display-inline-block"/></a>
-            <button class="uk-icon-plus uk-icon-button add" ng-click="add(product)"></button>
-            <button class="uk-icon-minus uk-icon-button sub" ng-click="sub(product)"></button>
-        </div>
+<div ng-show="cart.length">
+    <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 basket">
+        <li ng-repeat="product in cart" class="uk-margin-large-bottom basket-product">
+            <div class="basket-image uk-text-center">
+                <a href="{{ product.url }}"><img ng-src="{{ product.image }}" class="uk-display-inline-block"/></a>
+                <button class="uk-icon-plus uk-icon-button add" ng-click="add(product)"></button>
+                <button class="uk-icon-minus uk-icon-button sub" ng-click="sub(product)"></button>
+            </div>
 
-        <div class="basket-info uk-margin-top">
-            <ul class="uk-list uk-list-line uk-form">
-                <li class="title">{{ product.title }}</li>
-                <li>Количество <span class="label">{{ product.count }}</span></li>
-                <li>Цена <span class="label" ng-bind-html="product.price | rub"></span></li>
-                <li>Стоимость <span class="label" ng-bind-html="product.price * product.count | rub"></span></li>
-                <li>
+            <div class="basket-info uk-margin-top">
+                <ul class="uk-list uk-list-line uk-form">
+                    <li class="title">{{ product.title }}</li>
+                    <li>Количество <span class="label">{{ product.count }}</span></li>
+                    <li>Цена <span class="label" ng-bind-html="product.price | rub"></span></li>
+                    <li>Стоимость <span class="label" ng-bind-html="product.price * product.count | rub"></span></li>
+                    <li>
                     <textarea class="uk-width-1-1" ng-model="product.comment"
                               placeholder="Комментарий к товару (например размер)..."
                               ng-blur="save(product)"></textarea>
-                </li>
-            </ul>
+                    </li>
+                </ul>
 
-            <button class="uk-icon-recycle uk-icon-button remove" ng-click="remove(product)"
-                    title="Удалить товар"></button>
+                <button class="uk-icon-recycle uk-icon-button remove" ng-click="remove(product)"
+                        title="Удалить товар"></button>
+            </div>
+        </li>
+    </ul>
+
+    <h2>Подробная информация о заказе</h2>
+
+    <table class="uk-table basket-table">
+        <thead>
+        <tr>
+            <th class="uk-width-1-2">товар</th>
+            <th class="uk-text-center">кол-во</th>
+            <th class="uk-text-right">цена</th>
+            <th class="uk-text-right">стоимость</th>
+        </tr>
+        </thead>
+
+        <tfoot>
+        <tr>
+            <td colspan="3">всего наименований:</td>
+            <td class="uk-text-right">{{ cart.length }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">всего товаров:</td>
+            <td class="uk-text-right">{{ all_count() }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">полная стоимость:</td>
+            <td class="uk-text-right" ng-bind-html="sum() | rub"></td>
+        </tr>
+        </tfoot>
+
+        <tbody>
+        <tr ng-repeat="product in cart">
+            <td>{{ product.title }}</td>
+            <td class="uk-text-center">{{ product.count }}</td>
+            <td class="uk-text-right" ng-bind-html="product.price | rub"></td>
+            <td class="uk-text-right" ng-bind-html="product.price * product.count | rub"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 user-data-form" ng-hide="customer.email">
+        <div class="uk-margin-bottom">
+            <h3>Регистрация</h3>
+
+            <div ng-include="'/static/js/app/site/view/signup.html'" ng-controller="Signup"></div>
         </div>
-    </li>
-</ul>
+        <div>
+            <h3>Вход</h3>
 
-<h2>Подробная информация о заказе</h2>
-
-<table class="uk-table basket-table">
-    <thead>
-    <tr>
-        <th class="uk-width-1-2">товар</th>
-        <th class="uk-text-center">кол-во</th>
-        <th class="uk-text-right">цена</th>
-        <th class="uk-text-right">стоимость</th>
-    </tr>
-    </thead>
-
-    <tfoot>
-    <tr>
-        <td colspan="3">всего наименований:</td>
-        <td class="uk-text-right">{{ cart.length }}</td>
-    </tr>
-
-    <tr>
-        <td colspan="3">всего товаров:</td>
-        <td class="uk-text-right">{{ all_count() }}</td>
-    </tr>
-
-    <tr>
-        <td colspan="3">полная стоимость:</td>
-        <td class="uk-text-right" ng-bind-html="sum() | rub"></td>
-    </tr>
-    </tfoot>
-
-    <tbody>
-    <tr ng-repeat="product in cart">
-        <td>{{ product.title }}</td>
-        <td class="uk-text-center">{{ product.count }}</td>
-        <td class="uk-text-right" ng-bind-html="product.price | rub"></td>
-        <td class="uk-text-right" ng-bind-html="product.price * product.count | rub"></td>
-    </tr>
-    </tbody>
-</table>
-
-<div class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 user-data-form" ng-hide="customer.email">
-    <div class="uk-margin-bottom">
-        <h3>Регистрация</h3>
-        <div ng-include="'/static/js/app/site/view/signup.html'" ng-controller="Signup"></div>
+            <div ng-include="'/static/js/app/site/view/signin.html'" ng-controller="Signin"></div>
+        </div>
     </div>
-    <div>
-        <h3>Вход</h3>
-        <div ng-include="'/static/js/app/site/view/signin.html'" ng-controller="Signin"></div>
+    <div ng-show="customer.email" class="uk-form">
+        <textarea class="uk-width-1-1" rows="7" placeholder="Комментарии к заказу" ng-model="order.comment"></textarea>
+        <hr>
+        <button class="site-button" ng-click="make_order()">Заказать</button>
     </div>
-</div>
-<div ng-show="customer.email" class="uk-form">
-    <textarea class="uk-width-1-1" rows="7" placeholder="Комментарии к заказу"></textarea>
-    <hr>
-    <button class="site-button">Заказать</button>
 </div>

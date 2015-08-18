@@ -4,4 +4,8 @@
     <div ng-controller="BasketBase">
         <ng-view></ng-view>
     </div>
+
+    <div ng-hide="cart.length">
+        {{ current.description | safe }}
+    </div>
 {% endblock %}

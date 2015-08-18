@@ -45,7 +45,19 @@
         }
       }
     });
-  }).controller("BasketBase", function($scope, $location, BASKET_URL) {
+  }).controller("BasketBase", function($scope, $location, Order, BASKET_URL) {
+    angular.extend($scope, {
+      order: {
+        comment: ""
+      },
+      make_order: function() {
+        var order;
+        order = new Order(this.order);
+        return order.$save().then(function() {
+          return $scope.cart.splice(0, $scope.cart.length);
+        });
+      }
+    });
     $location.path(BASKET_URL);
     return $scope.$on('$locationChangeStart', function(e, nw, old) {
       if (!nw.split('#')[1]) {

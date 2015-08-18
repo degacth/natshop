@@ -128,4 +128,5 @@ class OrderItem(models.Model):
     count = models.PositiveSmallIntegerField(_('count'))
     price = models.DecimalField(_('price'), max_digits=11, decimal_places=2, default=0)
     order = models.ForeignKey(Order, verbose_name=_('order'))
-    shipping_group = models.ForeignKey(ShippingGroup, verbose_name=_('shipping_group'))
+    product_url = models.CharField(_('url'), max_length=255, default="")
+    shipping_group = models.ForeignKey(ShippingGroup, verbose_name=_('shipping_group'), null=True)

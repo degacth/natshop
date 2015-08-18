@@ -1,6 +1,7 @@
 angular.module 'Catalog'
 
 .factory 'Cart', (CATALOG_API_URL, $resource) -> $resource "#{CATALOG_API_URL}/cart/:product", product: "@id"
+.factory 'Order', (CATALOG_API_URL, $resource) -> $resource "#{CATALOG_API_URL}/order/:id", id: "@id"
 
 .service 'Carter', -> class
   constructor: (@cart) ->

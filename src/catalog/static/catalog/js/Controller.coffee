@@ -33,8 +33,16 @@ angular.module 'Catalog'
     is_active: (id) -> 'active' if id is @category
 
 
-.controller "BasketBase", ($scope, $location, BASKET_URL) ->
-# root url
+.controller "BasketBase", ($scope, $location, Order, BASKET_URL) ->
+  angular.extend $scope,
+    order:
+      comment: ""
+
+    make_order: ->
+      order = new Order @order
+      order.$save().then -> $scope.cart.splice 0, $scope.cart.length
+
+  # root url
   $location.path BASKET_URL
   # no root url
   $scope.$on '$locationChangeStart', (e, nw, old) -> unless nw.split('#')[1] then e.preventDefault()

@@ -4,6 +4,10 @@
     return $resource(CATALOG_API_URL + "/cart/:product", {
       product: "@id"
     });
+  }).factory('Order', function(CATALOG_API_URL, $resource) {
+    return $resource(CATALOG_API_URL + "/order/:id", {
+      id: "@id"
+    });
   }).service('Carter', function() {
     return (function() {
       function _Class(cart) {
