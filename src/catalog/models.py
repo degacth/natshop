@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from django.db import models
+from django.utils import timezone
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from mptt.models import TreeForeignKey
@@ -8,6 +9,7 @@ from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from common import models as common
 from section.models import Section
+from customer.models import Customer
 from globals import globals
 
 
@@ -103,3 +105,27 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     def get_category_comma_ids(self):
         ids = ",".join(map(lambda category: str(category.id), self.category.all()))
         return ", %s" % ids if ids else ""
+
+
+class Order(models.Model):
+    statuses = (
+        (0, _('new')),
+    )
+
+    created = models.DateField(_('created'), default=timezone.now)
+    customer = models.ForeignKey(Customer, verbose_name=_('customer'))
+    status = models.PositiveSmallIntegerField(_('status'), default=0, choices=statuses)
+    comment = models.TextField(_('comment'), blank=True)
+
+
+class ShippingGroup(models.Model):
+    title = models.CharField(_('title'), max_length=255)
+
+
+class OrderItem(models.Model):
+    title = models.CharField(_('title'), max_length=255)
+    comment = models.TextField(_('comment'))
+    count = models.PositiveSmallIntegerField(_('count'))
+    price = models.DecimalField(_('price'), max_digits=11, decimal_places=2, default=0)
+    order = models.ForeignKey(Order, verbose_name=_('order'))
+    shipping_group = models.ForeignKey(ShippingGroup, verbose_name=_('shipping_group'))
