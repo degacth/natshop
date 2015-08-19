@@ -13,7 +13,7 @@ menu = (
     ('Контакты', 'phone'),
     ('Новости', 'newspaper-o'),
     ('Как купить', 'question'),
-    ('Корзина', 'shopping-cart', 'cart'),
+    ('Корзина', 'shopping-cart'),
 )
 
 for section in menu:

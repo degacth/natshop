@@ -2,6 +2,8 @@
 from django.views import generic
 from django import shortcuts
 from django import http
+from django.template.loader import get_template
+from django.template import TemplateDoesNotExist
 from section import models
 from common import views
 from catalog.models import Product, Category
@@ -29,7 +31,18 @@ class SectionResolver(views.TreeResolver):
         section = self.tree_object
         kwargs['section'] = section
         kwargs['path'] = path
-        return _namedclass["%s" % section.action](request, **kwargs)
+
+        action = "%s" % section.action
+        if _namedclass.get(action, False): return _namedclass[action](request, **kwargs)
+
+        try:
+            template_name = "%s.html" % section.name
+            get_template(template_name)
+            kwargs['template_name'] = template_name
+            return TemplateByName.as_view()(request, **kwargs)
+
+        except TemplateDoesNotExist:
+            return None
 
 
 class Default(generic.TemplateView):
@@ -39,14 +52,12 @@ class Default(generic.TemplateView):
         return views.get_default_context(kwargs['section'])
 
 
-class Cart(generic.TemplateView):
-    template_name = 'cart.html'
-
+class TemplateByName(generic.TemplateView):
     def get_context_data(self, **kwargs):
+        self.template_name = kwargs['template_name']
         return views.get_default_context(kwargs['section'])
 
 
 _namedclass = {
     'default': Default.as_view(),
-    'cart': Cart.as_view(),
 }
