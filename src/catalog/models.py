@@ -117,6 +117,10 @@ class Order(models.Model):
     status = models.PositiveSmallIntegerField(_('status'), default=0, choices=statuses)
     comment = models.TextField(_('comment'), blank=True)
 
+    def __unicode__(self): return "# %s %s" % (self.id, self.customer.name)
+
+    def sum(self): return reduce(lambda last, item: last + item.price * item.count, self.orderitem_set.all(), 0)
+
 
 class ShippingGroup(models.Model):
     title = models.CharField(_('title'), max_length=255)
@@ -124,9 +128,13 @@ class ShippingGroup(models.Model):
 
 class OrderItem(models.Model):
     title = models.CharField(_('title'), max_length=255)
-    comment = models.TextField(_('comment'))
+    comment = models.TextField(_('comment'), blank=True)
     count = models.PositiveSmallIntegerField(_('count'))
     price = models.DecimalField(_('price'), max_digits=11, decimal_places=2, default=0)
     order = models.ForeignKey(Order, verbose_name=_('order'))
     product_url = models.CharField(_('url'), max_length=255, default="")
-    shipping_group = models.ForeignKey(ShippingGroup, verbose_name=_('shipping_group'), null=True)
+    shipping_group = models.ForeignKey(ShippingGroup, verbose_name=_('shipping_group'), blank=True, null=True)
+
+    def __unicode__(self): return self.title
+
+    def sum(self): return self.price * self.count if self.count else 0

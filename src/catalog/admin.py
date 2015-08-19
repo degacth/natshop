@@ -51,4 +51,14 @@ class CategoryAdmin(admin.ModelAdmin):
         models.Category.seo_fieldset,
     )
 
-    
+
+class OrderItemInline(admin.StackedInline):
+    model = models.OrderItem
+    extra = 0
+    readonly_fields = ['sum']
+
+
+@admin.register(models.Order)
+class OrderAdmin(admin.ModelAdmin):
+    readonly_fields = ['sum']
+    inlines = [OrderItemInline]
