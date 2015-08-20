@@ -24,9 +24,15 @@ for section in menu:
         'action': section[2] if len(section) > 2 else ""
     })
 
-for point in range(0, 2):
-    Article.objects.create(**{
+phone = Section.objects.get(name="phone")
 
+for point in range(-1, 2):
+    Article.objects.create(**{
+        'title': 'Статься контактов',
+        'parent': phone,
+        'other_info': "%s" % [coord + point * 0.1 for coord in [57.813788, 28.348867]],
+        'short': fake.lorem,
+        'description': fake.lorem * 2
     })
 
 Section.objects.create(**{

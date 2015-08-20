@@ -32,8 +32,9 @@ class Section(common.Tree):
     def get_main(cls):
         return cls.objs.filter(grouping="main_menu")
 
+    @common.memoize_field('_articles')
     def get_articles(self):
-        return Article.objects.filter(parent=self, status=True)
+        return Article.objs.filter(parent=self)
 
     objs = SectionManager()
 
@@ -45,6 +46,6 @@ class Article(common.LeafEntity, common.TextEntity, common.SeoEntity):
         verbose_name = _('article')
         verbose_name_plural = _('articles')
 
-    short = RichTextField(_('short'))
+    short = RichTextField(_('short'), blank=True)
     parent = TreeForeignKey(Section, verbose_name=_('parent'))
     other_info = models.TextField(_('other_info'), null=True, default="")
