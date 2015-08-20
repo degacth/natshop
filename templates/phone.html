@@ -1,0 +1,18 @@
+{% extends 'layouts/content.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet at autem deleniti dicta distinctio ducimus, eligendi ex nobis numquam odit omnis ratione reiciendis tenetur totam, vel voluptate voluptatibus? Aspernatur, quo.
+{% endblock %}
+
+{% block pre_footer %}
+    <div id="map" style="height: 500px">
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="{% static 'js/contacts.js' %}" type="text/javascript"></script>
+{% endblock %}

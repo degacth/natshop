@@ -47,3 +47,4 @@ class Article(common.LeafEntity, common.TextEntity, common.SeoEntity):
 
     short = RichTextField(_('short'))
     parent = TreeForeignKey(Section, verbose_name=_('parent'))
+    other_info = models.TextField(_('other_info'), null=True, default="")

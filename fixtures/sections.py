@@ -24,6 +24,11 @@ for section in menu:
         'action': section[2] if len(section) > 2 else ""
     })
 
+for point in range(0, 2):
+    Article.objects.create(**{
+
+    })
+
 Section.objects.create(**{
     'title': 'Каталог',
     'name': 'catalog',

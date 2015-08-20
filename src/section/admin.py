@@ -26,7 +26,7 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = models.Article.text_search_fields
     fieldsets = (
         (None, {
-            'fields': ('title', 'parent', 'status', 'created', 'short', 'description'),
+            'fields': ('title', ('parent', 'status', 'created'), 'short', 'description', 'other_info'),
         }),
 
         models.Article.seo_fieldset,
