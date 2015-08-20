@@ -1,4 +1,5 @@
 # coding: utf-8
+from django.http import Http404
 from django.views import generic
 from django import shortcuts
 from django import http
@@ -41,8 +42,9 @@ class SectionResolver(views.TreeResolver):
             kwargs['template_name'] = template_name
             return TemplateByName.as_view()(request, **kwargs)
 
-        except TemplateDoesNotExist:
-            return None
+        except TemplateDoesNotExist: pass
+
+        raise Http404()
 
 
 class Default(generic.TemplateView):
