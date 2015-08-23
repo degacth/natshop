@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.utils import timezone
+from rest_framework import serializers
 from mailer.views import send
 from globals import globals
 
@@ -53,3 +54,9 @@ def check_pre_feedback(instance, **kwargs):
                  'feedback': instance,
                  'answer': True,
              }), [instance.email])
+
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ['id', 'username', 'email', 'phone', 'message']

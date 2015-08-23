@@ -3,7 +3,7 @@
 @import "params";
 
 body {
-  background-color: #f2f2f2;
+  background-color: @color-body-bg;
 
   * {
     font-family: 'Open Sans', sans-serif;
@@ -242,9 +242,12 @@ body {
   input, input[type=search], textarea {
     .border-radius(0) !important;
 
+    background-color: lighten(@color-white, -1%) !important;
+    border-color: @color-grey !important;
+
     &:focus {
-      background-color: @color-pink-lightest !important;
-      border-color: @color-pink-lightest !important;
+      background-color: @color-white !important;
+      border-color: @color-white !important;
     }
   }
 }
@@ -367,4 +370,9 @@ h1 {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+h2, h3 {
+  border-bottom: @base-border;
+  padding-bottom: 10px;
 }

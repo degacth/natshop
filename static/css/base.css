@@ -202,12 +202,14 @@ body .site-footer .sub-footer {
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
   border-radius: 0 !important;
+  background-color: #fcfcfc !important;
+  border-color: #cccccc !important;
 }
 .uk-form input:focus,
 .uk-form input[type=search]:focus,
 .uk-form textarea:focus {
-  background-color: #fdecec !important;
-  border-color: #fdecec !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
 }
 .ng-submitted .ng-invalid {
   background-color: #f15f60 !important;
@@ -315,4 +317,9 @@ h1 {
 .ng-cloak,
 .x-ng-cloak {
   display: none !important;
+}
+h2,
+h3 {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 10px;
 }

@@ -2,7 +2,7 @@
 (function() {
   var alert, alert_text, check_redirect;
 
-  angular.module('Site', ['Catalog', 'Customer']).factory('httpInterceptor', function($q) {
+  angular.module('Site', ['Catalog', 'Customer', 'FeedbackApp']).factory('httpInterceptor', function($q) {
     return {
       request: function(config) {
         return config || $q.when(config);
@@ -32,9 +32,7 @@
     return UIkit.modal.alert(alert_text({
       text: text,
       type: type
-    }), {
-      center: true
-    });
+    }));
   };
 
   check_redirect = function(obj) {
