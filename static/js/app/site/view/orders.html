@@ -1,1 +1,21 @@
-Orders
+<h3>Ваши заказы</h3>
+
+<ul class="uk-list orders">
+    <li ng-repeat="order in orders" class="uk-margin-bottom">
+        <div class="order-title" ng-click="show_items(order)">
+            # {{ order.id }} - {{ order.created | date }}
+            <span class="uk-float-right" ng-bind-html="order.get_full_sum | rub"></span>
+        </div>
+
+        <div class="order-items" ng-show="order.show_items">
+            <table class="uk-table">
+                <tr ng-repeat="item in order.items">
+                    <td ng-bind="item.title"></td>
+                    <td ng-bind="item.count" class="uk-text-center"></td>
+                    <td ng-bind-html="item.price | rub" class="uk-text-right"></td>
+                    <td ng-bind-html="item.price * item.count | rub" class="uk-text-right"></td>
+                </tr>
+            </table>
+        </div>
+    </li>
+</ul>

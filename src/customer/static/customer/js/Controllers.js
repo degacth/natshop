@@ -63,6 +63,13 @@
     });
   }).controller("ForgetPassword", function($scope, ForgetResource) {
     return $scope.forget_resource = new ForgetResource();
+  }).controller("Orders", function($scope, Order) {
+    return angular.extend($scope, {
+      orders: Order.query(),
+      show_items: function(order) {
+        return order.show_items = !order.show_items;
+      }
+    });
   });
 
   get_url_by_name = function(collection, name) {

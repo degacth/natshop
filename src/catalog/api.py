@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.views import APIView
-from catalog.models import Product, Order, OrderItem
+from catalog.models import Product, Order, OrderItem, OrderSerializer
 from common.templatetags.common_attachments import get_image_path
 
 
@@ -57,6 +57,12 @@ class Cart(APIView):
 
 
 class OrderView(Cart, APIView):
+    def get(self, request, **kwargs):
+        customer = request.customer
+        orders = OrderSerializer(Order.objects.filter(customer=customer), many=True)
+        return Response(data=orders.data)
+
+
     def post(self, request):
         data = request.data
         customer = request.customer

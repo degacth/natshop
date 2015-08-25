@@ -1,0 +1,18 @@
+.orders .order-title {
+  background-color: #f15f60;
+  font-size: 16px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.orders .order-title,
+.orders .order-title * {
+  color: #ffffff;
+}
+.orders .order-items {
+  background-color: #ffffff;
+  margin-top: 10px;
+}

@@ -1,0 +1,23 @@
+@import "params";
+@import "dmix";
+
+.orders {
+  .order-title {
+    background-color: @color-pink-base;
+    font-size: 16px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+
+    .border-radius(@base-border-radius);
+
+    &, * {
+      color: @color-white;
+    }
+  }
+
+  .order-items {
+    background-color: @color-white;
+    margin-top: 10px;
+  }
+}

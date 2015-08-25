@@ -1,4 +1,4 @@
-angular.module "Customer", ['ngResource', 'ngRoute']
+angular.module "Customer", ['Catalog', 'ngResource', 'ngRoute']
 
 .constant 'CUSTOMER_API_URL', "#{ window.ng_config.api }/customer"
 

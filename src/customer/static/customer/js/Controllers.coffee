@@ -41,5 +41,11 @@ angular.module "Customer"
   $scope.forget_resource = new ForgetResource()
 
 
+.controller "Orders", ($scope, Order) ->
+  angular.extend $scope,
+    orders: Order.query()
+    show_items: (order) -> order.show_items = ! order.show_items
+
+
 get_url_by_name = (collection, name) -> _.find collection, (url) -> url.name is name
 print = console.log.bind console

@@ -18,7 +18,7 @@ angular.module 'Site', ['Catalog', 'Customer', 'FeedbackApp']
 .config ($httpProvider) -> $httpProvider.interceptors.push 'httpInterceptor'
 
 alert = (text, type='danger') ->
-  UIkit.modal.alert alert_text({text: text, type: type})
+  UIkit.modal.alert alert_text({text: text, type: type}), center: true
 
 check_redirect = (obj) -> if obj._redirect then $(document).one 'hide.uk.modal', -> window.location.href = obj._redirect
 

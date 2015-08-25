@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from mptt.models import TreeForeignKey
+from rest_framework import serializers
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
 from common import models as common
@@ -107,12 +108,21 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
         return ", %s" % ids if ids else ""
 
 
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        return super(OrderManager, self).get_queryset().order_by('-created', '-id')
+
+
 class Order(models.Model):
+    class Meta: pass
+
     statuses = (
         (0, _('new')),
     )
 
-    created = models.DateField(_('created'), default=timezone.now)
+    objects = OrderManager()
+
+    created = models.DateTimeField(_('created'), default=timezone.now)
     customer = models.ForeignKey(Customer, verbose_name=_('customer'))
     status = models.PositiveSmallIntegerField(_('status'), default=0, choices=statuses)
     comment = models.TextField(_('comment'), blank=True)
@@ -120,6 +130,13 @@ class Order(models.Model):
     def __unicode__(self): return "# %s %s" % (self.id, self.customer.name)
 
     def sum(self): return reduce(lambda last, item: last + item.price * item.count, self.orderitem_set.all(), 0)
+
+    @common.memoize_field('_items')
+    def get_items(self): return OrderItem.objects.filter(order=self)
+
+    def items(self): return OrderItemSerializer(self.get_items(), many=True).data
+
+    def get_full_sum(self): return reduce(lambda memo, item: item.price * item.count + memo, self.get_items(), 0)
 
 
 class ShippingGroup(models.Model):
@@ -138,3 +155,15 @@ class OrderItem(models.Model):
     def __unicode__(self): return self.title
 
     def sum(self): return self.price * self.count if self.count else 0
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['title', 'comment', 'count', 'price']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'created', 'comment', 'items', 'get_full_sum']

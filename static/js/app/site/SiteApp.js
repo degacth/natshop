@@ -32,7 +32,9 @@
     return UIkit.modal.alert(alert_text({
       text: text,
       type: type
-    }));
+    }), {
+      center: true
+    });
   };
 
   check_redirect = function(obj) {
