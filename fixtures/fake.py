@@ -6,10 +6,9 @@ from django.contrib.contenttypes.models import ContentType
 cwd = os.getcwd()
 
 
-def add_attachment(obj, is_main=True, is_secondary=False):
+def add_attachment(obj, is_main=True):
     attachment = Attachment(file=get_file(), object_id=obj.id,
-                            content_type=ContentType.objects.get_for_model(obj), is_main=is_main,
-                            is_secondary=is_secondary)
+                            content_type=ContentType.objects.get_for_model(obj), status=is_main)
     attachment.save()
 
 
@@ -20,17 +19,17 @@ def add_doc_attachment(obj):
 
 
 lorem = """
-    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque blanditiis consequuntur dolor dolorem
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab atque blanditiis consequuntur dolor dolorem
         doloremque dolorum ea, est id labore laborum modi numquam provident quaerat reprehenderit,
         temporibus veritatis voluptas voluptatum.
-    </div>
+    </p>
 """
 
 short_lorem = """
-    <div>
+    <p>
         Temporibus veritatis voluptas
         voluptatum.
-    </div>
+    </p>
 """
 
 title = 'Temporibus veritatis voluptas'

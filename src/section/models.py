@@ -18,6 +18,7 @@ class Section(common.Tree):
 
     action = models.CharField(_('action'), max_length=255, default="", blank=True, choices=(
         ('', _('default'),),
+        ('blog', _('blog'),),
     ))
 
     grouping = models.CharField(_('grouping'), default="", blank=True, max_length=255, choices=(

@@ -11,7 +11,7 @@ Section.objects.all().exclude(id__in=Category.objs.all()).delete()
 # Main menu
 menu = (
     ('Контакты', 'phone'),
-    ('Новости', 'newspaper-o'),
+    ('Новости', 'newspaper-o', 'blog'),
     ('Как купить', 'question'),
     ('Корзина', 'shopping-cart'),
 )
@@ -39,3 +39,16 @@ Section.objects.create(**{
     'title': 'Каталог',
     'name': 'catalog',
 })
+
+news_sec = Section.objects.get(name='newspaper-o')
+news = []
+
+for i in range(0, 40):
+    article = Article.objects.create(**{
+        'title': 'Великая новость #%s' % i,
+        'parent': news_sec,
+        'short': fake.lorem * 2,
+        'description': fake.lorem * 4,
+    })
+
+    fake.add_attachment(article)

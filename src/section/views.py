@@ -60,6 +60,13 @@ class TemplateByName(generic.TemplateView):
         return views.get_default_context(kwargs['section'])
 
 
+class Blog(generic.TemplateView):
+    def get_context_data(self, **kwargs):
+        self.template_name = "blog_list.html"
+        return views.get_default_context(kwargs['section'])
+
+
 _namedclass = {
     'default': Default.as_view(),
+    'blog': Blog.as_view(),
 }
