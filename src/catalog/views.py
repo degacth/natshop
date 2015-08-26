@@ -43,7 +43,6 @@ class Catalog(generic.TemplateView):
 
     def product_list(self, context, catalog, **kwargs):
         self.template_name = "products.html"
-
         context['products'] = views.get_paginator(catalog.get_products())
         return context
 

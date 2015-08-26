@@ -1,9 +1,9 @@
 {% extends 'catalog-base.html' %}
 
 {% block content-bar %}
-    {% include 'includes/pagination.html' with pagination=products %}
+    {% include 'includes/pagination.html' with pagination=products items_name="товаров" %}
     <hr>
     {% include 'includes/product_list.html' with products=products grid="uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-2 uk-grid-width-large-1-3" %}
     <hr>
-    {% include 'includes/pagination.html' with pagination=products %}
+    {% include 'includes/pagination.html' with pagination=products items_name="товаров" %}
 {% endblock %}

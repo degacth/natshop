@@ -1,6 +1,6 @@
 <div class="uk-clearfix uk-margin-bottom">
     <span class="pagination-count">
-        <span class="all-count">Всего товаров: </span>
+        <span class="all-count">Всего {% if items_name %}{{ items_name }}{% else %}записей{% endif %}: </span>
         <span class="all-count-num">{{ pagination.paginator.count }}</span>
     </span>
 
