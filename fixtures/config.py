@@ -13,3 +13,4 @@ for name in ['title', 'description', 'keywords']:
 Config(title="Tелефоны", name="phones", value="+7 911 921 83 88,+7 911 834 83 71", type="array").save()
 Config(title="Email адреса", name="emails", value="degacth@yandex.ru,hello@world.ru", type="array").save()
 Config(title="Email адреса admins", name="admin_emails", value="degacth@yandex.ru", type="array").save()
+Config(title="Количество записей на страницу", name="per_page", value="24", type="integer").save()

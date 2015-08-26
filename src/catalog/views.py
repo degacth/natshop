@@ -43,17 +43,8 @@ class Catalog(generic.TemplateView):
 
     def product_list(self, context, catalog, **kwargs):
         self.template_name = "products.html"
-        product_paginator = Paginator(catalog.get_products(), 24)
-        page = kwargs['page']
 
-        try:
-            products = product_paginator.page(page)
-        except PageNotAnInteger:
-            products = product_paginator.page(1)
-        except EmptyPage:
-            products = product_paginator.page(product_paginator.num_pages)
-
-        context['products'] = products
+        context['products'] = views.get_paginator(catalog.get_products())
         return context
 
 

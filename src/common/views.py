@@ -1,6 +1,7 @@
 # coding: utf-8
 import requests
 from django.conf import settings
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404, HttpResponseRedirect
 from django.views import generic
 from django.utils.translation import ugettext as _
@@ -118,6 +119,21 @@ def recaptcha_verify(request, captcha):
     verify_rs = verify_rs.json()
     success = verify_rs.get("success", False)
     return True if success else verify_rs.get('error-codes', None) or "Unspecified error."
+
+
+def get_paginator(collection, per_page=None, page=None):
+    if not page: page = globals.request.GET.get('page')
+    if not per_page: per_page = globals.config['per_page']
+    paginator = Paginator(collection, per_page)
+
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+
+    return items
 
 
 url_pattern = r'^(?P<path_name>\S*)/?$'
