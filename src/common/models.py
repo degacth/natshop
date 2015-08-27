@@ -103,7 +103,7 @@ class TextEntityManager(models.Manager):
         return self.query_wrapper(super(TextEntityManager, self).get_queryset())
 
     @classmethod
-    def query_wrapper(cls, query): return query.filter(status=True).order_by('-sort')
+    def query_wrapper(cls, query): return query.filter(status=True).order_by('-sort', '-created', '-id')
 
 
 class TextEntity(models.Model, ThumbnailMixin):

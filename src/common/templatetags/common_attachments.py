@@ -1,5 +1,6 @@
 # coding: utf-8
 from django import template
+from django.db.models import QuerySet
 from django.db.models.fields.files import ImageFieldFile
 from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.models import ContentType
@@ -30,11 +31,15 @@ def get_aimage(obj, size, **kwargs):
         path = obj
 
     else:
-        images = filter(lambda i: i.status, obj.attachments)
-        if len(images):
-            path = images[0].file
-        else:
-            return ""
+        if hasattr(obj, 'attachments'):
+            if hasattr(obj.attachments, 'all'): attachments = obj.attachments.all()
+            else: attachments = obj.attachments
+            
+            images = filter(lambda i: i.status, attachments)
+            if len(images):
+                path = images[0].file
+            else:
+                return ""
 
     only_path = kwargs.get('only_path', False)
     if only_path: del kwargs['only_path']

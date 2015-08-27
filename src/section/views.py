@@ -62,8 +62,20 @@ class TemplateByName(generic.TemplateView):
 
 class Blog(generic.TemplateView):
     def get_context_data(self, **kwargs):
+        section = kwargs['section']
+        obj_id = kwargs['obj_id']
+
+        # Article
+        if obj_id:
+            self.template_name = "blog_item.html"
+            return views.get_default_context(shortcuts.get_object_or_404(models.Article, pk=obj_id))
+
+        # Section
         self.template_name = "blog_list.html"
-        return views.get_default_context(kwargs['section'])
+        context = views.get_default_context(section)
+        context['articles'] = views.get_paginator(section.get_articles())
+
+        return context
 
 
 _namedclass = {
