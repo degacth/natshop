@@ -34,7 +34,7 @@ def get_aimage(obj, size, **kwargs):
         if hasattr(obj, 'attachments'):
             if hasattr(obj.attachments, 'all'): attachments = obj.attachments.all()
             else: attachments = obj.attachments
-            
+
             images = filter(lambda i: i.status, attachments)
             if len(images):
                 path = images[0].file

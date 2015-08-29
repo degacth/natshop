@@ -1,0 +1,19 @@
+.articles .article {
+  background-color: #fff;
+}
+.articles .article .margin {
+  padding: 10px 20px;
+  margin: 0;
+}
+.articles .article .title {
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  background-color: #f15f60;
+  color: #ffffff;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
