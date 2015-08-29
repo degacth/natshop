@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ru">
-{% load staticfiles common common_attachments product %}
+{% load staticfiles common common_attachments product cache %}
 
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,9 @@
         <link rel="stylesheet" href="{% static 'css/sections.css' %}"/>
     {% endblock %}
 </head>
+
 <body ng-app="Site" ng-controller="Base" class="uk-height-1-1">
+{% cache settings.CACHE_TIME header %}
 <nav class="topest-menu">
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-float-left">
@@ -101,6 +103,7 @@
         </div>
     </div>
 </nav>
+{% endcache %}
 
 {% block top-content %}{% endblock %}
 
@@ -110,6 +113,7 @@
 
 {% block pre_footer %}{% endblock %}
 
+{% cache settings.CACHE_TIME footer %}
 <footer class="site-footer">
     <div class="uk-container uk-container-center">
         <div class="uk-grid sub-info">
@@ -168,6 +172,7 @@
         </div>
     </div>
 </footer>
+{% endcache %}
 
 {% block js %}
     <script>
@@ -202,4 +207,5 @@
 {% endblock %}
 
 </body>
+
 </html>

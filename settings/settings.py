@@ -59,6 +59,17 @@ MIDDLEWARE_CLASSES = (
     'globals.middleware.Global',
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+    },
+}
+
+CACHE_TIME = 3600
+
+SESSION_ENGINE = 'redis_sessions.session'
+
 ROOT_URLCONF = 'settings.urls'
 
 TEMPLATES = [

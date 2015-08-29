@@ -4,8 +4,10 @@ from django.conf import settings
 from globals import globals
 from catalog.models import Category, Product
 from section.models import Section
+from cache_utils.decorators import cached
 
 
+@cached(settings.CACHE_TIME)
 def set_base_data(request):
     path = request.path
     excluded = (
@@ -24,7 +26,7 @@ def set_base_data(request):
         'host': settings.SITE_HOST,
         'settings': settings,
         'config': globals.config,
-        'category_product': Category.get_main(),
+        'category_product': list(Category.get_main()),
         'top_menu': section_main,
         'catalog_section': globals.catalog,
         'last_products': get_last_products(request.session),
