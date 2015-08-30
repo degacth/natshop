@@ -22,7 +22,7 @@
 </head>
 
 <body ng-app="Site" ng-controller="Base" class="uk-height-1-1">
-{% cache settings.CACHE_TIME header %}
+{% cache settings.CACHE_TIME header request.path %}
     <nav class="topest-menu">
         <div class="uk-container uk-container-center">
             <ul class="uk-list uk-float-left">
