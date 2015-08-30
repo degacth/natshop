@@ -23,86 +23,95 @@
 
 <body ng-app="Site" ng-controller="Base" class="uk-height-1-1">
 {% cache settings.CACHE_TIME header %}
-<nav class="topest-menu">
-    <div class="uk-container uk-container-center">
-        <ul class="uk-list uk-float-left">
-            <li><a href="/" class="{{ 'active'|equals_path_class:'/' }}"><i class="uk-icon-home"></i> Главная</a></li>
-            {% for menu in top_menu %}
-                <li><a href="{{ menu.get_full_path }}"><i class="uk-icon-{{ menu.name }}"></i> {{ menu.title }}</a></li>
-            {% endfor %}
-        </ul>
+    <nav class="topest-menu">
+        <div class="uk-container uk-container-center">
+            <ul class="uk-list uk-float-left">
+                <li>
+                    <a href="/" class="{{ 'active'|equals_path_class:'/' }}"><i class="uk-icon-home"></i> Главная</a>
+                </li>
 
-        <ul class="uk-list uk-float-right right-menu" ng-hide="customer.email" ng-cloak>
-            <li><a href="{% url 'customer:default' %}#/signup/"><i class="uk-icon-user"></i> регистрация</a></li>
-            <li><a href="{% url 'customer:default' %}#/signin/"><i class="uk-icon-sign-in"></i> вход</a></li>
-        </ul>
+                {% for menu in top_menu %}
+                    <li>
+                        <a href="{{ menu.get_full_path }}"
+                           class="{{ 'active'|active_path_class:menu.get_full_path }}">
+                        <i class="uk-icon-{{ menu.name }}"></i> {{ menu.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
 
-        <ul class="uk-list uk-float-right right-menu" ng-show="customer.email" ng-cloak>
-            <li><a href="{% url 'customer:default' %}#/orders/">
-                <i class="uk-icon-user"></i> <span ng-bind="customer.name"></span>
-            </a></li>
-        </ul>
-    </div>
-</nav>
+            <ul class="uk-list uk-float-right right-menu" ng-hide="customer.email" ng-cloak>
+                <li><a href="{% url 'customer:default' %}#/signup/"><i class="uk-icon-user"></i> регистрация</a></li>
+                <li><a href="{% url 'customer:default' %}#/signin/"><i class="uk-icon-sign-in"></i> вход</a></li>
+            </ul>
 
-<header class="site-header">
-    <div class="uk-container uk-container-center">
+            <ul class="uk-list uk-float-right right-menu" ng-show="customer.email" ng-cloak>
+                <li><a href="{% url 'customer:default' %}#/orders/">
+                    <i class="uk-icon-user"></i> <span ng-bind="customer.name"></span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="site-header">
+        <div class="uk-container uk-container-center">
         <span class="site-logo uk-float-left">
             {% include 'includes/logo.html' %}
         </span>
 
-        <div class="float-right">
-            <ul class="contact-info">
-                <li class="contact-block">
-                    <span class="uk-icon-phone label uk-hidden-small"></span>
+            <div class="float-right">
+                <ul class="contact-info">
+                    <li class="contact-block">
+                        <span class="uk-icon-phone label uk-hidden-small"></span>
 
-                    <ul class="uk-list uk-display-inline-block contact-data">
-                        {% for phone in config.phones %}
-                            <li>{{ phone }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                <li class="contact-block">
-                    <span class="uk-icon-envelope label uk-hidden-small"></span>
+                        <ul class="uk-list uk-display-inline-block contact-data">
+                            {% for phone in config.phones %}
+                                <li>{{ phone }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="contact-block">
+                        <span class="uk-icon-envelope label uk-hidden-small"></span>
 
-                    <ul class="uk-list uk-display-inline-block contact-data">
-                        {% for email in config.emails %}
-                            <li>{{ email }}</li>
-                        {% endfor %}
-                    </ul>
-                </li>
+                        <ul class="uk-list uk-display-inline-block contact-data">
+                            {% for email in config.emails %}
+                                <li>{{ email }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <nav class="catalog-menu" id="fixed-menu">
+        <div class="uk-container uk-container-center">
+            <ul class="uk-list uk-display-inline-block uk-float-left">
+                <li class="{{ 'active'|active_path_class:catalog_section.get_full_path }}"><a
+                        href="{{ catalog_section.get_full_path }}">{{ catalog_section.title }}</a></li>
+                {% for cat in category_product %}
+                    <li><a href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
+                {% endfor %}
             </ul>
-        </div>
-    </div>
-</header>
 
-<nav class="catalog-menu" id="fixed-menu">
-    <div class="uk-container uk-container-center">
-        <ul class="uk-list uk-display-inline-block uk-float-left">
-            <li class="{{ 'active'|active_path_class:catalog_section.get_full_path }}"><a
-                    href="{{ catalog_section.get_full_path }}">{{ catalog_section.title }}</a></li>
-            {% for cat in category_product %}
-                <li><a href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
-            {% endfor %}
-        </ul>
+            <form class="uk-form uk-float-right">
+                <div class="uk-form-icon">
+                    <i class="uk-icon-search"></i>
+                    <input type="search" placeholder="Поиск...">
+                </div>
+            </form>
 
-        <form class="uk-form uk-float-right">
-            <div class="uk-form-icon">
-                <i class="uk-icon-search"></i>
-                <input type="search" placeholder="Поиск...">
-            </div>
-        </form>
-
-        <div class="uk-float-right" ng-controller="Cart">
-            <div class="cart-info">
-                <a href="{{ cart_section.get_full_path }}">
-                    <i class="uk-icon-shopping-cart"></i>
-                    товаров: <span class="goods-count" ng-bind="cart.length"></span> шт. <span ng-bind-html="sum() | rub"></span>
-                </a>
+            <div class="uk-float-right" ng-controller="Cart">
+                <div class="cart-info">
+                    <a href="{{ cart_section.get_full_path }}">
+                        <i class="uk-icon-shopping-cart"></i>
+                        товаров: <span class="goods-count" ng-bind="cart.length"></span> шт. <span
+                            ng-bind-html="sum() | rub"></span>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 {% endcache %}
 
 {% block top-content %}{% endblock %}
@@ -114,64 +123,66 @@
 {% block pre_footer %}{% endblock %}
 
 {% cache settings.CACHE_TIME footer %}
-<footer class="site-footer">
-    <div class="uk-container uk-container-center">
-        <div class="uk-grid sub-info">
-            <div class="uk-width-medium-1-3 uk-width-1-1">
-                <div class="site-logo">
-                    {% include 'includes/logo.html' %}
+    <footer class="site-footer">
+        <div class="uk-container uk-container-center">
+            <div class="uk-grid sub-info">
+                <div class="uk-width-medium-1-3 uk-width-1-1">
+                    <div class="site-logo">
+                        {% include 'includes/logo.html' %}
+                    </div>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis distinctio, dolore, dolorem
+                        doloribus fugit id modi nesciunt non</p>
+
+                    <ul>
+                        <li>+7 921 927 43 33</li>
+                        <li>+7 921 927 43 33</li>
+                    </ul>
+
+                    <ul>
+                        <li>degacth@yandex.ru</li>
+                        <li>degacth@yandex.ru</li>
+                    </ul>
+
+                    <i class="uk-icon-button uk-icon-vk"></i>
+                    <i class="uk-icon-button uk-icon-facebook"></i>
+                    <i class="uk-icon-button uk-icon-github"></i>
                 </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis distinctio, dolore, dolorem
-                    doloribus fugit id modi nesciunt non</p>
+                <div class="uk-width-medium-2-3 uk-width-1-1">
+                    <div class="big-title">Последние просмотренные товары</div>
 
-                <ul>
-                    <li>+7 921 927 43 33</li>
-                    <li>+7 921 927 43 33</li>
-                </ul>
-
-                <ul>
-                    <li>degacth@yandex.ru</li>
-                    <li>degacth@yandex.ru</li>
-                </ul>
-
-                <i class="uk-icon-button uk-icon-vk"></i>
-                <i class="uk-icon-button uk-icon-facebook"></i>
-                <i class="uk-icon-button uk-icon-github"></i>
-            </div>
-
-            <div class="uk-width-medium-2-3 uk-width-1-1">
-                <div class="big-title">Последние просмотренные товары</div>
-
-                <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
-                    {% for product in last_products %}
-                        <li>
-                            <div class="item">
-                                <div class="uk-grid">
-                                    <div class="uk-width-1-3">
-                                        <a href="{{ product.get_full_path }}">{% get_aimage product.file '120x120' %}</a>
-                                    </div>
-                                    <div class="uk-width-2-3 last-prod-item">
-                                        <div class="title">{{ product.title }}</div>
-                                        <div class="price">
-                                            {{ product.get_price | price }}
+                    <ul class="uk-grid uk-grid-width-1-1 uk-grid-width-small-1-2 uk-grid-width-medium-1-3">
+                        {% for product in last_products %}
+                            <li>
+                                <div class="item">
+                                    <div class="uk-grid">
+                                        <div class="uk-width-1-3">
+                                            <a href="{{ product.get_full_path }}">{% get_aimage product.file '120x120' %}</a>
+                                        </div>
+                                        <div class="uk-width-2-3 last-prod-item">
+                                            <div class="title">{{ product.title }}</div>
+                                            <div class="price">
+                                                {{ product.get_price | price }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="sub-footer">
-        <div class="uk-container uk-container-center">
-            Сайт не содержит ГМО, консерванов и PHP кода, только <span class="base-pink"><span class="base-pink" title="Django">Python</span> и <span class="base-pink" title="Angular, Underscore">CoffeeScript</span></span>
+        <div class="sub-footer">
+            <div class="uk-container uk-container-center">
+                Сайт не содержит ГМО, консерванов и PHP кода, только <span class="base-pink"><span class="base-pink"
+                                                                                                   title="Django">Python</span> и <span
+                    class="base-pink" title="Angular, Underscore">CoffeeScript</span></span>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
 {% endcache %}
 
 {% block js %}

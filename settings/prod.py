@@ -13,6 +13,12 @@ DATABASES = {
     },
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 RECAPTCHA_SITE_KEY = "6LdL3wkTAAAAAJijgcTmNBNHxDwRO1NeJ7gkOPWD"
 RECAPTCHA_SECRET_KEY = "6LdL3wkTAAAAAFILI-ISubDaHI0qPoCyu8Vve8Jc"
 
