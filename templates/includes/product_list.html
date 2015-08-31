@@ -1,4 +1,4 @@
-{% load product %}
+{% load product common %}
 
 <section class="product-list">
     <ul class="uk-grid products {{ grid }}">
@@ -11,7 +11,7 @@
                             {% product_image product '320x320' %}
                         </a>
 
-                        <span class="title">{{ product.title }}</span>
+                        <span class="title">{{ product.title }} {% admin_edit product %}</span>
                     </div>
 
                     <div class="order-info">
