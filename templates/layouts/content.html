@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{% load common %}
 
 {% block content-base %}
     {% block breadcrumbs %}
@@ -15,7 +16,7 @@
         </ul>
     {% endblock %}
 
-    <h1>{{ current.title }}</h1>
+    <h1>{{ current.title }} {% admin_edit current %}</h1>
 
     {% block content %}{% endblock %}
 {% endblock %}

@@ -35,12 +35,4 @@ def set_base_data(request):
 def get_last_products(session):
     last_products_id = session.get('last_products', [])
     if not len(last_products_id): return []
-    lprods = Product.get_last_products(last_products_id)
-
-    # rearrange products list
-    last_products = range(0, len(lprods))
-    for prod in lprods:
-        index = last_products_id.index(prod.id)
-        last_products[index] = prod
-
-    return last_products
+    return Product.get_last_products(last_products_id)
