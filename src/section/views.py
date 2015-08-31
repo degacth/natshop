@@ -42,7 +42,8 @@ class SectionResolver(views.TreeResolver):
             kwargs['template_name'] = template_name
             return TemplateByName.as_view()(request, **kwargs)
 
-        except TemplateDoesNotExist: pass
+        except TemplateDoesNotExist:
+            pass
 
         raise Http404()
 
@@ -68,7 +69,10 @@ class Blog(generic.TemplateView):
         # Article
         if obj_id:
             self.template_name = "blog_item.html"
-            return views.get_default_context(shortcuts.get_object_or_404(models.Article, pk=obj_id))
+            context = views.get_default_context(shortcuts.get_object_or_404(models.Article, pk=obj_id))
+            context['last_articles'] = models.Article.objs.all().exclude(id=obj_id)\
+                .select_related().prefetch_related('attachments')[:3]
+            return context
 
         # Section
         self.template_name = "blog_list.html"

@@ -74,7 +74,7 @@ def get_seo(seoble_obj=None, add_root=None):
                 'path': item.get_full_path(),
             })
 
-    title.append(config['seo_title'])
+    title.append(config.get('seo_title', ""))
 
     breadcrumbs.append({
         'title': _('Main'),
@@ -85,8 +85,8 @@ def get_seo(seoble_obj=None, add_root=None):
 
     return {
         'title': stitle if stitle else " | ".join(title),
-        'description': sdescription if sdescription else config['seo_description'],
-        'keywords': skeywords if skeywords else config['seo_keywords'],
+        'description': sdescription if sdescription else config.get('seo_description', ""),
+        'keywords': skeywords if skeywords else config.get('seo_keywords', ""),
         'breadcrumbs': breadcrumbs,
     }
 

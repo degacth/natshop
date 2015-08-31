@@ -6,10 +6,10 @@ SECRET_KEY = 'eel25_ixgf56y!_3un0f3ibfylv5-0ons9k*gvr%3p_-(bm!mf'
 # CREATE DATABASE my_db CHARACTER SET utf8 COLLATE utf8_general_ci
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'natshop',
-        'USER': 'root',
-        'PASSWORD': '12345',
+        'USER': 'alexander',
+        # 'PASSWORD': '12345',
     },
 }
 

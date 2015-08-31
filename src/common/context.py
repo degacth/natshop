@@ -4,10 +4,8 @@ from django.conf import settings
 from globals import globals
 from catalog.models import Category, Product
 from section.models import Section
-from cache_utils.decorators import cached
 
 
-@cached(settings.CACHE_TIME)
 def set_base_data(request):
     path = request.path
     excluded = (
