@@ -6,7 +6,7 @@
         <div class="uk-width-1-1 uk-width-medium-3-4">
             <div class="uk-grid">
                 <div class="uk-width-1-1 uk-width-small-1-2 uk-width-large-1-3 uk-margin-bottom">
-                    {% get_aimage current '420x0' %}
+                    {% get_aimage current.file '420x0' %}
                 </div>
                 <div class="uk-width-1-1 uk-width-small-1-2 uk-width-large-2-3">
                     <p class="uk-article-meta uk-float-right uk-margin-left">{{ current.created }}</p>
@@ -23,7 +23,8 @@
                 {% for article in last_articles %}
                     <li class="uk-margin-bottom">
                         <h4><a href="{{ article.get_full_path }}">{{ article.title }}</a></h4>
-                        <a href="{{ article.get_full_path }}" class="uk-text-center uk-display-block">{% get_aimage article '300x0' %}</a>
+                        <a href="{{ article.get_full_path }}"
+                           class="uk-text-center uk-display-block">{% get_aimage article.file '300x0' %}</a>
                     </li>
                 {% endfor %}
             </ul>

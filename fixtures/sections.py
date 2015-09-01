@@ -49,6 +49,5 @@ for i in range(0, 40):
         'parent': news_sec,
         'short': fake.lorem * 2,
         'description': fake.lorem * 4,
+        'file': fake.get_file(),
     })
-
-    fake.add_attachment(article)

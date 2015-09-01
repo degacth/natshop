@@ -2,12 +2,7 @@
 (function() {
   angular.module("FeedbackApp", ['ngResource', 'vcRecaptcha']).controller("FeedbackFormController", function($scope, Feedback) {
     return angular.extend($scope, {
-      feedback: {
-        username: 'Alexander',
-        phone: '9113322',
-        email: 'degacth@yandex.ru',
-        message: 'lorem ip sum'
-      },
+      feedback: {},
       messages: {},
       submit: function() {
         return (new Feedback(this.feedback)).$save().then(function() {

@@ -7,7 +7,7 @@
             <article class="uk-margin-bottom">
                 <div class="article">
                     <a href="{{ article.get_full_path }}" class="margin title">{{ article.title }}</a>
-                    <a href="{{ article.get_full_path }}">{% get_aimage article '400x0' %}</a>
+                    <a href="{{ article.get_full_path }}">{% get_aimage article.file '400x0' %}</a>
                     <p class="uk-article-meta margin">
                         {{ article.created }}
                     </p>
