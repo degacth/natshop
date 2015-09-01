@@ -8,6 +8,8 @@
     return $resource(CATALOG_API_URL + "/order/:id", {
       id: "@id"
     });
+  }).factory('LastProducts', function(CATALOG_API_URL, $resource) {
+    return $resource(CATALOG_API_URL + "/last_products");
   }).service('Carter', function() {
     return (function() {
       function _Class(cart) {

@@ -9,7 +9,7 @@ angular.module 'Catalog', ['ngResource', 'ngRoute']
     templateUrl: "#{window.ng_config.static_url}js/app/site/view/basket.html"
     controller: "Basket"
 
-.filter "rub", ($filter, $sce) -> (num) -> $sce.trustAsHtml "#{fix2 num}".replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ") + P
+.filter "rub", ($sce) -> (num) -> $sce.trustAsHtml "#{fix2 num}".replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ") + P
 
 
 P = ' <i class="uk-icon-rub"></i> '

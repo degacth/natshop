@@ -17,6 +17,9 @@ angular.module 'Site', ['Catalog', 'Customer', 'FeedbackApp']
 
 .config ($httpProvider) -> $httpProvider.interceptors.push 'httpInterceptor'
 
+.filter "html", ($sce) -> (val) -> $sce.trustAsHtml val
+
+
 alert = (text, type='danger') ->
   UIkit.modal.alert alert_text({text: text, type: type}), center: true
 

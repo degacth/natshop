@@ -72,5 +72,8 @@ angular.module 'Catalog'
     all_count: -> _.reduce @cart, ((l, n) -> l + n.count), 0
 
 
+.controller "LastProducts", ($scope, LastProducts) -> $scope.last_products = do LastProducts.query
+
+
 print = console.log.bind console
 cart_sum = (cart) -> _.reduce ( _.map cart, (c) -> c.price * c.count ), ( (l, n) -> l + n ), 0

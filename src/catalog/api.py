@@ -8,6 +8,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from catalog.models import Product, Order, OrderItem, OrderSerializer
 from common.templatetags.common_attachments import get_image_path
+from .serializer import ProductSerializer
 
 
 class Cart(APIView):
@@ -95,8 +96,18 @@ class OrderView(Cart, APIView):
         }, status=status_data)
 
 
+class LastProducts(APIView):
+    def get(self, request):
+        last_products_id = request.session.get('last_products', [])
+        if not len(last_products_id): return Response([])
+
+        products = Product.get_last_products(last_products_id)
+        return Response(ProductSerializer(products, many=True).data)
+
+
 urlpatterns = [
     url(r'^cart/(?P<product>\d+)$', Cart.as_view()),
     url(r'^cart$', Cart.as_view()),
     url(r'^order$', OrderView.as_view()),
+    url(r'^last_products$', LastProducts.as_view()),
 ]

@@ -23,6 +23,10 @@
     };
   }).config(function($httpProvider) {
     return $httpProvider.interceptors.push('httpInterceptor');
+  }).filter("html", function($sce) {
+    return function(val) {
+      return $sce.trustAsHtml(val);
+    };
   });
 
   alert = function(text, type) {

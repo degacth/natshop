@@ -65,8 +65,9 @@ class PathAndRename(object):
 
 
 class ThumbnailMixin(object):
-    def thumbnail_tag(self):
-        return '<img src="%s" />' % get_thumbnailer(self.file).get_thumbnail({'size': (160, 160), 'crop': True}).url
+    def thumbnail_tag(self, size='160x160'):
+        w, h = map(int, size.split('x'))
+        return '<img src="%s" />' % get_thumbnailer(self.file).get_thumbnail({'size': (w, h), 'crop': True}).url
 
     thumbnail_tag.short_description = _('preview')
     thumbnail_tag.allow_tags = True

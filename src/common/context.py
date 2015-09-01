@@ -27,7 +27,6 @@ def set_base_data(request):
         'category_product': list(Category.get_main()),
         'top_menu': section_main,
         'catalog_section': globals.catalog,
-        'last_products': get_last_products(request.session),
         'cart_section': get_by_name('shopping-cart', section_main),
     }
 

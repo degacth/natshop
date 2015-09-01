@@ -96,6 +96,8 @@
         }), 0);
       }
     });
+  }).controller("LastProducts", function($scope, LastProducts) {
+    return $scope.last_products = LastProducts.query();
   });
 
   print = console.log.bind(console);

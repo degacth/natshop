@@ -7,7 +7,7 @@
       templateUrl: window.ng_config.static_url + "js/app/site/view/basket.html",
       controller: "Basket"
     });
-  }).filter("rub", function($filter, $sce) {
+  }).filter("rub", function($sce) {
     return function(num) {
       return $sce.trustAsHtml(("" + (fix2(num))).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ") + P);
     };
