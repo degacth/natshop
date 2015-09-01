@@ -90,7 +90,8 @@
                 <li class="{{ 'active'|active_path_class:catalog_section.get_full_path }}"><a
                         href="{{ catalog_section.get_full_path }}">{{ catalog_section.title }}</a></li>
                 {% for cat in category_product %}
-                    <li><a href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
+                    <li class="{{ 'active'|active_path_class:cat.get_full_path }}"><a
+                            href="{{ cat.get_full_path }}">{{ cat.title }}</a></li>
                 {% endfor %}
             </ul>
 

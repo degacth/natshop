@@ -63,6 +63,17 @@ class Product(generic.TemplateView):
         return get_default_context(product)
 
 
+class ProductCategory(generic.TemplateView):
+    template_name = 'product_category.html'
+
+    def get_context_data(self, **kwargs):
+        section = kwargs['section']
+        context = views.get_default_context(section)
+        context['products'] = views.get_paginator(models.Product.get_by_category_name(section.name))
+        return context
+
+
+
 def get_default_context(catalog=None):
     add_root = None
     if not catalog:

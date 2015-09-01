@@ -8,6 +8,7 @@ from django.template import TemplateDoesNotExist
 from section import models
 from common import views
 from catalog.models import Product, Category
+from catalog.views import ProductCategory
 
 
 class Main(generic.TemplateView):
@@ -85,4 +86,5 @@ class Blog(generic.TemplateView):
 _namedclass = {
     'default': Default.as_view(),
     'blog': Blog.as_view(),
+    'product_category': ProductCategory.as_view(),
 }

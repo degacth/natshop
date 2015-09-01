@@ -109,6 +109,10 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
         ids = ",".join(map(lambda category: str(category.id), self.category.all()))
         return ", %s" % ids if ids else ""
 
+    @classmethod
+    def get_by_category_name(cls, name):
+        return cls.select_prefetch_related(cls.objs.filter(category=Category.objs.get(name=name)))
+
 
 class OrderManager(models.Manager):
     def get_queryset(self):
