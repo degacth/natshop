@@ -1,0 +1,7 @@
+{% extends 'layouts/content.html' %}
+{% load common_attachments %}
+
+{% block content %}
+    {% get_aimage current.file '500x0' class="uk-float-left uk-margin-right" %}
+    {{ current.description | safe }}
+{% endblock %}

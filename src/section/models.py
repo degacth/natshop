@@ -21,6 +21,7 @@ class Section(common.Tree):
         ('', _('default'),),
         ('blog', _('blog'),),
         ('product_category', _('product_category'),),
+        ('section', _('section'),),
     ))
 
     grouping = models.CharField(_('grouping'), default="", blank=True, max_length=255, choices=(

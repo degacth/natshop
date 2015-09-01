@@ -49,7 +49,7 @@ class SectionResolver(views.TreeResolver):
         raise Http404()
 
 
-class Default(generic.TemplateView):
+class Section(generic.TemplateView):
     template_name = 'section.html'
 
     def get_context_data(self, **kwargs):
@@ -84,7 +84,7 @@ class Blog(generic.TemplateView):
 
 
 _namedclass = {
-    'default': Default.as_view(),
     'blog': Blog.as_view(),
     'product_category': ProductCategory.as_view(),
+    'section': Section.as_view(),
 }
