@@ -3,3 +3,5 @@
 *.orig
 media
 static/vendor
+settings/prod.py
+
