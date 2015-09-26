@@ -1,3 +1,4 @@
+###
 fixed_menu = $ '#fixed-menu'
 
 $ window
@@ -11,3 +12,4 @@ $ window
 
   if pos then fixed_menu.removeClass top_class else fixed_menu.addClass top_class
 .trigger 'scroll'
+###

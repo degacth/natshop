@@ -86,7 +86,7 @@
         </div>
     </header>
 
-    <nav class="catalog-menu" id="fixed-menu">
+    <nav class="catalog-menu" data-uk-sticky>
         <div class="uk-container uk-container-center">
             <ul class="uk-list uk-display-inline-block uk-float-left">
                 <li class="{{ 'active'|active_path_class:catalog_section.get_full_path }}"><a
@@ -199,6 +199,7 @@
     <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/uikit/js/uikit.min.js' %}"></script>
+    <script src="{% static 'vendor/uikit/js/components/sticky.min.js' %}"></script>
     <script src="{% static 'js/base.js' %}"></script>
 
     <script src="{% static 'vendor/angular/angular.min.js' %}"></script>
