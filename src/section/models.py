@@ -2,7 +2,6 @@
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django.contrib.contenttypes import fields
 from mptt.models import TreeForeignKey
 from django.utils.translation import ugettext as _
 from ckeditor.fields import RichTextField
@@ -54,8 +53,3 @@ class Article(common.LeafEntity, common.TextEntity, common.SeoEntity):
     short = RichTextField(_('short'), blank=True)
     parent = TreeForeignKey(Section, verbose_name=_('parent'))
     other_info = models.TextField(_('other_info'), null=True, default="")
-
-    attachments = fields.GenericRelation(common.Attachment, content_type_field='content_type',
-                                         object_id_field='object_id')
-
-    def get_attachments(self): return list(self.attachments.all())

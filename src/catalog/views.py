@@ -52,7 +52,7 @@ class Product(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         id = kwargs['obj_id']
-        product = models.Product.objects.get(pk=id)
+        product = models.Product.objects.select_related().get(pk=id)
 
         # update last_products
         session = kwargs['session']

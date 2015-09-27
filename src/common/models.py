@@ -8,6 +8,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.text import slugify
+from django.contrib.contenttypes import fields
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -118,9 +119,13 @@ class TextEntity(models.Model, ThumbnailMixin):
     status = models.BooleanField(_('status'), default=True)
     sort = models.IntegerField(_('sort'), default=0)
     created = models.DateField(_('created'), default=timezone.now)
+    attachments = fields.GenericRelation(Attachment, content_type_field='content_type',
+                                         object_id_field='object_id')
 
     def __unicode__(self):
         return self.title
+
+    def get_attachments(self): return list(self.attachments.all())
 
     text_entity_fields = [
         'title', 'file', 'thumbnail_tag', 'status', 'sort', 'created', 'description',
