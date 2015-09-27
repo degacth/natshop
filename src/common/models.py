@@ -173,6 +173,8 @@ class StructuralEntity(MPTTModel):
 
         return "%s%s/" % (parents_path, self.name)
 
+    def get_absolute_url(self): return self.get_full_path()
+
 
 class Tree(StructuralEntity, FullPathMixin, TextEntity, SeoEntity):
     objects = models.Manager()
@@ -188,3 +190,5 @@ class LeafEntity(models.Model):
 
     def get_full_path(self):
         return "%s%d" % (self.parent.get_full_path(), self.id)
+
+    def get_absolute_url(self): return self.get_full_path()

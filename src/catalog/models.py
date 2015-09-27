@@ -90,8 +90,6 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
 
     def get_old_price(self): return self.new_price and self.price
 
-    def get_absolute_url(self): return self.get_full_path()
-
     @classmethod
     def select_prefetch_related(cls, queryset): return queryset.select_related().prefetch_related('category')
 
