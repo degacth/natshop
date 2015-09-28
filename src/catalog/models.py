@@ -171,3 +171,8 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'created', 'comment', 'items', 'get_full_sum']
+
+
+class ParsersEmptyModel(Catalog):
+    class Meta:
+        proxy = True

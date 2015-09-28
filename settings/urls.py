@@ -20,8 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from catalog.models import Catalog
 
-admin.site.site_header = "NatShop"
-
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^%s' % settings.ADMIN_URL, include(admin.site.urls)),
