@@ -1,5 +1,5 @@
 # coding: utf-8
-from toolz.itertoolz import first
+
 from django.conf.urls import include, url
 from rest_framework.response import Response
 from rest_framework import status
@@ -63,7 +63,6 @@ class OrderView(Cart, APIView):
         orders = OrderSerializer(Order.objects.filter(customer=customer), many=True)
         return Response(data=orders.data)
 
-
     def post(self, request):
         data = request.data
         customer = request.customer
@@ -103,7 +102,6 @@ class LastProducts(APIView):
 
         products = Product.get_last_products(last_products_id)
         return Response(ProductSerializer(products, many=True).data)
-
 
 urlpatterns = [
     url(r'^cart/(?P<product>\d+)$', Cart.as_view()),

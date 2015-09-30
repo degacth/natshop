@@ -62,7 +62,3 @@ class OrderItemInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ['sum']
     inlines = [OrderItemInline]
-
-
-@admin.register(models.ParsersEmptyModel)
-class ParserEmptyModelAdmin(admin.ModelAdmin): pass

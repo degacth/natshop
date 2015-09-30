@@ -202,12 +202,7 @@
 {% endcache %}
 
 {% block js %}
-    <script>
-        window.ng_config = {
-            api: '{{ settings.API_URL }}',
-            static_url: '{{ settings.STATIC_URL }}',
-        }
-    </script>
+    {% include 'includes/ng_config.html' %}
 
     <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>

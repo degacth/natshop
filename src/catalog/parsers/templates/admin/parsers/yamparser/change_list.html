@@ -2,18 +2,20 @@
 {% load staticfiles %}
 
 {% block content %}
-    <div ng-app="CatalogParser" class="uk-form">
+    <div ng-app="ParsersApp" class="uk-form" ng-controller="YamController">
         <div class="uk-form-row uk-form-horizontal">
             <label class="uk-form-label" for="">yandex market url</label>
             <div class="uk-form-controls">
-                <form>
-                    <input type="url">
+                <form ng-submit="url_form.$valid && load(url.value)" novalidate name="url_form">
+                    <input type="url" ng-model="url.value" required />
                     <button type="submit" class="uk-button uk-width-1-6">
                         <i class="uk-icon-download"></i>
                     </button>
                 </form>
             </div>
         </div>
+
+        <local-catalog></local-catalog>
     </div>
 {% endblock %}
 
@@ -25,7 +27,15 @@
 {% endblock %}
 
 {% block javascripts %}
+    {% include 'includes/ng_config.html' %}
+
+    <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
     <script src="{% static 'vendor/angular/angular.min.js' %}"></script>
+    <script src="{% static 'vendor/angular-resource/angular-resource.min.js' %}"></script>
+    <script src="{% static 'vendor/x2js/xml2json.min.js' %}"></script>
+    <script src="{% static 'vendor/angular-xml/angular-xml.min.js' %}"></script>
+    <script src="{% static 'parsers/js/ParsersApp.js' %}"></script>
+    <script src="{% static 'parsers/js/YamController.js' %}"></script>
 {% endblock %}
 
 {% block content_title %}{% endblock %}

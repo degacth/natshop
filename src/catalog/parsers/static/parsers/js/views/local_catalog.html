@@ -1,0 +1,6 @@
+<ul ng-if="local_catalogs.length">
+    <li ng-repeat="catalog in local_catalogs">
+        <span ng-bind="catalog.label" ng-click="log(catalog.label)"></span>
+        <children-catalog children="catalog.children"></children-catalog>
+    </li>
+</ul>

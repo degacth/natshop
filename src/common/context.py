@@ -7,12 +7,16 @@ from section.models import Section
 
 
 def set_base_data(request):
+    context = {
+        'settings': settings,
+    }
+
     path = request.path
     excluded = (
         '/%s' % settings.ADMIN_URL,
         '/%s/' % settings.API_URL.strip('/'),
     )
-    if path.startswith(excluded): return {}
+    if path.startswith(excluded): return context
 
     get_array_item_by_name = lambda name, collection: [item for item in collection if item.name == name]
     get_first = lambda collection: first(collection) if len(collection) else None
@@ -20,15 +24,16 @@ def set_base_data(request):
 
     section_main = Section.get_main()
 
-    return {
+    context.update({
         'host': settings.SITE_HOST,
-        'settings': settings,
         'config': globals.config,
         'category_product': list(Category.get_main()),
         'top_menu': section_main,
         'catalog_section': globals.catalog,
         'cart_section': get_by_name('shopping-cart', section_main),
-    }
+    })
+
+    return context
 
 
 def get_last_products(session):

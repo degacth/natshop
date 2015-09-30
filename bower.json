@@ -15,10 +15,11 @@
   ],
   "dependencies": {
     "uikit": "~2.22.0",
-    "angular-resource": "~1.4.3",
-    "angular": "~1.4.3",
+    "angular-resource": "~1.5.0",
+    "angular": "~1.5.0",
     "underscore": "~1.8.3",
-    "angular-route": "~1.4.3",
-    "angular-recaptcha": "~2.2.4"
+    "angular-route": "~1.5.0",
+    "angular-recaptcha": "~2.2.4",
+    "angular-xml": "~2.2.1"
   }
 }
