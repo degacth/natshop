@@ -171,6 +171,9 @@ class StructuralEntity(MPTTModel):
 
         if len(parents): parents_path += '/'.join(parents) + '/'
 
+        for child in self.get_children():
+            child.save()
+
         return "%s%s/" % (parents_path, self.name)
 
     def get_absolute_url(self): return self.get_full_path()
