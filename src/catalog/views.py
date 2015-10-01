@@ -73,6 +73,15 @@ class ProductCategory(generic.TemplateView):
         return context
 
 
+class Yamarket(generic.TemplateView):
+    content_type = "application/xml"
+    template_name='catalog/yamarket.xml'
+
+    def get_context_data(self, **kwargs):
+        return {
+            'catalogs': models.Catalog.objs.all()
+        }
+
 
 def get_default_context(catalog=None):
     add_root = None
