@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="{% now 'Y-m-d H:i' %}">
+    <shop>
+        <name>{{ settings.SITE_NAME }}</name>
+        <company>{{ settings.SITE_NAME }}</company>
+        <url>http://{{ settings.SITE_HOST }}/</url>
+
+        <currencies>
+            <currency id="RUR" rate="1"/>
+        </currencies>
+
+        <categories>
+            {% for catalog in catalogs %}
+                <category id="{{ catalog.id }}"{% if catalog.parent %} parentId="{{ catalog.parent.id }}"{% endif %}>
+                    {{ catalog.title }}
+                </category>
+            {% endfor %}
+        </categories>
+    </shop>
+</yml_catalog>

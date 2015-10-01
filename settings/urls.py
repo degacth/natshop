@@ -19,6 +19,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from catalog.models import Catalog
+from config.models import init_config
+
+config = init_config()
+settings.GRAPPELLI_ADMIN_TITLE = settings.SITE_NAME = config['site_name']
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),  # grappelli URLS
