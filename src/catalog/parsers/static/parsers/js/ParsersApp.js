@@ -2,9 +2,11 @@
 (function() {
   var print;
 
-  angular.module('ParsersApp', ['xml', 'ngResource']).constant("YAM_PARSER_API_URL", window.ng_config.api + "/parsers/getxml_by_url").controller('LocalCatalogController', function($scope, $resource) {
+  angular.module('ParsersApp', ['xml', 'ngResource']).constant("YAM_PARSER_API_URL", window.ng_config.api + "/parsers/getxml_by_url").controller('LocalCatalogController', function($scope, $http) {
     return _.extend($scope, {
-      local_catalogs: $resource('/adm/catalog/catalog/tree_json/').query(),
+      local_catalogs: $http.get('/catalog/yamarket').success(function(data) {
+        return print(data);
+      }),
       log: print
     });
   }).config(function(x2jsProvider, $httpProvider) {

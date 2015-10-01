@@ -3,9 +3,9 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
 .constant "YAM_PARSER_API_URL", "#{window.ng_config.api}/parsers/getxml_by_url"
 
 
-.controller 'LocalCatalogController', ($scope, $resource) ->
+.controller 'LocalCatalogController', ($scope, $http) ->
   _.extend $scope,
-    local_catalogs: do $resource('/adm/catalog/catalog/tree_json/').query
+    local_catalogs: $http.get('/catalog/yamarket').success (data) -> print data
     log: print
 
 
