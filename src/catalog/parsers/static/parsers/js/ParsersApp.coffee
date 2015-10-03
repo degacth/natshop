@@ -26,7 +26,4 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
 
 
 .factory 'CatalogModel', ($resource) -> $resource "/url/:id"
-
-
-.directive 'catalogTree', ->
-  templateUrl: '/static/parsers/js/views/local_catalog.html'
+.directive 'catalogTree', -> templateUrl: '/static/parsers/js/views/local_catalog.html'

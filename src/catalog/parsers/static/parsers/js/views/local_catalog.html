@@ -1,6 +1,6 @@
-<ul ng-if="parent_catalog.children.length">
-    <li ng-repeat="catalog in parent_catalog.children">
-        <span ng-bind="catalog.title" ng-init="parent_catalog=catalog"></span>
-        <catalog-tree></catalog-tree>
+<ul ng-if="parent_catalog.children.length" class="uk-nav uk-nav-side">
+    <li ng-repeat="catalog in parent_catalog.children" ng-init="parent_catalog=catalog; show=false;">
+        <a href="#" ng-bind="catalog.title" ng-click="catalog_selected(catalog); show=!show"></a>
+        <catalog-tree ng-if="show"></catalog-tree>
     </li>
 </ul>
