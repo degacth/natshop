@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <local-catalog></local-catalog>
+        <catalog-tree></catalog-tree>
     </div>
 {% endblock %}
 
@@ -30,6 +30,7 @@
     {% include 'includes/ng_config.html' %}
 
     <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
+    <script src="{% static 'js/_mixin.js' %}"></script>
     <script src="{% static 'vendor/angular/angular.min.js' %}"></script>
     <script src="{% static 'vendor/angular-resource/angular-resource.min.js' %}"></script>
     <script src="{% static 'vendor/x2js/xml2json.min.js' %}"></script>

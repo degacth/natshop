@@ -1,32 +1,32 @@
 angular.module 'ParsersApp', ['xml', 'ngResource']
 
-.constant "YAM_PARSER_API_URL", "#{window.ng_config.api}/parsers/getxml_by_url"
-
-
-.controller 'LocalCatalogController', ($scope, $http) ->
-  _.extend $scope,
-    local_catalogs: $http.get('/catalog/yamarket').success (data) -> print data
-    log: print
-
-
 .config (x2jsProvider, $httpProvider) ->
   x2jsProvider.config =
     escapeMode: on
-
   $httpProvider.interceptors.push 'xmlHttpInterceptor'
 
 
-.directive 'localCatalog', ->
+.factory 'getCatalogTree', (CatalogModel) ->
+  (catalog_list) ->
+    get_model = (xml_model) -> new CatalogModel
+      id: xml_model._id
+      title: xml_model.__text
+      parent_id: xml_model._parentId
+
+    set_children = (catalogs, parent) ->
+      return if _.isEmpty catalogs
+      parent.children = []
+      filtered = _.filter catalogs, (item) ->
+        if item._parentId is parent.id then parent.children.push(get_model item) and no else yes
+      return if _.isEmpty parent.children
+      _.map parent.children, (item) -> set_children filtered, item
+
+    set_children catalog_list, root = {}
+    root
+
+
+.factory 'CatalogModel', ($resource) -> $resource "/url/:id"
+
+
+.directive 'catalogTree', ->
   templateUrl: '/static/parsers/js/views/local_catalog.html'
-  controller: 'LocalCatalogController'
-
-
-.directive 'childrenCatalog', ->
-  scope:
-    local_catalogs: '=children'
-    log: '='
-
-  templateUrl: '/static/parsers/js/views/local_catalog.html'
-
-
-print = console.log.bind console
