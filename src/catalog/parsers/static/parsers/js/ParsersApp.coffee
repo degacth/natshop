@@ -6,7 +6,7 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
   $httpProvider.interceptors.push 'xmlHttpInterceptor'
 
 
-.factory 'getCatalogTree', (CatalogModel) ->
+.factory 'getYamCatalogTree', (CatalogModel) ->
   (catalog_list) ->
     get_model = (xml_model) -> new CatalogModel
       id: xml_model._id
@@ -25,10 +25,32 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
     root
 
 
+.factory 'getYamProducts', (ProductModel) ->
+  (product_list) ->
+    make_product = (product) -> new ProductModel
+      id: product._id
+      title: product.name
+      available: product._available is "true"
+      parent_id: product.categoryId
+      currency_id: product.currentcyId
+      descritpion: product.descritpion
+      file: product.picture
+      price: product.price
+      url: product.url
+      params: _.map product.param, (param) -> { value: param.__text, name: param._name }
+
+    _.map product_list, make_product
+
+
 .factory 'CatalogModel', ($resource) -> $resource "/url/:id"
+.factory 'ProductModel', ($resource) -> $resource "/product/:id"
+
+
 .directive 'catalogTree', -> templateUrl: '/static/parsers/js/views/local_catalog.html'
 .factory 'catalogTreeControllerMixin', ->
   ($scope) ->
     _.extend $scope,
-      catalog_selected: (catalog) -> $scope.current_catalog = catalog
+      catalog_selected: (catalog) ->
+        $scope.current_catalog = catalog
+        $scope.catalog_selected_after?(catalog)
       is_active_catalog: (catalog) -> if catalog is $scope.current_catalog then "uk-active" else ""

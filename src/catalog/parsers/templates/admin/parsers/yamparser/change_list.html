@@ -1,16 +1,22 @@
 {% extends 'admin/change_list.html' %}
-{% load staticfiles %}
+{% load staticfiles common %}
 
 {% block content %}
     <div ng-app="ParsersApp" class="uk-form" ng-controller="YamController">
         <div class="uk-grid uk-grid-width-1-2">
             <div ng-controller="ParsedCatalogs">
-                <div class="uk-form-controls">
-                    <button type="button" class="uk-button uk-button-primary uk-width-1-6">
-                        <i class="uk-icon-chevron-right"></i>
-                    </button>
-                </div>
+                <select ng-model="url" ng-change="load(url)">
+                    <option value="">Выберите сайт</option>
+                    {% for url in cl.result_list %}
+                        <option value="{{ url.url }}">{{ url.title }}</option>
+                    {% endfor %}
+                </select>
+                <button type="button" class="uk-button uk-button-primary uk-width-1-6">
+                    <i class="uk-icon-chevron-right"></i>
+                </button>
+
                 <hr>
+
                 <div class="uk-panel uk-panel-box">
                     <a ng-href="{{ site_url }}" class="uk-panel-title" ng-bind="site_name"></a>
                     <catalog-tree></catalog-tree>
@@ -29,13 +35,17 @@
                 <hr>
 
                 <div class="uk-panel uk-panel-box">
-                    <p class="uk-panel-title" ng-bind="site_name"></p>
+                    <a class="uk-panel-title" ng-bind="site_name"></a>
                     <catalog-tree></catalog-tree>
                 </div>
             </div>
         </div>
 
         <hr>
+
+        <ul>
+            <li ng-repeat="product in all_products.parsed" ng-bind="product.title"></li>
+        </ul>
     </div>
 {% endblock %}
 

@@ -5,7 +5,7 @@
       escapeMode: true
     };
     return $httpProvider.interceptors.push('xmlHttpInterceptor');
-  }).factory('getCatalogTree', function(CatalogModel) {
+  }).factory('getYamCatalogTree', function(CatalogModel) {
     return function(catalog_list) {
       var get_model, root, set_children;
       get_model = function(xml_model) {
@@ -38,8 +38,34 @@
       set_children(catalog_list, root = {});
       return root;
     };
+  }).factory('getYamProducts', function(ProductModel) {
+    return function(product_list) {
+      var make_product;
+      make_product = function(product) {
+        return new ProductModel({
+          id: product._id,
+          title: product.name,
+          available: product._available === "true",
+          parent_id: product.categoryId,
+          currency_id: product.currentcyId,
+          descritpion: product.descritpion,
+          file: product.picture,
+          price: product.price,
+          url: product.url,
+          params: _.map(product.param, function(param) {
+            return {
+              value: param.__text,
+              name: param._name
+            };
+          })
+        });
+      };
+      return _.map(product_list, make_product);
+    };
   }).factory('CatalogModel', function($resource) {
     return $resource("/url/:id");
+  }).factory('ProductModel', function($resource) {
+    return $resource("/product/:id");
   }).directive('catalogTree', function() {
     return {
       templateUrl: '/static/parsers/js/views/local_catalog.html'
@@ -48,7 +74,8 @@
     return function($scope) {
       return _.extend($scope, {
         catalog_selected: function(catalog) {
-          return $scope.current_catalog = catalog;
+          $scope.current_catalog = catalog;
+          return typeof $scope.catalog_selected_after === "function" ? $scope.catalog_selected_after(catalog) : void 0;
         },
         is_active_catalog: function(catalog) {
           if (catalog === $scope.current_catalog) {

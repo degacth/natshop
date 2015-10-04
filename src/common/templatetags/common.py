@@ -22,3 +22,7 @@ def admin_edit(obj):
         return '<a href="%s" target="_blank"><i class="uk-icon-edit"></i></a>' % \
                reverse("admin:%s_%s_change" % (app, model), args=(obj.id,))
     return ""
+
+@register.filter
+def to_dict(obj):
+    return obj.__dict__

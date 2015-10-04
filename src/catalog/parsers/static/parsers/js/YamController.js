@@ -3,33 +3,45 @@
   var set_yacatalog_data;
 
   angular.module("ParsersApp").controller("YamController", function($scope) {
-    return _.log;
-  }).controller("LocalCatalogs", function($scope, $http, getCatalogTree, catalogTreeControllerMixin) {
+    return _.extend($scope, {
+      all_products: {}
+    });
+  }).controller("LocalCatalogs", function($scope, $http, getYamCatalogTree, getYamProducts, catalogTreeControllerMixin) {
     catalogTreeControllerMixin($scope);
     return $http.get('/catalog/yamarket').success(function(data) {
-      return set_yacatalog_data($scope, data, getCatalogTree);
+      return set_yacatalog_data($scope, data, getYamCatalogTree, getYamProducts);
     });
-  }).controller("ParsedCatalogs", function($scope, $http, getCatalogTree, YAM_PARSER_API_URL, catalogTreeControllerMixin) {
+  }).controller("ParsedCatalogs", function($scope, $http, getYamCatalogTree, getYamProducts, YAM_PARSER_API_URL, catalogTreeControllerMixin) {
+    var get_xml_json, update_catalog_tree;
     catalogTreeControllerMixin($scope);
+    update_catalog_tree = function(data_promise) {
+      return data_promise.success(function(data) {
+        return set_yacatalog_data($scope, data, getYamCatalogTree, getYamProducts);
+      });
+    };
+    get_xml_json = _.memoize(function(url) {
+      return $http.get(YAM_PARSER_API_URL + "/" + url);
+    });
     return _.extend($scope, {
-      url: {
-        value: 'http://www.nordman.ru/yaget/'
-      },
       load: function(url) {
-        return $http.get(YAM_PARSER_API_URL + "/" + url).success(function(data) {
-          return set_yacatalog_data($scope, data, getCatalogTree);
+        return url && update_catalog_tree(get_xml_json(url));
+      },
+      catalog_selected_after: function(catalog) {
+        return $scope.all_products.parsed = _.filter($scope.products, function(product) {
+          return product.parent_id === catalog.id;
         });
       }
     });
   }).constant("YAM_PARSER_API_URL", window.ng_config.api + "/parsers/getxml_by_url");
 
-  set_yacatalog_data = function(scope, xmljson, catalogTreeMaker) {
-    var shop;
+  set_yacatalog_data = function(scope, xmljson, catalogTreeMaker, productsMaker) {
+    var ref, shop;
     shop = xmljson.yml_catalog.shop;
     return _.extend(scope, {
       parent_catalog: catalogTreeMaker(shop.categories.category),
       site_name: shop.name,
-      site_url: shop.url
+      site_url: shop.url,
+      products: productsMaker((ref = shop.offers) != null ? ref.offer : void 0)
     });
   };
 
