@@ -4,7 +4,7 @@
 {% block content %}
     <div ng-app="ParsersApp" class="uk-form" ng-controller="YamController">
         <div class="uk-grid uk-grid-width-1-2">
-            <div>
+            <div ng-controller="ParsedCatalogs">
                 <div class="uk-form-controls">
                     <form ng-submit="url_form.$valid && load(url.value)" novalidate name="url_form">
                         <input type="text" ng-model="url.value" required />
@@ -26,8 +26,9 @@
             </div>
 
             <div ng-controller="LocalCatalogs">
-                <button type="submit" class="uk-button uk-width-1-6">
-                    <i class="uk-icon-search"></i>
+                <button type="button" class="uk-button uk-button-danger uk-width-1-2 uk-text-left" ng-show="current_catalog">
+                    <i class="uk-icon-remove"></i>
+                    <span ng-bind="current_catalog.title"></span>
                 </button>
 
                 <hr>

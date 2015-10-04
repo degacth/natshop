@@ -1,7 +1,17 @@
 angular.module "ParsersApp"
 
 
-.controller "YamController", ($scope, $http, getCatalogTree, YAM_PARSER_API_URL) ->
+.controller "YamController", ($scope) ->
+  _.log
+
+
+.controller "LocalCatalogs", ($scope, $http, getCatalogTree, catalogTreeControllerMixin) ->
+  catalogTreeControllerMixin $scope
+  $http.get('/catalog/yamarket').success (data) -> set_yacatalog_data $scope, data, getCatalogTree
+
+
+.controller "ParsedCatalogs", ($scope, $http, getCatalogTree, YAM_PARSER_API_URL, catalogTreeControllerMixin) ->
+  catalogTreeControllerMixin $scope
   _.extend $scope,
     url:
       value: 'http://www.nordman.ru/yaget/'
@@ -9,9 +19,6 @@ angular.module "ParsersApp"
     load: (url) ->
       $http.get "#{YAM_PARSER_API_URL}/#{url}"
       .success (data) -> set_yacatalog_data $scope, data, getCatalogTree
-
-.controller "LocalCatalogs", ($scope, $http, getCatalogTree) ->
-  $http.get('/catalog/yamarket').success (data) -> set_yacatalog_data $scope, data, getCatalogTree
 
 
 .constant "YAM_PARSER_API_URL", "#{window.ng_config.api}/parsers/getxml_by_url"

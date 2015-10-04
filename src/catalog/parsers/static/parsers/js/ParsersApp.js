@@ -44,6 +44,21 @@
     return {
       templateUrl: '/static/parsers/js/views/local_catalog.html'
     };
+  }).factory('catalogTreeControllerMixin', function() {
+    return function($scope) {
+      return _.extend($scope, {
+        catalog_selected: function(catalog) {
+          return $scope.current_catalog = catalog;
+        },
+        is_active_catalog: function(catalog) {
+          if (catalog === $scope.current_catalog) {
+            return "uk-active";
+          } else {
+            return "";
+          }
+        }
+      });
+    };
   });
 
 }).call(this);

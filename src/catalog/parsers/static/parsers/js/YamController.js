@@ -2,7 +2,15 @@
 (function() {
   var set_yacatalog_data;
 
-  angular.module("ParsersApp").controller("YamController", function($scope, $http, getCatalogTree, YAM_PARSER_API_URL) {
+  angular.module("ParsersApp").controller("YamController", function($scope) {
+    return _.log;
+  }).controller("LocalCatalogs", function($scope, $http, getCatalogTree, catalogTreeControllerMixin) {
+    catalogTreeControllerMixin($scope);
+    return $http.get('/catalog/yamarket').success(function(data) {
+      return set_yacatalog_data($scope, data, getCatalogTree);
+    });
+  }).controller("ParsedCatalogs", function($scope, $http, getCatalogTree, YAM_PARSER_API_URL, catalogTreeControllerMixin) {
+    catalogTreeControllerMixin($scope);
     return _.extend($scope, {
       url: {
         value: 'http://www.nordman.ru/yaget/'
@@ -12,10 +20,6 @@
           return set_yacatalog_data($scope, data, getCatalogTree);
         });
       }
-    });
-  }).controller("LocalCatalogs", function($scope, $http, getCatalogTree) {
-    return $http.get('/catalog/yamarket').success(function(data) {
-      return set_yacatalog_data($scope, data, getCatalogTree);
     });
   }).constant("YAM_PARSER_API_URL", window.ng_config.api + "/parsers/getxml_by_url");
 

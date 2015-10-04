@@ -27,3 +27,8 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
 
 .factory 'CatalogModel', ($resource) -> $resource "/url/:id"
 .directive 'catalogTree', -> templateUrl: '/static/parsers/js/views/local_catalog.html'
+.factory 'catalogTreeControllerMixin', ->
+  ($scope) ->
+    _.extend $scope,
+      catalog_selected: (catalog) -> $scope.current_catalog = catalog
+      is_active_catalog: (catalog) -> if catalog is $scope.current_catalog then "uk-active" else ""
