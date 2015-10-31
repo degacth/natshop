@@ -49,7 +49,7 @@
           parent_id: product.categoryId,
           currency_id: product.currentcyId,
           descritpion: product.descritpion,
-          file: product.picture,
+          image: product.picture,
           price: product.price,
           url: product.url,
           params: _.map(product.param, function(param) {

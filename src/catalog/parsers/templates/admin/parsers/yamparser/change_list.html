@@ -17,10 +17,12 @@
 
                 <hr>
 
-                <div class="uk-panel uk-panel-box">
-                    <a ng-href="{{ site_url }}" class="uk-panel-title" ng-bind="site_name"></a>
-                    <catalog-tree></catalog-tree>
-                </div>
+                {% verbatim %}
+                    <div class="uk-panel uk-panel-box">
+                        <a ng-href="{{ site_url }}" class="uk-panel-title" ng-bind="site_name"></a>
+                        <catalog-tree></catalog-tree>
+                    </div>
+                {% endverbatim %}
             </div>
 
             <div ng-controller="LocalCatalogs">
@@ -43,9 +45,24 @@
 
         <hr>
 
-        <ul>
-            <li ng-repeat="product in all_products.parsed" ng-bind="product.title"></li>
-        </ul>
+        {% verbatim %}
+            <div class="uk-grid uk-grid-width-1-2">
+                <div>
+                    <p class="uk-text-warning" ng-show="all_products.parsed.length">Всего товаров: {{ all_products.parsed.length }}</p>
+                    <table class="uk-table uk-table-striped uk-table-condensed">
+                        <tr ng-repeat="product in all_products.parsed">
+                            <td>
+                                <a href="{{ product.url }}" ng-bind="product.id" target="_blank"></a>
+                            </td>
+                            <td>
+                                <a ng-href="{{ product.image }}" ng-bind="product.title" data-uk-lightbox></a>
+                            </td>
+                            <td ng-bind="product.price"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        {% endverbatim %}
     </div>
 {% endblock %}
 
@@ -59,6 +76,10 @@
 {% block javascripts %}
     {% include 'includes/ng_config.html' %}
 
+{#    <script src="/static/vendor/uikit/css/"></script>#}
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/uikit/js/uikit.min.js' %}"></script>
+    <script src="{% static 'vendor/uikit/js/components/lightbox.min.js' %}"></script>
     <script src="{% static 'vendor/underscore/underscore-min.js' %}"></script>
     <script src="{% static 'js/_mixin.js' %}"></script>
     <script src="{% static 'vendor/angular/angular.min.js' %}"></script>

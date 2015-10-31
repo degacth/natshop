@@ -34,7 +34,7 @@ angular.module 'ParsersApp', ['xml', 'ngResource']
       parent_id: product.categoryId
       currency_id: product.currentcyId
       descritpion: product.descritpion
-      file: product.picture
+      image: product.picture
       price: product.price
       url: product.url
       params: _.map product.param, (param) -> { value: param.__text, name: param._name }
