@@ -44,11 +44,13 @@ INSTALLED_APPS = (
     'catalog',
     'feedback',
     'customer',
-    'catalog.parsers'
+    'catalog.parsers',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -148,3 +150,14 @@ REST_FRAMEWORK = {
 
 ADMIN_URL = 'adm/'
 API_URL = '/api'
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_URLS_REGEX = r'^%s.*$' % API_URL
+CORS_ALLOW_METHODS = (
+    'GET',
+    'POST',
+    'PUT',
+    #   'PATCH',
+    #   'DELETE',
+    #   'OPTIONS'
+)
