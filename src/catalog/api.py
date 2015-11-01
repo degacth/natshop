@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import re
 from django.conf.urls import include, url
 from rest_framework.response import Response
 from rest_framework import status
@@ -108,9 +109,36 @@ class CatalogView(APIView):
     def get(self, request, **kwargs):
         return Response(CatalogSerializer(Catalog.objs.all(), many=True).data)
 
+
+class ProductView(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        Product.objs.create(**{
+            'title': data['title'],
+            'short': data.get('short', ''),
+            'parse_image': data['image'],
+            'parse_urls': data['parse_url'],
+            'info': data.get('info', ''),
+            'price': get_number_or_0(data['price']),
+            'parent': int(data['parent']),
+        })
+        return Response()
+
+
+get_number = lambda s: re.sub(r'^(\d+).*', '\\1', s)
+
+
+def get_number_or_0(s):
+    try:
+        return int(get_number(s))
+    except ValueError:
+        return 0
+
+
 urlpatterns = [
     url(r'^cart/(?P<product>\d+)$', Cart.as_view()),
     url(r'^catalog/(?P<catalog>\d*)$', CatalogView.as_view()),
+    url(r'^product/(?P<catalog>\d*)$', ProductView.as_view()),
     url(r'^cart$', Cart.as_view()),
     url(r'^order$', OrderView.as_view()),
     url(r'^last_products$', LastProducts.as_view()),

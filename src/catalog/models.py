@@ -87,6 +87,7 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     in_banner = models.BooleanField(_('in_banner'), default=False)
     info = RichTextField(_('admin_info'), blank=True, default='')
     parse_url = models.CharField(_('parse_url'), max_length=255, blank=True, default='')
+    parse_image = models.CharField(_('parse_image'), max_length=255, blank=True, default='')
 
     def get_price(self): return self.new_price or self.price
 
