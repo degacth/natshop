@@ -6,9 +6,9 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.views import APIView
-from catalog.models import Product, Order, OrderItem, OrderSerializer
+from catalog.models import Product, Order, OrderItem, OrderSerializer, Catalog
 from common.templatetags.common_attachments import get_image_path
-from .serializer import ProductSerializer
+from .serializer import ProductSerializer, CatalogSerializer
 
 
 class Cart(APIView):
@@ -103,8 +103,14 @@ class LastProducts(APIView):
         products = Product.get_last_products(last_products_id)
         return Response(ProductSerializer(products, many=True).data)
 
+
+class CatalogView(APIView):
+    def get(self, request, **kwargs):
+        return Response(CatalogSerializer(Catalog.objs.all(), many=True).data)
+
 urlpatterns = [
     url(r'^cart/(?P<product>\d+)$', Cart.as_view()),
+    url(r'^catalog/(?P<catalog>\d*)$', CatalogView.as_view()),
     url(r'^cart$', Cart.as_view()),
     url(r'^order$', OrderView.as_view()),
     url(r'^last_products$', LastProducts.as_view()),
