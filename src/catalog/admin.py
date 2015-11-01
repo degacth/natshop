@@ -1,4 +1,5 @@
 # coding: utf-8
+from django.utils.translation import ugettext as _
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
 from common import models as common
@@ -25,11 +26,16 @@ class CatalogAdmin(DjangoMpttAdmin):
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    search_fields = models.Product.text_search_fields
+    search_fields = models.Product.text_search_fields + ['^parse_url', 'short', 'info',]
     fieldsets = (
         (None, {
             'fields': models.Product.text_entity_fields + ['short', 'price', 'new_price', 'parent', 'category',
                                                            'in_banner'],
+        }),
+
+        (_('parse_info'), {
+            'fields': ('parse_url', 'info'),
+            'classes': ('grp-collapse grp-closed',),
         }),
 
         models.Product.seo_fieldset
