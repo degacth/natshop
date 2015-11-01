@@ -81,10 +81,12 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
 
     price = models.DecimalField(_('price'), max_digits=11, decimal_places=2, default=0)
     new_price = models.DecimalField(_('new_price'), max_digits=11, decimal_places=2, default=0)
-    short = RichTextField(_('short'))
+    short = RichTextField(_('short'), blank=True, default='')
     parent = TreeForeignKey(Catalog, verbose_name=_('parent'))
     category = models.ManyToManyField(Category, blank=True)
     in_banner = models.BooleanField(_('in_banner'), default=False)
+    info = RichTextField(_('admin_info'), blank=True, default='')
+    parse_url = models.CharField(_('parse_url'), max_length=255, default='')
 
     def get_price(self): return self.new_price or self.price
 
