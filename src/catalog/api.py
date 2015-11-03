@@ -2,6 +2,7 @@
 
 import re
 from django.conf.urls import include, url
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import mixins
@@ -113,14 +114,16 @@ class CatalogView(APIView):
 class ProductView(APIView):
     def post(self, request, **kwargs):
         data = request.data
+        if data.get('password', '') != settings.PARSE_PASSWORD: return Response({}, status=status.HTTP_401_UNAUTHORIZED)
+
         Product.objs.create(**{
             'title': data['title'],
             'short': data.get('short', ''),
             'parse_image': data['image'],
-            'parse_urls': data['parse_url'],
+            'parse_url': data['parse_url'],
             'info': data.get('info', ''),
             'price': get_number_or_0(data['price']),
-            'parent': int(data['parent']),
+            'parent_id': int(data['parent']),
         })
         return Response()
 
