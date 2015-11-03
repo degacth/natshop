@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.contenttypes.models import ContentType
 from easy_thumbnails.files import get_thumbnailer
 from ..models import Attachment
+from catalog.models import Product
 
 register = template.Library()
 _getAttrs = lambda attrs: " ".join(map((lambda v: '%s="%s"' % v), attrs))
@@ -24,6 +25,12 @@ get_image_path = lambda path, size: _getImage(path, size, True, dict())
 
 @register.simple_tag
 def get_aimage(obj, size, **kwargs):
+    if isinstance(obj, Product) and obj.parse_image:
+        return '<div><img src="%s" /></div>' % obj.parse_image
+
+    if hasattr(obj, "file"):
+        obj = obj.file
+
     if isinstance(obj, Attachment):
         path = obj.file
 

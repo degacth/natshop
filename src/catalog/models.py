@@ -89,6 +89,18 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     parse_url = models.CharField(_('parse_url'), max_length=255, blank=True, default='')
     parse_image = models.CharField(_('parse_image'), max_length=255, blank=True, default='')
 
+    def get_image_url(self):
+        if self.parse_image: return self.parse_image
+        if self.file: return self.file.url
+        return ""
+
+    def get_thumbnail_tag(self):
+        from common.templatetags.common_attachments import get_aimage
+        return get_aimage(self, '160x160')
+
+    def get_description(self):
+        return self.description if self.description else u"Описание отсутствует"
+
     def get_price(self): return self.new_price or self.price
 
     def get_old_price(self): return self.new_price and self.price

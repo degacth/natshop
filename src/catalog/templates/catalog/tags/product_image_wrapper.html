@@ -1,6 +1,6 @@
 {% load common_attachments %}
 <div class="product-image">
-    {% get_aimage product.file size %}
+    {% get_aimage product size %}
 
     {% for cat in product.category.all %}
         <div class="label uk-vertical-align {{ cat.name }}">
