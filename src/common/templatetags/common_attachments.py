@@ -28,14 +28,14 @@ def get_aimage(obj, size, **kwargs):
     if isinstance(obj, Product) and obj.parse_image:
         return '<div><img src="%s" /></div>' % obj.parse_image
 
-    if hasattr(obj, "file"):
-        obj = obj.file
-
-    if isinstance(obj, Attachment):
-        path = obj.file
-
     elif isinstance(obj, ImageFieldFile):
         path = obj
+
+    elif isinstance(obj, Attachment):
+        path = obj.file
+
+    elif hasattr(obj, "file"):
+        path = obj.file
 
     else:
         if hasattr(obj, 'attachments'):
