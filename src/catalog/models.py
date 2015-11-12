@@ -22,6 +22,8 @@ class Catalog(common.StructuralEntity, common.TextEntity, common.SeoEntity, comm
         verbose_name = _('Catalog')
         verbose_name_plural = _('Catalogs')
 
+    margin = models.PositiveIntegerField(_('margin'), default=0)
+
     full_path_prefix = "/catalog"
     objects = models.Manager()
     objs = CatalogManager()
@@ -101,7 +103,10 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     def get_description(self):
         return self.description if self.description else u"Описание отсутствует"
 
-    def get_price(self): return self.new_price or self.price
+    @common.memoize_field("_price")
+    def get_price(self):
+        price = self.new_price or self.price
+        return price + (price/100) * self.parent.margin
 
     def get_old_price(self): return self.new_price and self.price
 

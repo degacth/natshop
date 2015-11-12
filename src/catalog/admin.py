@@ -13,7 +13,7 @@ class CatalogAdmin(DjangoMpttAdmin):
     search_fields = models.Catalog.text_search_fields
     fieldsets = (
         (None, {
-            'fields': models.Catalog.text_entity_fields + ['parent', 'name'],
+            'fields': models.Catalog.text_entity_fields + ['parent', 'name', 'margin'],
         }),
 
         models.Catalog.seo_fieldset,
