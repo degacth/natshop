@@ -121,6 +121,7 @@ class ProductView(APIView):
             'short': data.get('short', ''),
             'parse_image': data['image'],
             'parse_url': data['parse_url'],
+            'parse_link': data.get("link"),
             'info': data.get('info', ''),
             'price': get_number_or_0(data['price']),
             'parent_id': int(data['parent']),

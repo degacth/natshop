@@ -34,7 +34,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
 
         (_('parse_info'), {
-            'fields': ('parse_url', 'parse_image', 'info'),
+            'fields': ('parse_url', 'parse_image', 'info', "parse_link"),
             'classes': ('grp-collapse grp-closed',),
         }),
 

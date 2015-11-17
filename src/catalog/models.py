@@ -90,6 +90,7 @@ class Product(common.LeafEntity, common.TextEntity, common.SeoEntity):
     info = RichTextField(_('admin_info'), blank=True, default='')
     parse_url = models.CharField(_('parse_url'), max_length=255, blank=True, default='')
     parse_image = models.CharField(_('parse_image'), max_length=255, blank=True, default='')
+    parse_link = models.CharField(_('parse_link'), max_length=255, blank=True, default='')
 
     def get_image_url(self):
         if self.parse_image: return self.parse_image
