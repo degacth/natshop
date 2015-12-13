@@ -129,7 +129,7 @@ class ProductView(APIView):
         return Response()
 
 
-get_number = lambda s: re.sub(r'^(\d+).*', '\\1', s)
+get_number = lambda s: re.sub(r'^\s*(\d+).*\s*', '\\1', s)
 
 
 def get_number_or_0(s):
