@@ -43,6 +43,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     readonly_fields = models.Product.text_readonly_fields
     list_filter = ['parent', 'category', 'in_banner']
+    list_display = ['title', 'price', 'parent']
     inlines = [common.AttachmentInline]
 
 
